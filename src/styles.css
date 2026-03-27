@@ -445,6 +445,83 @@ select {
   border-top: 1px solid var(--line);
 }
 
+.film-detail,
+.short-card {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.film-detail {
+  grid-template-columns: minmax(110px, 150px) 1fr;
+  align-items: start;
+}
+
+.film-poster,
+.short-poster {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.45);
+  object-fit: cover;
+  box-shadow: 0 12px 28px rgba(77, 31, 14, 0.08);
+}
+
+.film-poster {
+  aspect-ratio: 2 / 3;
+}
+
+.shorts-lineup {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.short-card {
+  grid-template-columns: 96px 1fr;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.short-poster {
+  aspect-ratio: 2 / 3;
+}
+
+.film-director,
+.short-director {
+  margin: 0;
+}
+
+.film-director {
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
+.short-director {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.source-links a {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .venues-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-top: 28px;
@@ -472,7 +549,9 @@ select {
   .programme-layout,
   .highlights,
   .venues-grid,
-  .news-grid {
+  .news-grid,
+  .film-detail,
+  .short-card {
     grid-template-columns: 1fr;
   }
 }

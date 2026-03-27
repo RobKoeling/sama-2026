@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { festival, newsItems, programme, venues } from "./data/siteData";
+import { festival, films, newsItems, programme, venues } from "./data/siteData";
 
 const socialBase = {
   x: "https://twitter.com/intent/tweet?text=",
@@ -25,6 +25,8 @@ function App() {
   }, [selectedVenue]);
 
   const venueOptions = ["All venues", ...venues.map((venue) => venue.name)];
+  const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
+  const primaryFilm = selectedFilms[0] ?? null;
 
   return (
     <div className="app-shell">
@@ -158,10 +160,56 @@ function App() {
               <p className="focus-meta">{selectedEvent.venue}</p>
               {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
               <p>{selectedEvent.summary}</p>
-              <p className="focus-note">
-                This panel is ready for richer film details, runtime, ticket links, guest info, and venue access
-                notes when those files arrive.
-              </p>
+              {selectedFilms.length === 1 && primaryFilm ? (
+                <div className="film-detail">
+                  <img
+                    className="film-poster"
+                    src={primaryFilm.artworkUrl}
+                    alt={`${primaryFilm.title} poster artwork`}
+                  />
+                  <div className="film-copy">
+                    <p className="film-director">Directed by {primaryFilm.director}</p>
+                    <p>{primaryFilm.description}</p>
+                    <div className="source-links">
+                      {primaryFilm.sourceLinks.map((link) => (
+                        <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              {selectedFilms.length > 1 ? (
+                <div className="shorts-lineup">
+                  {selectedFilms.map((film) => (
+                    <article key={film.title} className="short-card">
+                      <img className="short-poster" src={film.artworkUrl} alt={`${film.title} poster artwork`} />
+                      <div>
+                        <p className="film-director">{film.title}</p>
+                        <p className="short-director">Directed by {film.director}</p>
+                        <p>{film.description}</p>
+                        <div className="source-links">
+                          {film.sourceLinks.map((link) => (
+                            <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
+                              {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+              {!selectedFilms.length ? (
+                <p className="focus-note">
+                  No matching 2025 main-festival film record has been added for this event yet.
+                </p>
+              ) : (
+                <p className="focus-note">
+                  Descriptions are paraphrased from the official SAMA 2025 festival materials and linked source pages.
+                </p>
+              )}
             </aside>
           </div>
         </section>
