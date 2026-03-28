@@ -27,6 +27,12 @@ export const films = {
   simasSong: {
     title: "Sima's Song",
     director: "Roya Sadat",
+    directorCredits: [
+      {
+        name: "Roya Sadat",
+        wikipediaUrl: "https://en.wikipedia.org/wiki/Roya_Sadat",
+      },
+    ],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/1250px_Simas_Song_v12_RGB_WEB.jpg?etag=%221f7a29-68bb2f39%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=864%2B1217&extract=0%2B0%2B864%2B1216&quality=85",
     description:
@@ -41,10 +47,26 @@ export const films = {
         url: "https://cineuropa.org/film/468207/",
       },
     ],
+    externalLinks: [
+      {
+        label: "Rotten Tomatoes",
+        url: "https://www.rottentomatoes.com/m/simas_song",
+      },
+      {
+        label: "IMDb",
+        url: "https://www.imdb.com/title/tt11647720/",
+      },
+    ],
   },
   baurynaSalu: {
     title: "Bauryna Salu",
     director: "Askhat Kuchinchirekov",
+    directorCredits: [
+      {
+        name: "Askhat Kuchinchirekov",
+        wikipediaUrl: "https://www.asiapacificscreenawards.com/apsa-academy-members/askhat-kuchencherekov",
+      },
+    ],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/Poster%20dc959145dd-poster.jpg?etag=%221c1b1-68bb2d32%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=653%2B653&extract=132%2B0%2B422%2B581&quality=85",
     description:
@@ -59,10 +81,26 @@ export const films = {
         url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Bauryna%20Salu_1.docx",
       },
     ],
+    externalLinks: [
+      {
+        label: "Rotten Tomatoes",
+        url: "https://www.rottentomatoes.com/m/bauryna_salu",
+      },
+      {
+        label: "IMDb",
+        url: "https://www.imdb.com/title/tt28517189/",
+      },
+    ],
   },
   championsGoldenValley: {
     title: "Champions of the Golden Valley",
     director: "Ben Sturgulewski",
+    directorCredits: [
+      {
+        name: "Ben Sturgulewski",
+        wikipediaUrl: "https://www.sturgefilm.com/about",
+      },
+    ],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/ChampionsoftheGoldValley_KeyArt_UPDATEDLAURELS%2003.04.25%20JPG.jpg?etag=%2266010d-68d063a5%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=864%2B1276&extract=0%2B0%2B852%2B1240&quality=85",
     description:
@@ -77,10 +115,26 @@ export const films = {
         url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Champions%20of%20the%20Golden%20Valley_1.docx",
       },
     ],
+    externalLinks: [
+      {
+        label: "Rotten Tomatoes",
+        url: "https://www.rottentomatoes.com/m/champions_of_the_golden_valley",
+      },
+      {
+        label: "IMDb",
+        url: "https://www.imdb.com/title/tt32127384/",
+      },
+    ],
   },
   border: {
     title: "Border",
     director: "Mohsen Hossaini",
+    directorCredits: [
+      {
+        name: "Mohsen Hossaini",
+        wikipediaUrl: "https://www.icorn.org/writers-artists-journalists/mohsen-hossaini",
+      },
+    ],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/POSTER_Border3.jpg?etag=%2229d31-68d04ab5%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1539%2B852&extract=0%2B35%2B1539%2B553&quality=85",
     description:
@@ -95,10 +149,17 @@ export const films = {
         url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Border_1.docx",
       },
     ],
+    externalLinks: [
+      {
+        label: "Rotten Tomatoes",
+        url: "https://www.rottentomatoes.com/m/border_2025",
+      },
+    ],
   },
   gap: {
     title: "GAP",
     director: "Farnaz Farzi",
+    directorCredits: [{ name: "Farnaz Farzi" }],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/Gap%20Poster.jpg?etag=%225d60c3-68bb5066%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=876%2B1226&extract=0%2B0%2B876%2B1134&quality=85",
     description:
@@ -117,6 +178,7 @@ export const films = {
   hozan: {
     title: "Hozan",
     director: "Sana Yozi",
+    directorCredits: [{ name: "Sana Yozi" }],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/poster%2050%2070%20Eng.jpg?etag=%22cbd64e-68bb2e54%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=826%2B1156&extract=16%2B0%2B810%2B1134&quality=85",
     description:
@@ -135,6 +197,7 @@ export const films = {
   bintElShalabiya: {
     title: "Bint El Shalabiya",
     director: "Saro Heidari",
+    directorCredits: [{ name: "Saro Heidari" }],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/Bint%20El%20Shalabiyah%20Eng%20Poster%20high.jpg?etag=%22126c0cc-68b9fb15%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=813%2B1138&extract=0%2B0%2B782%2B1138&quality=85",
     description:
@@ -153,6 +216,7 @@ export const films = {
   perfectRestaurant: {
     title: "Perfect Restaurant",
     director: "Mahmoud Salimi",
+    directorCredits: [{ name: "Mahmoud Salimi" }],
     artworkUrl:
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/Perfect%20Restaurant%20Poster%203.jpg?etag=W%2F%221445b-68e98f89%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=300%2B450&extract=0%2B0%2B292%2B450&quality=85",
     description:
@@ -165,6 +229,36 @@ export const films = {
       {
         label: "Festival synopsis",
         url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Perfect%20Restaurant.docx",
+      },
+    ],
+  },
+  myChildhoodMyCountry: {
+    title: "My Childhood, My Country: 20 Years in Afghanistan",
+    director: "Phil Grabsky, Shoaib Sharifi",
+    directorCredits: [
+      {
+        name: "Phil Grabsky",
+        wikipediaUrl: "https://en.wikipedia.org/wiki/Phil_Grabsky",
+      },
+      {
+        name: "Shoaib Sharifi",
+        wikipediaUrl: "https://www.bbc.co.uk/mediaaction/author/?id=author-shoaib-sharifi-1589895023",
+      },
+    ],
+    description:
+      "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals and consequences of modern Afghanistan’s recent history.",
+    externalLinks: [
+      {
+        label: "Rotten Tomatoes",
+        url: "https://www.rottentomatoes.com/m/my_childhood_my_country_20_years_in_afghanistan",
+      },
+      {
+        label: "IMDb",
+        url: "https://www.imdb.com/title/tt14291906/",
+      },
+      {
+        label: "AllMovie",
+        url: "https://www.allmovie.com/movie/my-childhood-my-country-20-years-in-afghanistan-am251219",
       },
     ],
   },
@@ -214,6 +308,7 @@ export const programme = [
     fullDate: "Thursday 18 June 2026",
     venue: "Duke's at Komedia",
     title: "My Childhood, My Country",
+    filmIds: ["myChildhoodMyCountry"],
     startTime: "19:30",
     status: "Confirmed",
     summary:

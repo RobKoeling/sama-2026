@@ -201,7 +201,8 @@ p {
 
 .hero-actions,
 .share-row,
-.contact-actions {
+.contact-actions,
+.external-links {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -539,6 +540,13 @@ p {
   font-weight: 800;
 }
 
+.film-director a,
+.short-director a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
 .short-director {
   color: var(--muted);
   font-size: 0.92rem;
@@ -561,6 +569,20 @@ p {
 
 .contact-actions {
   margin: 18px 0 14px;
+}
+
+.external-links {
+  margin-top: 14px;
+}
+
+.external-links a {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .share-row a {

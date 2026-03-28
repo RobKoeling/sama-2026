@@ -7,6 +7,27 @@ const socialBase = {
   linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=",
 };
 
+function DirectorCredits({ film }) {
+  const credits = film.directorCredits ?? [{ name: film.director }];
+
+  return (
+    <>
+      {credits.map((credit, index) => (
+        <span key={`${film.title}-${credit.name}`}>
+          {index > 0 ? ", " : ""}
+          {credit.wikipediaUrl ? (
+            <a href={credit.wikipediaUrl} target="_blank" rel="noreferrer">
+              {credit.name}
+            </a>
+          ) : (
+            credit.name
+          )}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
 
@@ -135,8 +156,19 @@ function App() {
                     alt={`${primaryFilm.title} poster artwork`}
                   />
                   <div className="film-copy">
-                    <p className="film-director">Directed by {primaryFilm.director}</p>
+                    <p className="film-director">
+                      Directed by <DirectorCredits film={primaryFilm} />
+                    </p>
                     <p>{primaryFilm.description}</p>
+                    {primaryFilm.externalLinks?.length ? (
+                      <div className="external-links">
+                        {primaryFilm.externalLinks.map((link) => (
+                          <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               ) : null}
@@ -147,8 +179,19 @@ function App() {
                       <img className="short-poster" src={film.artworkUrl} alt={`${film.title} poster artwork`} />
                       <div>
                         <p className="film-director">{film.title}</p>
-                        <p className="short-director">Directed by {film.director}</p>
+                        <p className="short-director">
+                          Directed by <DirectorCredits film={film} />
+                        </p>
                         <p>{film.description}</p>
+                        {film.externalLinks?.length ? (
+                          <div className="external-links">
+                            {film.externalLinks.map((link) => (
+                              <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        ) : null}
                       </div>
                     </article>
                   ))}
