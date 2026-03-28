@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { festival, films, newsItems, programme, venues } from "./data/siteData";
+import { useState } from "react";
+import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
 
 const socialBase = {
   x: "https://twitter.com/intent/tweet?text=",
@@ -9,22 +9,8 @@ const socialBase = {
 
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
-  const [selectedVenue, setSelectedVenue] = useState("All venues");
 
-  const selectedEvent = useMemo(
-    () => programme.find((event) => event.id === selectedEventId) ?? programme[0],
-    [selectedEventId]
-  );
-
-  const filteredProgramme = useMemo(() => {
-    if (selectedVenue === "All venues") {
-      return programme;
-    }
-
-    return programme.filter((event) => event.venue === selectedVenue);
-  }, [selectedVenue]);
-
-  const venueOptions = ["All venues", ...venues.map((venue) => venue.name)];
+  const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
 
@@ -37,9 +23,10 @@ function App() {
         </a>
         <nav className="site-nav" aria-label="Primary">
           <a href="#programme">Programme</a>
+          <a href="about.html">About</a>
           <a href="#venues">Venues</a>
           <a href="#news">News</a>
-          <a href="#visit">Visit</a>
+          <a href="#contact">Contact</a>
         </nav>
       </header>
 
@@ -71,8 +58,11 @@ function App() {
                     className={event.id === selectedEvent.id ? "day-pill is-active" : "day-pill"}
                     onClick={() => setSelectedEventId(event.id)}
                   >
-                    <span>{event.dayLabel}</span>
-                    <strong>{event.venue}</strong>
+                    <span>
+                      {event.dayLabel} • {event.startTime}
+                    </span>
+                    <strong>{event.title}</strong>
+                    <small className="day-pill-venue">{event.venue}</small>
                   </button>
                 </li>
               ))}
@@ -86,8 +76,7 @@ function App() {
             <p className="label">festival nights</p>
           </article>
           <article>
-            <p className="stat">{festival.defaultStartTime}</p>
-            <p className="label">default start time</p>
+            <p className="label">Films, Discussion, Music</p>
           </article>
           <article>
             <p className="stat">{venues.length}</p>
@@ -98,33 +87,11 @@ function App() {
         <section id="programme" className="programme panel">
           <div className="section-heading">
             <p className="eyebrow">Programme</p>
-            <h2>Structured now, ready for richer film metadata next</h2>
-            <p>
-              The programme is driven from a single data source, so incoming venue notes and film
-              identification details can populate this schedule without changing the page structure.
-            </p>
-          </div>
-
-          <div className="programme-tools">
-            <label className="filter-label" htmlFor="venue-filter">
-              Filter by venue
-            </label>
-            <select
-              id="venue-filter"
-              value={selectedVenue}
-              onChange={(event) => setSelectedVenue(event.target.value)}
-            >
-              {venueOptions.map((venue) => (
-                <option key={venue} value={venue}>
-                  {venue}
-                </option>
-              ))}
-            </select>
           </div>
 
           <div className="programme-layout">
             <div className="programme-grid">
-              {filteredProgramme.map((event) => (
+              {programme.map((event) => (
                 <article
                   key={event.id}
                   className={event.id === selectedEvent.id ? "event-card is-selected" : "event-card"}
@@ -203,11 +170,6 @@ function App() {
         <section id="venues" className="venues panel">
           <div className="section-heading">
             <p className="eyebrow">Venues</p>
-            <h2>Venue data is now isolated from presentation</h2>
-            <p>
-              Each venue card is driven by data rather than hard-coded copy, so later updates can
-              flow into schedules, maps, and visitor guidance consistently.
-            </p>
           </div>
           <div className="venues-grid">
             {venues.map((venue) => (
@@ -264,14 +226,24 @@ function App() {
           </div>
         </section>
 
-        <section id="visit" className="visit panel">
+        <section id="contact" className="visit panel">
           <div className="visit-card">
-            <p className="eyebrow">Visit</p>
-            <h2>Built for growth beyond a single static page</h2>
-            <p>
-              The app is now set up so programme, venues, films, and news can evolve independently.
-              That is the right foundation for future social syndication, ticket links, and interactive festival tools.
-            </p>
+            <p className="eyebrow">Contact</p>
+            <h2>Connect with SAMA Brighton</h2>
+            <div className="contact-actions">
+              <a className="button button-secondary" href="mailto:hello@sama2026.com">
+                Email
+              </a>
+              <a className="button button-secondary" href="https://twitter.com" target="_blank" rel="noreferrer">
+                Twitter
+              </a>
+              <a className="button button-secondary" href="https://instagram.com" target="_blank" rel="noreferrer">
+                Instagram
+              </a>
+              <a className="button button-secondary" href="https://facebook.com" target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+            </div>
             <a className="button button-primary" href="mailto:hello@sama2026.com">
               Contact Festival Team
             </a>

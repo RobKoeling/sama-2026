@@ -6,6 +6,21 @@ export const festival = {
   defaultStartTime: "19:30",
   description:
     "Five nights of cinema across Brighton, featuring films and conversations rooted in stories from the SWANA region and its diasporas.",
+  motherFestivalUrl: "https://www.samaiff.com/",
+};
+
+export const about = {
+  title: "SAMA Film Festival",
+  intro:
+    "This is the Brighton chapter of the SAMA International Film Festival. It focusses on filmmakers from Afghanistan, Iran, Tajikistan, Turkey, India, Kazakhstan, Kyrgyzstan, South Asia, and other underrepresented regions.",
+  imageUrl:
+    "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/onewebmedia/Screenshot%202022-08-18%20at%2014.48.22.png?etag=%22487390-62fe3e84%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=1200%2B938",
+  paragraphs: [
+    "SAMAIFF is committed to amplifying cinematic voices from regions and communities that receive limited visibility within Nordic film culture. The Festival highlights works by filmmakers from Afghanistan, Iran, Tajikistan, Turkey, India, Kazakhstan, Kyrgyzstan, South Asia, and other underrepresented regions, while also welcoming European, American, and international filmmakers whose works engage with Asian societies and global cultural narratives. By showcasing diverse perspectives, the Festival promotes cultural exchange, broadens artistic representation, and supports both emerging and established voices in world cinema.",
+    "The Festival is founded on the principles of freedom of expression, democracy, gender equality, respect for children’s rights, and the promotion of the positive values of life. SAMAIFF recognizes cinema as a powerful medium for social reflection and encourages works that engage with urgent global challenges, including the human consequences of war and conflict, displacement and humanitarian crises, environmental sustainability, and social transformation. Through film, the Festival seeks to inspire awareness, dialogue, and deeper understanding across cultures and communities.",
+    "Committed to artistic integrity, SAMAIFF presents films distinguished by strong creative vision, meaningful storytelling, and technical excellence. The Festival values originality in both form and content and supports innovative approaches to cinematic language. While high artistic and technical standards guide the selection process, the Festival also recognizes the importance of socially relevant and compelling narratives, acknowledging that the urgency and impact of a film’s message may at times transcend formal conventions.",
+    "Beyond screenings, SAMAIFF creates a dynamic space for dialogue, exchange, and cultural engagement. The Festival fosters meaningful interaction between filmmakers, audiences, and cultural institutions through discussions, round tables, and public programs that encourage knowledge-sharing, critical reflection, and intercultural understanding. By creating opportunities for conversation and collaboration, the Festival promotes mutual respect, global coexistence, and the continued development of international film culture.",
+  ],
 };
 
 export const films = {
