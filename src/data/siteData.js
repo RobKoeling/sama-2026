@@ -246,6 +246,7 @@ export const films = {
         wikipediaUrl: "https://www.bbc.co.uk/mediaaction/author/?id=author-shoaib-sharifi-1589895023",
       },
     ],
+    artworkUrl: "/sama-2026/posters/mcmc_small.jpg",
     description:
       "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals and consequences of modern Afghanistan’s recent history.",
     trailerEmbedUrl: "https://www.youtube.com/embed/_WoROZl6kG0",

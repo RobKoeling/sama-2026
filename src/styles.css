@@ -498,6 +498,10 @@ p {
   align-items: start;
 }
 
+.film-detail.no-poster {
+  grid-template-columns: 1fr;
+}
+
 .film-poster,
 .short-poster {
   width: 100%;

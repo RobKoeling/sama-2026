@@ -149,12 +149,14 @@ function App() {
               {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
               <p>{selectedEvent.summary}</p>
               {selectedFilms.length === 1 && primaryFilm ? (
-                <div className="film-detail">
-                  <img
-                    className="film-poster"
-                    src={primaryFilm.artworkUrl}
-                    alt={`${primaryFilm.title} poster artwork`}
-                  />
+                <div className={primaryFilm.artworkUrl ? "film-detail" : "film-detail no-poster"}>
+                  {primaryFilm.artworkUrl ? (
+                    <img
+                      className="film-poster"
+                      src={primaryFilm.artworkUrl}
+                      alt={`${primaryFilm.title} poster artwork`}
+                    />
+                  ) : null}
                   <div className="film-copy">
                     <p className="film-director">
                       Directed by <DirectorCredits film={primaryFilm} />
