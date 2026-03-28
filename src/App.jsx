@@ -170,13 +170,6 @@ function App() {
                   <div className="film-copy">
                     <p className="film-director">Directed by {primaryFilm.director}</p>
                     <p>{primaryFilm.description}</p>
-                    <div className="source-links">
-                      {primaryFilm.sourceLinks.map((link) => (
-                        <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
                   </div>
                 </div>
               ) : null}
@@ -189,13 +182,6 @@ function App() {
                         <p className="film-director">{film.title}</p>
                         <p className="short-director">Directed by {film.director}</p>
                         <p>{film.description}</p>
-                        <div className="source-links">
-                          {film.sourceLinks.map((link) => (
-                            <a key={link.url} href={link.url} target="_blank" rel="noreferrer">
-                              {link.label}
-                            </a>
-                          ))}
-                        </div>
                       </div>
                     </article>
                   ))}
@@ -228,7 +214,15 @@ function App() {
               <article key={venue.name}>
                 <p className="venue-type">{venue.type}</p>
                 <h3>{venue.name}</h3>
-                <p>{venue.note}</p>
+                <p className="venue-detail">{venue.address}</p>
+                {venue.website ? (
+                  <p className="venue-link-row">
+                    <a href={venue.website} target="_blank" rel="noreferrer">
+                      Venue website
+                    </a>
+                  </p>
+                ) : null}
+                {venue.phone ? <p className="venue-detail">Phone: {venue.phone}</p> : null}
               </article>
             ))}
           </div>

@@ -394,7 +394,8 @@ select {
 .venue,
 .focus-meta,
 .venue-type,
-.news-category {
+.news-category,
+.venue-detail {
   margin: 0;
   font-weight: 700;
 }
@@ -409,6 +410,22 @@ select {
 .news-category {
   margin-top: 10px;
   color: var(--accent-deep);
+}
+
+.venue-detail {
+  margin-top: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.venue-link-row {
+  margin: 12px 0 0;
+}
+
+.venue-link-row a {
+  color: var(--accent-deep);
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .status {
@@ -503,23 +520,6 @@ select {
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
-}
-
-.source-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.source-links a {
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface-strong);
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
 }
 
 .venues-grid {

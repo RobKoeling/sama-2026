@@ -222,27 +222,41 @@ export const venues = [
   {
     name: "Depot",
     type: "Cinema",
-    note: "Opening-night venue. Full location and access details can be dropped in as soon as the venue file arrives.",
+    note: "Opening-night venue with a contemporary cinema setting just outside Brighton in Lewes.",
+    address: "Pinwell Road, Lewes, GB BN7 2JS",
+    website: "http://www.lewesdepot.org/",
+    phone: "+44 1273 525354",
   },
   {
     name: "Pink Moon",
     type: "Screening space",
     note: "An intimate setting for the shorts programme and post-screening conversation.",
+    address: "52 Ship St, Brighton and Hove, Brighton BN1 1AF",
+    phone: "07513 664374",
   },
   {
     name: "Rose Hill",
     type: "Community venue",
     note: "A relaxed, independent environment with a strong local cultural identity.",
+    address: "Rose Hill Terrace, Brighton and Hove, Brighton BN1 4JL",
+    website: "https://www.therosehill.co.uk/",
+    phone: "07775995493",
   },
   {
     name: "Duke's at Komedia",
     type: "City-centre cinema",
     note: "A central Brighton venue suited to one of the week’s major documentary screenings.",
+    address: "Gardner House, 44-47 Gardner St, Brighton and Hove, Brighton BN1 1UN",
+    website: "https://www.picturehouses.com/cinema/duke-s-at-komedia/information",
+    phone: "02073262649",
   },
   {
     name: "Fabrica",
     type: "Arts venue",
     note: "A striking space for the closing night, with room to add practical visitor guidance later.",
+    address: "40 Duke St, Brighton and Hove, Brighton BN1 1AG",
+    website: "http://fabrica.org.uk/",
+    phone: "01273778646",
   },
 ];
 
