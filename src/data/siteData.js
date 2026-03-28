@@ -105,6 +105,7 @@ export const films = {
       "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/Festival-2025/Photos/ChampionsoftheGoldValley_KeyArt_UPDATEDLAURELS%2003.04.25%20JPG.jpg?etag=%2266010d-68d063a5%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=864%2B1276&extract=0%2B0%2B852%2B1240&quality=85",
     description:
       "After missing his chance to become Afghanistan’s first Olympic skier, Alishah Farhang returns to the mountains to nurture a ski culture among young athletes from rival villages, only for events beyond the slopes to test that fragile community.",
+    trailerEmbedUrl: "https://www.youtube.com/embed/aj3dokeUCvI",
     sourceLinks: [
       {
         label: "Official selection artwork",
@@ -247,6 +248,7 @@ export const films = {
     ],
     description:
       "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals and consequences of modern Afghanistan’s recent history.",
+    trailerEmbedUrl: "https://www.youtube.com/embed/_WoROZl6kG0",
     externalLinks: [
       {
         label: "Rotten Tomatoes",

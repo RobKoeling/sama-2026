@@ -160,6 +160,20 @@ function App() {
                       Directed by <DirectorCredits film={primaryFilm} />
                     </p>
                     <p>{primaryFilm.description}</p>
+                    {primaryFilm.trailerEmbedUrl ? (
+                      <div className="trailer-block">
+                        <p className="trailer-label">Trailer</p>
+                        <div className="trailer-frame">
+                          <iframe
+                            src={primaryFilm.trailerEmbedUrl}
+                            title={`${primaryFilm.title} trailer`}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
+                    ) : null}
                     {primaryFilm.externalLinks?.length ? (
                       <div className="external-links">
                         {primaryFilm.externalLinks.map((link) => (
@@ -183,6 +197,20 @@ function App() {
                           Directed by <DirectorCredits film={film} />
                         </p>
                         <p>{film.description}</p>
+                        {film.trailerEmbedUrl ? (
+                          <div className="trailer-block">
+                            <p className="trailer-label">Trailer</p>
+                            <div className="trailer-frame">
+                              <iframe
+                                src={film.trailerEmbedUrl}
+                                title={`${film.title} trailer`}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen
+                              />
+                            </div>
+                          </div>
+                        ) : null}
                         {film.externalLinks?.length ? (
                           <div className="external-links">
                             {film.externalLinks.map((link) => (

@@ -571,6 +571,30 @@ p {
   margin: 18px 0 14px;
 }
 
+.trailer-block {
+  margin-top: 16px;
+}
+
+.trailer-label {
+  margin: 0 0 8px;
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
+.trailer-frame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.trailer-frame iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 .external-links {
   margin-top: 14px;
 }
