@@ -124,6 +124,7 @@ main {
 .venues,
 .news,
 .visit,
+.site-footer,
 .about-page {
   padding: 34px;
 }
@@ -573,6 +574,40 @@ p {
 
 .contact-actions {
   margin: 18px 0 14px;
+}
+
+.site-footer {
+  text-align: center;
+}
+
+.footer-thanks {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.funder-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.funder-logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.funder-logo-chalk {
+  width: min(280px, 100%);
+}
+
+.funder-logo-enjoolata {
+  width: min(220px, 100%);
 }
 
 .trailer-block {

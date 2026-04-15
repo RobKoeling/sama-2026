@@ -322,6 +322,24 @@ function App() {
             </a>
           </div>
         </section>
+
+        <footer className="site-footer panel">
+          <p className="footer-thanks">
+            With thanks to Chalk Cliff Trust and Enjoolata Foundation for their generous support
+          </p>
+          <div className="funder-logos" aria-label="Funder logos">
+            <img
+              className="funder-logo funder-logo-chalk"
+              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/chalk-cliff-trust-logo-rgb_full-colour.png"
+              alt="Chalk Cliff Trust logo"
+            />
+            <img
+              className="funder-logo funder-logo-enjoolata"
+              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/enjoolata-logo-solid-PRINTING.png"
+              alt="Enjoolata Foundation logo"
+            />
+          </div>
+        </footer>
       </main>
     </div>
   );
