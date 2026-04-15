@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
 
 const socialBase = {
@@ -31,11 +31,27 @@ function DirectorCredits({ film }) {
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const focusCardRef = useRef(null);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
   const closeMenu = () => setIsMenuOpen(false);
+  const selectEvent = (eventId, { scrollToDetails = false } = {}) => {
+    setSelectedEventId(eventId);
+
+    if (!scrollToDetails || typeof window === "undefined") {
+      return;
+    }
+
+    if (!window.matchMedia("(max-width: 760px)").matches) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      focusCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
 
   return (
     <div className="app-shell">
@@ -96,7 +112,7 @@ function App() {
                   <button
                     type="button"
                     className={event.id === selectedEvent.id ? "day-pill is-active" : "day-pill"}
-                    onClick={() => setSelectedEventId(event.id)}
+                    onClick={() => selectEvent(event.id)}
                   >
                     <span>
                       {event.dayLabel} • {event.startTime}
@@ -139,7 +155,7 @@ function App() {
                   <button
                     type="button"
                     className="event-card-button"
-                    onClick={() => setSelectedEventId(event.id)}
+                    onClick={() => selectEvent(event.id, { scrollToDetails: true })}
                   >
                     <div className="event-topline">
                       <p>{event.fullDate}</p>
@@ -158,7 +174,7 @@ function App() {
               ))}
             </div>
 
-            <aside className="focus-card">
+            <aside ref={focusCardRef} className="focus-card">
               <p className="eyebrow">Selected Event</p>
               <h3>{selectedEvent.title}</h3>
               <p className="focus-meta">
