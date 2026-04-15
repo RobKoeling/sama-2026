@@ -206,6 +206,7 @@ p {
   height: auto;
   margin-top: 6px;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .hero-actions,
