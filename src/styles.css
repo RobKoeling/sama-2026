@@ -200,6 +200,14 @@ p {
   font-size: 1.05rem;
 }
 
+.hero-logo {
+  display: block;
+  width: min(440px, 100%);
+  height: auto;
+  margin-top: 6px;
+  object-fit: contain;
+}
+
 .hero-actions,
 .share-row,
 .contact-actions,

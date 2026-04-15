@@ -55,7 +55,11 @@ function App() {
         <section className="hero panel">
           <div className="hero-copy">
             <p className="eyebrow">{festival.strapline}</p>
-            <h1>{festival.name}</h1>
+            <img
+              className="hero-logo"
+              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo.jpg"
+              alt="SAMA Brighton main logo"
+            />
             <p className="hero-text">
               {festival.dateRange} in {festival.city}. {festival.description}
             </p>
