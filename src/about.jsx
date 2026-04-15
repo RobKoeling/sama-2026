@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { about, festival } from "./data/siteData";
 import "./styles.css";
 
 function AboutPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <div className="app-shell">
       <header className="site-header">
@@ -11,12 +14,25 @@ function AboutPage() {
           <span className="brand-mark">SAMA</span>
           <span className="brand-year">2026</span>
         </a>
-        <nav className="site-nav" aria-label="Primary">
-          <a href="index.html#programme">Programme</a>
-          <a href="about.html">About</a>
-          <a href="index.html#venues">Venues</a>
-          <a href="index.html#news">News</a>
-          <a href="index.html#visit">Visit</a>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={isMenuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          Menu
+        </button>
+        <nav
+          id="primary-navigation"
+          className={isMenuOpen ? "site-nav is-open" : "site-nav"}
+          aria-label="Primary"
+        >
+          <a href="index.html#programme" onClick={closeMenu}>Programme</a>
+          <a href="about.html" onClick={closeMenu}>About</a>
+          <a href="index.html#venues" onClick={closeMenu}>Venues</a>
+          <a href="index.html#news" onClick={closeMenu}>News</a>
+          <a href="index.html#contact" onClick={closeMenu}>Contact</a>
         </nav>
       </header>
 

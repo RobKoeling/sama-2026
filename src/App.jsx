@@ -30,10 +30,12 @@ function DirectorCredits({ film }) {
 
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <div className="app-shell">
@@ -42,12 +44,25 @@ function App() {
           <span className="brand-mark">SAMA</span>
           <span className="brand-year">2026</span>
         </a>
-        <nav className="site-nav" aria-label="Primary">
-          <a href="#programme">Programme</a>
-          <a href="about.html">About</a>
-          <a href="#venues">Venues</a>
-          <a href="#news">News</a>
-          <a href="#contact">Contact</a>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={isMenuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          Menu
+        </button>
+        <nav
+          id="primary-navigation"
+          className={isMenuOpen ? "site-nav is-open" : "site-nav"}
+          aria-label="Primary"
+        >
+          <a href="#programme" onClick={closeMenu}>Programme</a>
+          <a href="about.html" onClick={closeMenu}>About</a>
+          <a href="#venues" onClick={closeMenu}>Venues</a>
+          <a href="#news" onClick={closeMenu}>News</a>
+          <a href="#contact" onClick={closeMenu}>Contact</a>
         </nav>
       </header>
 
