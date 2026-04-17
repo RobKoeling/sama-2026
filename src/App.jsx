@@ -7,6 +7,8 @@ const socialBase = {
   linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=",
 };
 
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 function DirectorCredits({ film }) {
   const credits = film.directorCredits ?? [{ name: film.director }];
 
@@ -88,7 +90,7 @@ function App() {
             <p className="eyebrow">{festival.strapline}</p>
             <img
               className="hero-logo"
-              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo.jpg"
+              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo.jpg")}
               alt="SAMA Brighton main logo"
             />
             <p className="hero-text">
@@ -365,12 +367,12 @@ function App() {
           <div className="funder-logos" aria-label="Funder logos">
             <img
               className="funder-logo funder-logo-chalk"
-              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/chalk-cliff-trust-logo-rgb_full-colour.png"
+              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/chalk-cliff-trust-logo-rgb_full-colour.png")}
               alt="Chalk Cliff Trust logo"
             />
             <img
               className="funder-logo funder-logo-enjoolata"
-              src="/sama-2026/SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/enjoolata-logo-solid-PRINTING.png"
+              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/enjoolata-logo-solid-PRINTING.png")}
               alt="Enjoolata Foundation logo"
             />
           </div>

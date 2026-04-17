@@ -1,3 +1,5 @@
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 export const festival = {
   name: "SAMA 2026",
   city: "Brighton",
@@ -33,7 +35,7 @@ export const films = {
         wikipediaUrl: "https://en.wikipedia.org/wiki/Roya_Sadat",
       },
     ],
-    artworkUrl: "/sama-2026/posters/simas-song.jpg",
+    artworkUrl: assetPath("posters/simas-song.jpg"),
     description:
       "Set in late-1970s Afghanistan, the film follows Suraya and her close friend Sima as political upheaval, ideology, marriage, and women’s rights reshape their friendship and their futures.",
     sourceLinks: [
@@ -66,7 +68,7 @@ export const films = {
         wikipediaUrl: "https://www.asiapacificscreenawards.com/apsa-academy-members/askhat-kuchencherekov",
       },
     ],
-    artworkUrl: "/sama-2026/posters/bauryna-salu.jpg",
+    artworkUrl: assetPath("posters/bauryna-salu.jpg"),
     description:
       "Yersultan is raised by his grandmother under the nomadic bauryna salu tradition. After her death, he moves in with his parents for the first time and struggles through adolescence while trying to build a relationship with them.",
     sourceLinks: [
@@ -99,7 +101,7 @@ export const films = {
         wikipediaUrl: "https://www.sturgefilm.com/about",
       },
     ],
-    artworkUrl: "/sama-2026/posters/champions-golden-valley.jpg",
+    artworkUrl: assetPath("posters/champions-golden-valley.jpg"),
     description:
       "After missing his chance to become Afghanistan’s first Olympic skier, Alishah Farhang returns to the mountains to nurture a ski culture among young athletes from rival villages, only for events beyond the slopes to test that fragile community.",
     trailerEmbedUrl: "https://www.youtube.com/embed/aj3dokeUCvI",
@@ -133,7 +135,7 @@ export const films = {
         wikipediaUrl: "https://www.icorn.org/writers-artists-journalists/mohsen-hossaini",
       },
     ],
-    artworkUrl: "/sama-2026/posters/border.jpg",
+    artworkUrl: assetPath("posters/border.jpg"),
     description:
       "A wordless animated drama about friendship, absence, and the ties that persist across silence, time, and the borders people draw between one another.",
     sourceLinks: [
@@ -157,7 +159,7 @@ export const films = {
     title: "GAP",
     director: "Farnaz Farzi",
     directorCredits: [{ name: "Farnaz Farzi" }],
-    artworkUrl: "/sama-2026/posters/gap.jpg",
+    artworkUrl: assetPath("posters/gap.jpg"),
     description:
       "A mother who believes she knows what is best for her seventeen-year-old daughter faces the widening distance between parental control and a teenager’s desire to choose her own life.",
     sourceLinks: [
@@ -175,7 +177,7 @@ export const films = {
     title: "Hozan",
     director: "Sana Yozi",
     directorCredits: [{ name: "Sana Yozi" }],
-    artworkUrl: "/sama-2026/posters/hozan.jpg",
+    artworkUrl: assetPath("posters/hozan.jpg"),
     description:
       "After finding a letter from her late mother, a young girl travels with her father toward the “yellow flower place,” turning the journey into a quiet meditation on grief, music, memory, and tenderness.",
     sourceLinks: [
@@ -193,7 +195,7 @@ export const films = {
     title: "Bint El Shalabiya",
     director: "Saro Heidari",
     directorCredits: [{ name: "Saro Heidari" }],
-    artworkUrl: "/sama-2026/posters/bint-el-shalabiya.jpg",
+    artworkUrl: assetPath("posters/bint-el-shalabiya.jpg"),
     description:
       "In 1980s Kurdistan, a girl teaches herself music by ear while her family tries to suppress that desire. As an air-raid siren sounds, she chooses a fleeting taste of freedom over safety.",
     sourceLinks: [
@@ -211,7 +213,7 @@ export const films = {
     title: "Perfect Restaurant",
     director: "Mahmoud Salimi",
     directorCredits: [{ name: "Mahmoud Salimi" }],
-    artworkUrl: "/sama-2026/posters/perfect-restaurant.jpg",
+    artworkUrl: assetPath("posters/perfect-restaurant.jpg"),
     description:
       "On a date, Roya and Mansoor pretend to be married in order to sidestep public scrutiny, scandal, and the social risks attached to being seen together.",
     sourceLinks: [
@@ -238,7 +240,7 @@ export const films = {
         wikipediaUrl: "https://www.bbc.co.uk/mediaaction/author/?id=author-shoaib-sharifi-1589895023",
       },
     ],
-    artworkUrl: "/sama-2026/posters/mcmc_small.jpg",
+    artworkUrl: assetPath("posters/mcmc_small.jpg"),
     description:
       "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals and consequences of modern Afghanistan’s recent history.",
     trailerEmbedUrl: "https://www.youtube.com/embed/_WoROZl6kG0",
