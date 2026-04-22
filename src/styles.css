@@ -163,6 +163,10 @@ main {
   background: hsla(50, 38%, 57%, 0.72);
 }
 
+.programme {
+  background: hsla(50, 84%, 57%, 0.74);
+}
+
 .hero::after,
 .programme::after,
 .visit::after {
