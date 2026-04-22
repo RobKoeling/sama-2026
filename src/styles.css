@@ -160,6 +160,7 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.9fr);
   gap: 24px;
+  background: hsla(50, 38%, 57%, 0.72);
 }
 
 .hero::after,
