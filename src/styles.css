@@ -1,13 +1,14 @@
 :root {
-  --bg: #f5ede2;
+  --bg: #f9d529;
+  --bg-rgb: 249, 213, 41;
   --ink: #24120d;
   --muted: #63493f;
   --accent: #c84d1f;
   --accent-deep: #8d2f12;
   --accent-soft: #f6a85f;
   --line: rgba(36, 18, 13, 0.14);
-  --surface: rgba(255, 255, 255, 0.36);
-  --surface-strong: rgba(255, 248, 240, 0.7);
+  --surface: rgba(249, 213, 41, 0.24);
+  --surface-strong: rgba(255, 243, 163, 0.72);
   --shadow: 0 24px 60px rgba(77, 31, 14, 0.14);
   --radius-xl: 32px;
   --radius-lg: 22px;
@@ -29,9 +30,9 @@ body {
   color: var(--ink);
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(246, 168, 95, 0.65), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(200, 77, 31, 0.18), transparent 22%),
-    linear-gradient(180deg, #f8f1e8 0%, #f0e0cb 100%);
+    radial-gradient(circle at top left, rgba(var(--bg-rgb), 0.78), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(200, 77, 31, 0.16), transparent 22%),
+    linear-gradient(180deg, #fff4a6 0%, var(--bg) 100%);
 }
 
 body::before {
@@ -141,7 +142,7 @@ main {
   overflow: clip;
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
-  background: rgba(245, 237, 226, 0.76);
+  background: rgba(var(--bg-rgb), 0.74);
   box-shadow: var(--shadow);
 }
 
