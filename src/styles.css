@@ -154,17 +154,13 @@ main {
 .site-footer,
 .about-page {
   padding: 34px;
+  background: hsla(50, 84%, 57%, 0.74);
 }
 
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.9fr);
   gap: 24px;
-  background: hsla(50, 38%, 57%, 0.72);
-}
-
-.programme {
-  background: hsla(50, 84%, 57%, 0.74);
 }
 
 .hero::after,
@@ -367,7 +363,6 @@ p {
 }
 
 .highlights article,
-.venues-grid article,
 .news-card {
   padding: 22px;
   border: 1px solid var(--line);
@@ -435,6 +430,15 @@ p {
     linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22)),
     rgba(129, 46, 19, 0.06);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.venues-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22)),
+    rgba(129, 46, 19, 0.06);
 }
 
 .event-card.is-selected {
