@@ -129,16 +129,26 @@ function App() {
         </section>
 
         <section className="highlights">
-          <article>
-            <p className="stat">{programme.length}</p>
-            <p className="label">festival nights</p>
+          <article className="highlight-logo-card">
+            <img
+              className="highlight-logo highlight-logo-wide"
+              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20palace%20pier%20artwork%202.jpg")}
+              alt="SAMA Palace Pier artwork"
+            />
           </article>
-          <article>
-            <p className="label">Films, Discussion, Music</p>
+          <article className="highlight-logo-card highlight-logo-card-tall">
+            <img
+              className="highlight-logo highlight-logo-tall"
+              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20pavilion%20artwork.jpg")}
+              alt="SAMA Pavilion artwork"
+            />
           </article>
-          <article>
-            <p className="stat">{venues.length}</p>
-            <p className="label">Brighton venues</p>
+          <article className="highlight-logo-card">
+            <img
+              className="highlight-logo highlight-logo-wide"
+              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20west%20pier%20artwork.jpg")}
+              alt="SAMA West Pier artwork"
+            />
           </article>
         </section>
 

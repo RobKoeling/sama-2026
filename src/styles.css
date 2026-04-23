@@ -370,6 +370,32 @@ p {
   background: var(--surface);
 }
 
+.highlight-logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 168px;
+}
+
+.highlight-logo-card-tall {
+  min-height: 240px;
+}
+
+.highlight-logo {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.highlight-logo-wide {
+  max-height: 124px;
+}
+
+.highlight-logo-tall {
+  max-height: 202px;
+}
+
 .stat {
   margin: 0;
   font-family: "Fraunces", Georgia, serif;
