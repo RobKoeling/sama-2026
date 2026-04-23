@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
 
 const socialBase = {
@@ -8,6 +8,28 @@ const socialBase = {
 };
 
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
+const heroStills = [
+  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_01.jpeg",
+  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_02.jpeg",
+  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_03.jpeg",
+  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%201%20-%20BAURYNA%20SALU.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%202%20-%20BAURYNA%20SALU.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%203%20-%20BAURYNA%20SALU%20%281%29.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20Main%20pic_SimasSong01%C2%A9Ton%20Peters.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong02%C2%A9Ton%20Peters.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong03%C2%A9Ton%20Peters.JPG",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong04%C2%A9Ton%20Peters.JPG",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong05%C2%A9Ton%20Peters.JPG",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong06%C2%A9Ton%20Peters.JPG",
+  "Film_Materials/Film_Stills/Copy%20of%20SimasSong07%C2%A9Ton%20Peters.JPG",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045115_y.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045128_y.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045163_y.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045164_y.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045165_y.jpg",
+  "Film_Materials/Film_Stills/Copy%20of%20photo_5936062553522291748_y.jpg",
+];
 
 function DirectorCredits({ film }) {
   const credits = film.directorCredits ?? [{ name: film.director }];
@@ -33,11 +55,13 @@ function DirectorCredits({ film }) {
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [heroStillIndex, setHeroStillIndex] = useState(0);
   const focusCardRef = useRef(null);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
+  const heroStill = heroStills[heroStillIndex];
   const closeMenu = () => setIsMenuOpen(false);
   const selectEvent = (eventId, { scrollToDetails = false } = {}) => {
     setSelectedEventId(eventId);
@@ -54,6 +78,18 @@ function App() {
       focusCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
+
+  useEffect(() => {
+    if (heroStills.length < 2 || typeof window === "undefined") {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setHeroStillIndex((index) => (index + 1) % heroStills.length);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <div className="app-shell">
@@ -88,11 +124,13 @@ function App() {
         <section className="hero panel">
           <div className="hero-copy">
             <p className="eyebrow">{festival.strapline}</p>
-            <img
-              className="hero-logo"
-              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo.jpg")}
-              alt="SAMA Brighton main logo"
-            />
+            <div className="hero-stills-frame" aria-label="Festival stills slideshow">
+              <img
+                className="hero-stills-image"
+                src={assetPath(heroStill)}
+                alt="Festival still from the film materials archive"
+              />
+            </div>
             <p className="hero-text">
               {festival.dateRange} in {festival.city}. {festival.description}
             </p>
@@ -105,6 +143,12 @@ function App() {
               </a>
             </div>
           </div>
+
+          <img
+            className="hero-logo hero-logo-float"
+            src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo%20transparent.png")}
+            alt="SAMA Brighton main logo"
+          />
 
           <aside className="hero-panel">
             <p className="panel-label">Festival Week</p>
@@ -132,21 +176,21 @@ function App() {
           <article className="highlight-logo-card">
             <img
               className="highlight-logo highlight-logo-wide"
-              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20palace%20pier%20artwork%202.jpg")}
+              src={assetPath("Artwork/SAMA%20palace%20pier%20artwork%202.jpg")}
               alt="SAMA Palace Pier artwork"
             />
           </article>
           <article className="highlight-logo-card highlight-logo-card-tall">
             <img
               className="highlight-logo highlight-logo-tall"
-              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20pavilion%20artwork.jpg")}
+              src={assetPath("Artwork/SAMA%20pavilion%20artwork.jpg")}
               alt="SAMA Pavilion artwork"
             />
           </article>
           <article className="highlight-logo-card">
             <img
               className="highlight-logo highlight-logo-wide"
-              src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20west%20pier%20artwork.jpg")}
+              src={assetPath("Artwork/SAMA%20west%20pier%20artwork.jpg")}
               alt="SAMA West Pier artwork"
             />
           </article>
@@ -377,12 +421,12 @@ function App() {
           <div className="funder-logos" aria-label="Funder logos">
             <img
               className="funder-logo funder-logo-chalk"
-              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/chalk-cliff-trust-logo-rgb_full-colour.png")}
+              src={assetPath("Artwork/chalk-cliff-trust-logo-rgb_full-colour.png")}
               alt="Chalk Cliff Trust logo"
             />
             <img
               className="funder-logo funder-logo-enjoolata"
-              src={assetPath("SAMA2026_Marketing/SAMA%202026%20marketing%20and%20web%20content/Funder%20and%20RW%20logos/enjoolata-logo-solid-PRINTING.png")}
+              src={assetPath("Artwork/enjoolata-logo-solid-PRINTING.png")}
               alt="Enjoolata Foundation logo"
             />
           </div>
