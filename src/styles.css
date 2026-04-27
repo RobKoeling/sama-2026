@@ -485,14 +485,19 @@ p {
 .programme-layout {
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
   margin-top: 24px;
+  align-items: start;
 }
 
 .programme-grid {
   display: grid;
   gap: 18px;
+  align-items: start;
+  align-content: start;
+  height: max-content;
 }
 
 .event-card {
+  align-self: start;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
@@ -517,6 +522,7 @@ p {
 }
 
 .event-card-button {
+  display: block;
   padding: 22px;
   background: transparent;
 }
@@ -603,18 +609,57 @@ p {
 
 .film-detail,
 .short-card {
-  display: grid;
   gap: 14px;
   margin-top: 18px;
 }
 
+.film-programme-notes {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.film-flow-blocks {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.film-programme-notes p {
+  margin: 0;
+}
+
+.film-quote-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.film-quote {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 4px solid rgba(139, 47, 18, 0.45);
+  border-radius: 14px;
+  background: rgba(255, 248, 240, 0.56);
+}
+
+.film-quote p,
+.film-quote footer {
+  margin: 0;
+}
+
+.film-quote footer {
+  margin-top: 8px;
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
 .film-detail {
-  grid-template-columns: minmax(110px, 150px) 1fr;
-  align-items: start;
+  display: block;
 }
 
 .film-detail.no-poster {
-  grid-template-columns: 1fr;
+  display: block;
 }
 
 .film-poster,
@@ -628,7 +673,27 @@ p {
 }
 
 .film-poster {
+  float: left;
+  width: min(170px, 38%);
+  margin: 0 18px 12px 0;
   aspect-ratio: 2 / 3;
+}
+
+.detail-flow-poster {
+  float: none;
+  display: block;
+  width: min(240px, 100%);
+  margin: 16px 0;
+}
+
+.film-detail::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.film-copy {
+  display: block;
 }
 
 .shorts-lineup {
@@ -638,15 +703,24 @@ p {
 }
 
 .short-card {
-  grid-template-columns: 96px 1fr;
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.22);
+  display: block;
 }
 
 .short-poster {
+  float: left;
+  width: min(130px, 34%);
+  margin: 0 14px 10px 0;
   aspect-ratio: 2 / 3;
+}
+
+.short-card::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .film-director,
@@ -779,6 +853,26 @@ p {
   .film-detail,
   .short-card {
     grid-template-columns: 1fr;
+  }
+
+  .film-poster {
+    float: none;
+    width: 100%;
+    margin: 0 0 14px;
+  }
+
+  .film-detail::after {
+    content: none;
+  }
+
+  .short-poster {
+    float: none;
+    width: 100%;
+    margin: 0 0 14px;
+  }
+
+  .short-card::after {
+    content: none;
   }
 }
 

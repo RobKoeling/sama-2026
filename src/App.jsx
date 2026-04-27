@@ -146,7 +146,7 @@ function App() {
 
           <img
             className="hero-logo hero-logo-float"
-            src={assetPath("SAMA2026_Marketing/SAMA%20logo%20images/SAMA%20Brighton%20main%20logo%20transparent.png")}
+            src={assetPath("Artwork/sama-brighton-main-logo-transparent.png")}
             alt="SAMA Brighton main logo"
           />
 
@@ -215,16 +215,20 @@ function App() {
                   >
                     <div className="event-topline">
                       <p>{event.fullDate}</p>
-                      <span className={event.status === "Confirmed" ? "status live" : "status pending"}>
-                        {event.status}
-                      </span>
                     </div>
                     <h3>{event.title}</h3>
                     {event.subtitle ? <p className="subtitle">{event.subtitle}</p> : null}
                     <p className="venue">
                       {event.venue} • {event.startTime}
                     </p>
-                    <p className="event-copy">{event.summary}</p>
+                    <p className="event-copy">{event.cardSummary ?? event.summary}</p>
+                    {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
+                      <div className="film-programme-notes">
+                        {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
+                          <p key={note}>{note}</p>
+                        ))}
+                      </div>
+                    ) : null}
                   </button>
                 </article>
               ))}
@@ -232,16 +236,105 @@ function App() {
 
             <aside ref={focusCardRef} className="focus-card">
               <p className="eyebrow">Selected Event</p>
-              <h3>{selectedEvent.title}</h3>
-              <p className="focus-meta">
-                {selectedEvent.fullDate} at {selectedEvent.startTime}
-              </p>
-              <p className="focus-meta">{selectedEvent.venue}</p>
-              {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
-              <p>{selectedEvent.summary}</p>
+              {selectedFilms.length === 1 && primaryFilm?.detailBlocks ? (
+                <div className="event-detail-copy">
+                  {primaryFilm.detailBlocks.map((block, index) => {
+                    if (block.type === "title") return <h3 key={`${block.type}-${index}`}>{block.text}</h3>;
+                    if (block.type === "directors") {
+                      return (
+                        <p key={`${block.type}-${index}`} className="film-director">
+                          Directed by <DirectorCredits film={primaryFilm} />
+                        </p>
+                      );
+                    }
+                    if (block.type === "poster" && primaryFilm.artworkUrl) {
+                      return (
+                        <img
+                          key={`${block.type}-${index}`}
+                          className="film-poster detail-flow-poster"
+                          src={primaryFilm.artworkUrl}
+                          alt={`${primaryFilm.title} poster artwork`}
+                        />
+                      );
+                    }
+                    if (block.type === "quote") {
+                      return (
+                        <blockquote key={`${block.type}-${index}`} className="film-quote">
+                          <p>“{block.text}”</p>
+                          <footer>{block.source}</footer>
+                        </blockquote>
+                      );
+                    }
+                    return (
+                      <p key={`${block.type}-${index}`} className={block.type === "label" ? "detail-label" : ""}>
+                        {block.text}
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : selectedEvent.detailBlocks ? (
+                <div className="event-detail-copy">
+                  {selectedEvent.detailBlocks.map((block, index) => {
+                    if (block.type === "title") return <h3 key={`${block.type}-${index}`}>{block.text}</h3>;
+                    if (block.type === "quote") {
+                      return (
+                        <blockquote key={`${block.type}-${index}`} className="film-quote">
+                          <p>“{block.text}”</p>
+                          <footer>{block.source}</footer>
+                        </blockquote>
+                      );
+                    }
+                    return (
+                      <p key={`${block.type}-${index}`} className={block.type === "label" ? "detail-label" : ""}>
+                        {block.text}
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
+                  <h3>{selectedEvent.title}</h3>
+                  <p className="focus-meta">
+                    {selectedEvent.fullDate} at {selectedEvent.startTime}
+                  </p>
+                  <p className="focus-meta">{selectedEvent.venue}</p>
+                  {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
+                  {selectedEvent.detailSummary ?? selectedEvent.summary ? (
+                    <p>{selectedEvent.detailSummary ?? selectedEvent.summary}</p>
+                  ) : null}
+                  {selectedEvent.programmeNotes?.length ? (
+                    <div className="film-programme-notes">
+                      {selectedEvent.programmeNotes.map((note) => (
+                        <p key={note}>{note}</p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {selectedEvent.quotes?.length ? (
+                    <div className="film-quote-list">
+                      {selectedEvent.quotes.map((quote) => (
+                        <blockquote key={quote.source} className="film-quote">
+                          {"lines" in quote ? (
+                            <p>
+                              {quote.lines.map((line, index) => (
+                                <span key={`${quote.source}-${index}`}>
+                                  {line}
+                                  <br />
+                                </span>
+                              ))}
+                            </p>
+                          ) : (
+                            <p>“{quote.text}”</p>
+                          )}
+                          <footer>{quote.source}</footer>
+                        </blockquote>
+                      ))}
+                    </div>
+                  ) : null}
+                </>
+              )}
               {selectedFilms.length === 1 && primaryFilm ? (
                 <div className={primaryFilm.artworkUrl ? "film-detail" : "film-detail no-poster"}>
-                  {primaryFilm.artworkUrl ? (
+                  {primaryFilm.artworkUrl && !primaryFilm.detailBlocks ? (
                     <img
                       className="film-poster"
                       src={primaryFilm.artworkUrl}
@@ -249,10 +342,53 @@ function App() {
                     />
                   ) : null}
                   <div className="film-copy">
-                    <p className="film-director">
-                      Directed by <DirectorCredits film={primaryFilm} />
-                    </p>
-                    <p>{primaryFilm.description}</p>
+                    {!primaryFilm.detailBlocks ? (
+                      <>
+                        <p className="film-director">
+                          Directed by <DirectorCredits film={primaryFilm} />
+                        </p>
+                        {primaryFilm.description ? <p>{primaryFilm.description}</p> : null}
+                        {primaryFilm.detailFlowBlocks?.length ? (
+                          <div className="film-flow-blocks">
+                            {primaryFilm.detailFlowBlocks.map((block, index) => {
+                              if (block.type === "quote") {
+                                return (
+                                  <blockquote key={`${block.type}-${index}`} className="film-quote">
+                                    <p>“{block.text}”</p>
+                                    <footer>{block.source}</footer>
+                                  </blockquote>
+                                );
+                              }
+                              return (
+                                <p
+                                  key={`${block.type}-${index}`}
+                                  className={block.type === "label" ? "detail-label" : ""}
+                                >
+                                  {block.text}
+                                </p>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+                        {primaryFilm.programmeNotes?.length ? (
+                          <div className="film-programme-notes">
+                            {primaryFilm.programmeNotes.map((note) => (
+                              <p key={note}>{note}</p>
+                            ))}
+                          </div>
+                        ) : null}
+                        {primaryFilm.quotes?.length ? (
+                          <div className="film-quote-list">
+                            {primaryFilm.quotes.map((quote) => (
+                              <blockquote key={quote.text} className="film-quote">
+                                <p>“{quote.text}”</p>
+                                <footer>{quote.source}</footer>
+                              </blockquote>
+                            ))}
+                          </div>
+                        ) : null}
+                      </>
+                    ) : null}
                     {primaryFilm.trailerEmbedUrl ? (
                       <div className="trailer-block">
                         <p className="trailer-label">Trailer</p>
@@ -318,15 +454,6 @@ function App() {
                   ))}
                 </div>
               ) : null}
-              {!selectedFilms.length ? (
-                <p className="focus-note">
-                  No matching 2025 main-festival film record has been added for this event yet.
-                </p>
-              ) : (
-                <p className="focus-note">
-                  Descriptions are paraphrased from the official SAMA 2025 festival materials and linked source pages.
-                </p>
-              )}
             </aside>
           </div>
         </section>

@@ -37,7 +37,22 @@ export const films = {
     ],
     artworkUrl: assetPath("posters/simas-song.jpg"),
     description:
-      "Set in late-1970s Afghanistan, the film follows Suraya and her close friend Sima as political upheaval, ideology, marriage, and women’s rights reshape their friendship and their futures.",
+      "For the opening night of SAMA Brighton 2026 we take a short trip to the Lewes Depot for the UK premiere of Sima’s Song, an exploration of friendship, upheaval and ideology in 1970s Afghanistan. The film follows Suraya and her close friend Sima as political upheaval, ideology, marriage, and women’s rights reshape their friendship and their futures.",
+    programmeNotes: [
+      "Directed by Roya Sadat in 2024, 1h37m, Persian with English subtitles.",
+      "Winner of the Public Award at the 2025 Bilbao Cine Invisible ‘Film Sozialak’ Festival.",
+      "Nominated for awards at the Seville European Film Festival and the Tokyo International Film Festival.",
+    ],
+    quotes: [
+      {
+        text: "The world is going down the wrong path; cinema needs to serve to awaken people",
+        source: "Roya Sadat",
+      },
+      {
+        text: "Global history has largely ignored our stories, reducing Afghanistan to a narrative of war, extremism and fundamentalism",
+        source: "Roya Sadat",
+      },
+    ],
     sourceLinks: [
       {
         label: "Official selection artwork",
@@ -70,7 +85,14 @@ export const films = {
     ],
     artworkUrl: assetPath("posters/bauryna-salu.jpg"),
     description:
-      "Yersultan is raised by his grandmother under the nomadic bauryna salu tradition. After her death, he moves in with his parents for the first time and struggles through adolescence while trying to build a relationship with them.",
+      "SAMA Brighton 2026 closes with the luminous feature Bauryna Salu, which illustrates the quotidien adventures and familial challenges of a 12-year-old boy in Kazhakstan. Following the film the festival ends with a community celebration with live music.",
+    programmeNotes: ["£8/£5 (?) + ticket link"],
+    quotes: [
+      {
+        text: "Many children around the world are raised by their grandparents or other relatives, and this film resonates with their experiences",
+        source: "Ashkat K",
+      },
+    ],
     sourceLinks: [
       {
         label: "Official selection artwork",
@@ -103,8 +125,15 @@ export const films = {
     ],
     artworkUrl: assetPath("posters/champions-golden-valley.jpg"),
     description:
-      "After missing his chance to become Afghanistan’s first Olympic skier, Alishah Farhang returns to the mountains to nurture a ski culture among young athletes from rival villages, only for events beyond the slopes to test that fragile community.",
+      "Documentary about the emergence of a homegrown ski culture in the mountains of Afghanistan. Far from the luxury chalets of Alpe d’Huez, skiing provides moments of hope, transcendence and community forged in a context of recurrent conflict and uncertainty.",
     trailerEmbedUrl: "https://www.youtube.com/embed/aj3dokeUCvI",
+    programmeNotes: ["Plus live music (details?), readings and discussion."],
+    quotes: [
+      {
+        text: "The heart of this film is about connection - how sport can unite people, uplift the next generation and spark hope in places where it’s needed most...",
+        source: "Ben Sturgulewski",
+      },
+    ],
     sourceLinks: [
       {
         label: "Official selection artwork",
@@ -126,32 +155,20 @@ export const films = {
       },
     ],
   },
-  border: {
-    title: "Border",
-    director: "Mohsen Hossaini",
+  theKnot: {
+    title: "The Knot",
+    director: "Mohammadreza (Oshan) Mahmoodi",
     directorCredits: [
       {
-        name: "Mohsen Hossaini",
-        wikipediaUrl: "https://www.icorn.org/writers-artists-journalists/mohsen-hossaini",
+        name: "Mohammadreza (Oshan) Mahmoodi",
       },
     ],
-    artworkUrl: assetPath("posters/border.jpg"),
-    description:
-      "A wordless animated drama about friendship, absence, and the ties that persist across silence, time, and the borders people draw between one another.",
+    artworkUrl: assetPath("Artwork/the-knot.png"),
+    description: "Short fiction from Iran by Mohammadreza (Oshan) Mahmoodi, running 12:25 minutes.",
     sourceLinks: [
       {
         label: "Official selection artwork",
         url: "https://www.samaiff.com/Archives/festival-2024/official-selection_2025",
-      },
-      {
-        label: "Festival synopsis",
-        url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Border_1.docx",
-      },
-    ],
-    externalLinks: [
-      {
-        label: "Rotten Tomatoes",
-        url: "https://www.rottentomatoes.com/m/border_2025",
       },
     ],
   },
@@ -173,21 +190,16 @@ export const films = {
       },
     ],
   },
-  hozan: {
-    title: "Hozan",
-    director: "Sana Yozi",
-    directorCredits: [{ name: "Sana Yozi" }],
-    artworkUrl: assetPath("posters/hozan.jpg"),
-    description:
-      "After finding a letter from her late mother, a young girl travels with her father toward the “yellow flower place,” turning the journey into a quiet meditation on grief, music, memory, and tenderness.",
+  wednesday: {
+    title: "Wednesday",
+    director: "Sam Javadi",
+    directorCredits: [{ name: "Sam Javadi" }],
+    artworkUrl: assetPath("Artwork/wednesday.jpg"),
+    description: "Short fiction from Iran by Sam Javadi, running 14 minutes.",
     sourceLinks: [
       {
         label: "Official selection artwork",
         url: "https://www.samaiff.com/Archives/festival-2024/official-selection_2025",
-      },
-      {
-        label: "Festival synopsis",
-        url: "https://samaiff.com/Festival-2025/Read%20more%20_%20files/Hozan.docx",
       },
     ],
   },
@@ -228,7 +240,7 @@ export const films = {
     ],
   },
   myChildhoodMyCountry: {
-    title: "My Childhood, My Country: 20 Years in Afghanistan",
+    title: "My Childhood, My Country - 20 Years in Afghanistan",
     director: "Phil Grabsky, Shoaib Sharifi",
     directorCredits: [
       {
@@ -242,7 +254,21 @@ export const films = {
     ],
     artworkUrl: assetPath("posters/mcmc_small.jpg"),
     description:
-      "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals and consequences of modern Afghanistan’s recent history.",
+      "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals of modern Afghanistan’s recent history. Plus live Q & A with directors Phil Grabsky and Shoaib Sharifi.",
+    detailFlowBlocks: [
+      {
+        type: "quote",
+        text: "One day I saw a foreigner and an Afghan holding what I now know is a camera. I looked at this strange machine and this strange machine looked at me and kept looking.",
+        source: "Mir Hussein",
+      },
+      {
+        type: "paragraph",
+        text: "Another sentence blah blah blah an epic tale comparable to linklaters boyhood blah bla",
+      },
+      { type: "meta", text: "Dir. Phil Grabsky, Shoaib Shafiri, 2021, 1h30m" },
+      { type: "label", text: "Awards" },
+    ],
+    programmeNotes: ["£10/£6 + ticket link"],
     trailerEmbedUrl: "https://www.youtube.com/embed/_WoROZl6kG0",
     externalLinks: [
       {
@@ -266,26 +292,43 @@ export const programme = [
     id: "2026-06-15",
     dayLabel: "Mon 15 Jun",
     fullDate: "Monday 15 June 2026",
-    venue: "Depot",
+    venue: "Lewes Depot",
     title: "Sima's Song",
     filmIds: ["simasSong"],
-    startTime: "19:30",
+    startTime: "Time TBC",
     status: "TBC",
-    summary:
-      "Opening night begins at Depot with a featured screening of Sima's Song. Final event details can be locked in once venue notes arrive.",
+    summary: "UK premiere of Sima's Song at Lewes Depot.",
+    cardSummary:
+      "For the opening night of SAMA Brighton 2026 we take a short trip to the Lewes Depot for the UK premiere of Sima’s Song, an exploration of friendship, upheaval and ideology in late 1970s Afghanistan.",
   },
   {
     id: "2026-06-16",
     dayLabel: "Tue 16 Jun",
     fullDate: "Tuesday 16 June 2026",
     venue: "Pink Moon",
-    title: "Various short films",
-    subtitle: "Border? + Gap + Hozan + Bint El Shalabiya + Perfect Restaurant",
-    filmIds: ["border", "gap", "hozan", "bintElShalabiya", "perfectRestaurant"],
-    startTime: "19:30",
-    status: "Confirmed",
+    title: "Short film night",
+    subtitle: "The Knot + Gap + Wednesday + Bint El Shalabiya + Perfect Restaurant",
+    filmIds: ["theKnot", "gap", "wednesday", "bintElShalabiya", "perfectRestaurant"],
+    startTime: "Time TBC",
+    status: "TBC",
     summary:
-      "A curated shorts night bringing together emerging voices and contrasting forms in one compact programme.",
+      "A night of short films bringing poignant, provocative and humorous slices of Afghan and Iranian cinema to the upstairs screen at Brighton’s beloved Pink Moon hangout space.",
+    programmeNotes: [
+      "FREE and eventbrite?",
+    ],
+    quotes: [
+      {
+        lines: [
+          "I said to the night,",
+          "If you are in love with the moon,",
+          "It is because you never stay too long.",
+          "The night turned to me and said,",
+          "It is not my fault, I never see the sun,",
+          "How can I know that love is endless?",
+        ],
+        source: "Rumi - Whispers of the Beloved",
+      },
+    ],
   },
   {
     id: "2026-06-17",
@@ -294,22 +337,27 @@ export const programme = [
     venue: "Rose Hill",
     title: "Champions of the Golden Valley",
     filmIds: ["championsGoldenValley"],
-    startTime: "19:30",
+    startTime: "19:00 doors, 19:45 screening",
     status: "Confirmed",
-    summary:
-      "Midweek screening at Rose Hill in a community-led setting suited to a warm documentary audience.",
+    summary: "",
+    detailSummary: "",
+    cardSummary: "Documentary about the emergence of a homegrown ski culture in the mountains of Afghanistan.",
+    cardProgrammeNotes: ["Plus live music (details?), readings and discussion."],
   },
   {
     id: "2026-06-18",
     dayLabel: "Thu 18 Jun",
     fullDate: "Thursday 18 June 2026",
     venue: "Duke's at Komedia",
-    title: "My Childhood, My Country",
+    title: "My Childhood, My Country - 20 Years in Afghanistan",
     filmIds: ["myChildhoodMyCountry"],
-    startTime: "19:30",
+    startTime: "19:00",
     status: "Confirmed",
-    summary:
-      "A major documentary presentation in the city centre as the festival heads into its final stretch.",
+    summary: "",
+    detailSummary: "",
+    cardSummary:
+      "A two-decade documentary portrait following Mir from childhood in Bamiyan into adult life, set against the upheavals of modern Afghanistan’s recent history. Plus live Q & A with directors Phil Grabsky and Shoaib Sharifi.",
+    programmeNotes: ["£10/£6 + ticket link"],
   },
   {
     id: "2026-06-19",
@@ -318,10 +366,12 @@ export const programme = [
     venue: "Fabrica",
     title: "Bauryna Salu",
     filmIds: ["baurynaSalu"],
-    startTime: "19:30",
+    startTime: "18:00 doors, 18:30 screening",
     status: "Confirmed",
-    summary:
-      "Closing night lands at Fabrica in an art-forward setting that gives the finale a distinct atmosphere.",
+    summary: "",
+    cardSummary:
+      "SAMA Brighton 2026 closes with the luminous feature Bauryna Salu, which illustrates the quotidien adventures and familial challenges of a 12-year-old boy in Kazhakstan. Following the film the festival ends with a community celebration with live music.",
+    cardProgrammeNotes: ["£8/£5 (?) + ticket link"],
   },
 ];
 
