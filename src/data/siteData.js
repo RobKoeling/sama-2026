@@ -83,7 +83,7 @@ export const films = {
         wikipediaUrl: "https://www.asiapacificscreenawards.com/apsa-academy-members/askhat-kuchencherekov",
       },
     ],
-    artworkUrl: assetPath("posters/bauryna-salu.jpg"),
+    artworkUrl: assetPath("posters/Bauryna_Salu.jpeg"),
     description:
       "SAMA Brighton 2026 closes with the luminous feature Bauryna Salu, which illustrates the quotidien adventures and familial challenges of a 12-year-old boy in Kazhakstan. Following the film the festival ends with a community celebration with live music.",
     programmeNotes: ["£8/£5 (?) + ticket link"],
