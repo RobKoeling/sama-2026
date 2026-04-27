@@ -3,11 +3,11 @@ const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
 export const festival = {
   name: "SAMA 2026",
   city: "Brighton",
-  strapline: "Brighton Film Festival",
+  strapline: "SAMA International Film Festival Brighton 2026",
   dateRange: "15-19 June 2026",
   defaultStartTime: "19:30",
   description:
-    "Five nights of cinema across Brighton, featuring films and conversations rooted in stories from the SWANA region and its diasporas.",
+    "Join us for the inaugural SAMA Brighton film festival, providing an international platform dedicated to freedom of expression and to amplifying the voices of displaced, diasporic and underrepresented filmmakers. Five nights of features, documentaries and shorts, music and discussion across multiple venues in Brighton and Lewes.",
   motherFestivalUrl: "https://www.samaiff.com/",
 };
 
@@ -377,25 +377,26 @@ export const programme = [
 
 export const venues = [
   {
-    name: "Depot",
-    type: "Cinema",
+    name: "Lewes Depot",
+    type: "Independent Cinema",
     note: "Opening-night venue with a contemporary cinema setting just outside Brighton in Lewes.",
-    address: "Pinwell Road, Lewes, GB BN7 2JS",
+    address: "Pinwell Road, Lewes, BN7 2JS",
     website: "http://www.lewesdepot.org/",
-    phone: "+44 1273 525354",
+    phone: "01273 525354",
   },
   {
     name: "Pink Moon",
     type: "Screening space",
     note: "An intimate setting for the shorts programme and post-screening conversation.",
-    address: "52 Ship St, Brighton and Hove, Brighton BN1 1AF",
+    address: "52 Ship St, Brighton BN1 1AF",
+    website: "https://www.instagram.com/p/DGbj0BgNE0s/",
     phone: "07513 664374",
   },
   {
     name: "Rose Hill",
     type: "Community venue",
     note: "A relaxed, independent environment with a strong local cultural identity.",
-    address: "Rose Hill Terrace, Brighton and Hove, Brighton BN1 4JL",
+    address: "Rose Hill Terrace, Brighton BN1 4JL",
     website: "https://www.therosehill.co.uk/",
     phone: "07775995493",
   },
@@ -403,7 +404,7 @@ export const venues = [
     name: "Duke's at Komedia",
     type: "City-centre cinema",
     note: "A central Brighton venue suited to one of the week’s major documentary screenings.",
-    address: "Gardner House, 44-47 Gardner St, Brighton and Hove, Brighton BN1 1UN",
+    address: "Gardner House, 44-47 Gardner St, Brighton BN1 1UN",
     website: "https://www.picturehouses.com/cinema/duke-s-at-komedia/information",
     phone: "02073262649",
   },
@@ -411,7 +412,7 @@ export const venues = [
     name: "Fabrica",
     type: "Arts venue",
     note: "A striking space for the closing night, with room to add practical visitor guidance later.",
-    address: "40 Duke St, Brighton and Hove, Brighton BN1 1AG",
+    address: "40 Duke St, Brighton BN1 1AG",
     website: "http://fabrica.org.uk/",
     phone: "01273778646",
   },
