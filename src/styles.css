@@ -160,7 +160,9 @@ main {
 .site-footer,
 .about-page {
   padding: 34px;
-  background: hsla(50, 84%, 57%, 0.74);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14)),
+    var(--surface);
 }
 
 .hero {
@@ -198,7 +200,7 @@ main {
 .hero-logo-float {
   position: absolute;
   top: -108px;
-  right: -108px;
+  right: -54px;
   z-index: 6;
   width: min(200px, 30vw);
   height: auto;
@@ -459,8 +461,13 @@ p {
   max-width: 60ch;
 }
 
+.about-page {
+  position: relative;
+  overflow: visible;
+}
+
 .about-link-row {
-  margin: 22px 0 0;
+  margin: 0;
   font-weight: 700;
 }
 
@@ -475,6 +482,16 @@ p {
   line-height: 1.1;
 }
 
+.about-page-logo {
+  position: absolute;
+  top: -92px;
+  right: -32px;
+  z-index: 3;
+  width: min(220px, 30vw);
+  height: auto;
+  pointer-events: none;
+}
+
 .about-hero-image {
   display: block;
   width: 100%;
@@ -483,6 +500,46 @@ p {
   border-radius: 18px;
   border: 1px solid var(--line);
   box-shadow: 0 18px 40px rgba(77, 31, 14, 0.1);
+}
+
+.about-section {
+  margin-top: 30px;
+}
+
+.about-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 14px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.team-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.team-card h2,
+.team-card p {
+  margin: 0;
+}
+
+.team-role {
+  margin-top: 8px !important;
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
+.team-card p:last-child {
+  margin-top: 10px;
 }
 
 .programme-layout {

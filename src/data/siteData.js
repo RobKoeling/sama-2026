@@ -7,21 +7,55 @@ export const festival = {
   dateRange: "15-19 June 2026",
   defaultStartTime: "19:30",
   description:
-    "Join us for the inaugural SAMA Brighton film festival, providing an international platform dedicated to freedom of expression and to amplifying the voices of displaced, diasporic and underrepresented filmmakers. Five nights of features, documentaries and shorts, music and discussion across multiple venues in Brighton and Lewes.",
+    "Join us for the inaugural Sama Brighton film festival, providing an international platform promoting freedom of expression and showcasing displaced, diasporic and underrepresented filmmakers. Five nights of features, documentaries and shorts - plus discussions, music and connection - across multiple venues in Brighton and Lewes.",
   motherFestivalUrl: "https://www.samaiff.com/",
 };
 
 export const about = {
-  title: "SAMA Film Festival",
+  title: "SAMA Brighton Film Festival",
+  eyebrow: "About",
   intro:
-    "This is the Brighton chapter of the SAMA International Film Festival. It focusses on filmmakers from Afghanistan, Iran, Tajikistan, Turkey, India, Kazakhstan, Kyrgyzstan, South Asia, and other underrepresented regions.",
-  imageUrl:
-    "https://impro.usercontent.one/appid/oneComWsb/domain/samaiff.com/media/samaiff.com/onewebmedia/Screenshot%202022-08-18%20at%2014.48.22.png?etag=%22487390-62fe3e84%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=1200%2B938",
+    "A new festival bringing diaspora and underrepresented cinema to Brighton & Hove.",
+  imageUrl: assetPath("Artwork/SAMA west pier artwork.jpg"),
+  logoUrl: assetPath("Artwork/sama-brighton-main-logo-transparent.png"),
   paragraphs: [
-    "SAMAIFF is committed to amplifying cinematic voices from regions and communities that receive limited visibility within Nordic film culture. The Festival highlights works by filmmakers from Afghanistan, Iran, Tajikistan, Turkey, India, Kazakhstan, Kyrgyzstan, South Asia, and other underrepresented regions, while also welcoming European, American, and international filmmakers whose works engage with Asian societies and global cultural narratives. By showcasing diverse perspectives, the Festival promotes cultural exchange, broadens artistic representation, and supports both emerging and established voices in world cinema.",
-    "The Festival is founded on the principles of freedom of expression, democracy, gender equality, respect for children’s rights, and the promotion of the positive values of life. SAMAIFF recognizes cinema as a powerful medium for social reflection and encourages works that engage with urgent global challenges, including the human consequences of war and conflict, displacement and humanitarian crises, environmental sustainability, and social transformation. Through film, the Festival seeks to inspire awareness, dialogue, and deeper understanding across cultures and communities.",
-    "Committed to artistic integrity, SAMAIFF presents films distinguished by strong creative vision, meaningful storytelling, and technical excellence. The Festival values originality in both form and content and supports innovative approaches to cinematic language. While high artistic and technical standards guide the selection process, the Festival also recognizes the importance of socially relevant and compelling narratives, acknowledging that the urgency and impact of a film’s message may at times transcend formal conventions.",
-    "Beyond screenings, SAMAIFF creates a dynamic space for dialogue, exchange, and cultural engagement. The Festival fosters meaningful interaction between filmmakers, audiences, and cultural institutions through discussions, round tables, and public programs that encourage knowledge-sharing, critical reflection, and intercultural understanding. By creating opportunities for conversation and collaboration, the Festival promotes mutual respect, global coexistence, and the continued development of international film culture.",
+    "SAMA Film Festival is an international platform dedicated to amplifying voices shaped by displacement and political violence. Founded in Stockholm 17 years ago, SAMA began with a focus on Afghan cinema and has since grown into a wider showcase for films made under conditions of conflict, censorship and exile. The work presented through SAMA is not defined by geography alone, but also a shared artistic sensibility shaped by restriction, movement, and the persistence of voice.",
+    "The Brighton edition builds on this history while creating a new local encounter. It brings together a curated programme of films previously selected for the annual Stockholm event, along with conversations and public events that invite audiences to immerse themselves in a wider cultural field - one shaped by the emotional and spiritual realities of displacement, violence and repression. A world where survival is not only physical, but also a struggle to hold onto presence, meaning and a sense of self against all odds.",
+    "The festival takes its name from the Sufi practice of sama - deep listening and attentive presence as a path toward understanding. This idea sits at the heart of the festival: cinema as a space of attention, where stories are received with openness, and where perspectives formed under pressure can be meaningfully encountered.",
+    "The festival is delivered by Stories from Nowhere CIC, a Brighton-based platform working across film, storytelling and public cultural programmes. Stories from Nowhere exists to collect, preserve and share narratives shaped by displacement, conflict and systems of exclusion. It creates space for stories that might otherwise remain unseen or unheard, situating the SAMA festival within a wider commitment to memory, presence and freedom of expression.",
+    "It is exciting to be bringing SAMA to Brighton audiences for the first time in 2026. We look forward to meeting you at one of our events. With thanks to our partner venues, artists and designers, and all the other collaborators who have given their energy to making this happen. And particular gratitude to Chalk Cliff Trust and Enjoolata for providing the funds to make it possible.",
+  ],
+  links: [
+    {
+      label: "samaiff.com",
+      url: "https://www.samaiff.com/",
+    },
+    {
+      label: "storiesfromnowhere.org",
+      url: "https://storiesfromnowhere.org/",
+    },
+  ],
+  team: [
+    {
+      name: "Sanjar Qiam",
+      role: "Co-producer",
+      bio: "Sanjar Qiam is the founder and Director of Stories from Nowhere. Sanjar is an artist and storyteller based in Brighton. His work explores memory and freedom of expression, often shaped by lived experience of displacement and conflict.",
+    },
+    {
+      name: "Maddy Ryle",
+      role: "Co-producer",
+      bio: "Maddy is a co-director of Stories from Nowhere. Her background includes communications, campaigning and governance for many nonprofit and community initiatives. She is also a gardener.",
+    },
+    {
+      name: "Alasdair Dawney",
+      role: "Co-producer",
+      bio: "Alasdair works in local venues the Duke of York's cinema and the Rose Hill and has a passion for film, music and making space for underrepresented culture in Brighton.",
+    },
+    {
+      name: "Rob Koeling",
+      role: "Support",
+      bio: "During the day, Rob works as a Data Scientist, but he needs a healthy dose of film and music to keep him sane. He is keen to support any effort to make more space for underrepresented culture in Brighton.",
+    },
   ],
 };
 
@@ -291,11 +325,14 @@ export const programme = [
   {
     id: "2026-06-15",
     dayLabel: "Mon 15 Jun",
+    heroDayLabel: "MON 15 JUN",
     fullDate: "Monday 15 June 2026",
     venue: "Lewes Depot",
     title: "Sima's Song",
+    heroTitle: "Sima’s Song (Afghanistan)",
     filmIds: ["simasSong"],
     startTime: "Time TBC",
+    heroStartTime: "TIME TBC",
     status: "TBC",
     summary: "UK premiere of Sima's Song at Lewes Depot.",
     cardSummary:
@@ -304,12 +341,15 @@ export const programme = [
   {
     id: "2026-06-16",
     dayLabel: "Tue 16 Jun",
+    heroDayLabel: "TUES 16 JUN",
     fullDate: "Tuesday 16 June 2026",
     venue: "Pink Moon",
     title: "Short film night",
+    heroTitle: "Short films from Iran and Afghanistan",
     subtitle: "The Knot + Gap + Wednesday + Bint El Shalabiya + Perfect Restaurant",
     filmIds: ["theKnot", "gap", "wednesday", "bintElShalabiya", "perfectRestaurant"],
     startTime: "Time TBC",
+    heroStartTime: "19:00 DOORS",
     status: "TBC",
     summary:
       "A night of short films bringing poignant, provocative and humorous slices of Afghan and Iranian cinema to the upstairs screen at Brighton’s beloved Pink Moon hangout space.",
@@ -333,11 +373,15 @@ export const programme = [
   {
     id: "2026-06-17",
     dayLabel: "Wed 17 Jun",
+    heroDayLabel: "WED 17 JUN",
     fullDate: "Wednesday 17 June 2026",
     venue: "Rose Hill",
     title: "Champions of the Golden Valley",
+    heroTitle: "Champions of the Golden Valley (Afghanistan)",
     filmIds: ["championsGoldenValley"],
     startTime: "19:00 doors, 19:45 screening",
+    heroStartTime: "19:00 DOORS, 19:45 SCREENING",
+    heroVenue: "",
     status: "Confirmed",
     summary: "",
     detailSummary: "",
@@ -347,11 +391,13 @@ export const programme = [
   {
     id: "2026-06-18",
     dayLabel: "Thu 18 Jun",
+    heroDayLabel: "THURS 18 JUN",
     fullDate: "Thursday 18 June 2026",
     venue: "Duke's at Komedia",
     title: "My Childhood, My Country - 20 Years in Afghanistan",
     filmIds: ["myChildhoodMyCountry"],
     startTime: "19:00",
+    heroStartTime: "19:00",
     status: "Confirmed",
     summary: "",
     detailSummary: "",
@@ -362,11 +408,14 @@ export const programme = [
   {
     id: "2026-06-19",
     dayLabel: "Fri 19 Jun",
+    heroDayLabel: "FRI 19 JUN",
     fullDate: "Friday 19 June 2026",
     venue: "Fabrica",
     title: "Bauryna Salu",
+    heroTitle: "Bauryna Salu (Kazakhstan)",
     filmIds: ["baurynaSalu"],
     startTime: "18:00 doors, 18:30 screening",
+    heroStartTime: "18:00 DOORS, 18.30 SCREENING",
     status: "Confirmed",
     summary: "",
     cardSummary:

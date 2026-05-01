@@ -38,9 +38,10 @@ function AboutPage() {
 
       <main>
         <section className="about-page panel">
+          <img className="about-page-logo" src={about.logoUrl} alt="SAMA Brighton main logo" />
           <img className="about-hero-image" src={about.imageUrl} alt="SAMA festival about page artwork" />
           <div className="section-heading">
-            <p className="eyebrow">About</p>
+            <p className="eyebrow">{about.eyebrow}</p>
             <h1 className="about-title">{about.title}</h1>
             <p>{about.intro}</p>
           </div>
@@ -51,14 +52,50 @@ function AboutPage() {
             ))}
           </div>
 
-          <p className="about-link-row">
-            Mother festival:
-            {" "}
-            <a href={festival.motherFestivalUrl} target="_blank" rel="noreferrer">
-              {festival.motherFestivalUrl}
-            </a>
-          </p>
+          <section className="about-section">
+            <p className="eyebrow">See More</p>
+            <div className="about-links-list">
+              {about.links.map((link) => (
+                <p key={link.url} className="about-link-row">
+                  <a href={link.url} target="_blank" rel="noreferrer">
+                    {link.label}
+                  </a>
+                </p>
+              ))}
+            </div>
+          </section>
+
+          <section className="about-section">
+            <p className="eyebrow">Production Team</p>
+            <div className="team-grid">
+              {about.team.map((member) => (
+                <article key={member.name} className="team-card">
+                  <h2>{member.name}</h2>
+                  <p className="team-role">{member.role}</p>
+                  <p>{member.bio}</p>
+                </article>
+              ))}
+            </div>
+          </section>
         </section>
+
+        <footer className="site-footer panel">
+          <p className="footer-thanks">
+            With thanks to Chalk Cliff Trust and Enjoolata Foundation for their generous support
+          </p>
+          <div className="funder-logos" aria-label="Funder logos">
+            <img
+              className="funder-logo funder-logo-chalk"
+              src={`${import.meta.env.BASE_URL}Artwork/chalk-cliff-trust-logo-rgb_full-colour.png`}
+              alt="Chalk Cliff Trust logo"
+            />
+            <img
+              className="funder-logo funder-logo-enjoolata"
+              src={`${import.meta.env.BASE_URL}Artwork/enjoolata-logo-solid-PRINTING.png`}
+              alt="Enjoolata Foundation logo"
+            />
+          </div>
+        </footer>
       </main>
     </div>
   );

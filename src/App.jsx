@@ -9,27 +9,67 @@ const socialBase = {
 
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
 
-const heroStills = [
-  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_01.jpeg",
-  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_02.jpeg",
-  "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_03.jpeg",
-  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%201%20-%20BAURYNA%20SALU.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%202%20-%20BAURYNA%20SALU.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%203%20-%20BAURYNA%20SALU%20%281%29.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20Main%20pic_SimasSong01%C2%A9Ton%20Peters.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong02%C2%A9Ton%20Peters.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong03%C2%A9Ton%20Peters.JPG",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong04%C2%A9Ton%20Peters.JPG",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong05%C2%A9Ton%20Peters.JPG",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong06%C2%A9Ton%20Peters.JPG",
-  "Film_Materials/Film_Stills/Copy%20of%20SimasSong07%C2%A9Ton%20Peters.JPG",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045115_y.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045128_y.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045163_y.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045164_y.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045165_y.jpg",
-  "Film_Materials/Film_Stills/Copy%20of%20photo_5936062553522291748_y.jpg",
+const interleaveGroups = (groups) => {
+  const queues = groups.map((group) => [...group]).filter((group) => group.length > 0);
+  const mixed = [];
+
+  while (queues.some((group) => group.length > 0)) {
+    for (const group of queues) {
+      if (group.length > 0) {
+        mixed.push(group.shift());
+      }
+    }
+  }
+
+  return mixed;
+};
+
+const heroStillGroups = [
+  [
+    "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_01.jpeg",
+    "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_02.jpeg",
+    "Film_Materials/Film_Stills/Copy%20of%20CHAMPIONSOFTHEGOLDENVALLEY_03.jpeg",
+  ],
+  [
+    "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%201%20-%20BAURYNA%20SALU.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%202%20-%20BAURYNA%20SALU.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20Copy%20of%20Still%203%20-%20BAURYNA%20SALU%20%281%29.jpg",
+  ],
+  [
+    "Film_Materials/Film_Stills/Copy%20of%20Main%20pic_SimasSong01%C2%A9Ton%20Peters.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong02%C2%A9Ton%20Peters.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong03%C2%A9Ton%20Peters.JPG",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong04%C2%A9Ton%20Peters.JPG",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong05%C2%A9Ton%20Peters.JPG",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong06%C2%A9Ton%20Peters.JPG",
+    "Film_Materials/Film_Stills/Copy%20of%20SimasSong07%C2%A9Ton%20Peters.JPG",
+  ],
+  [
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045115_y.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045128_y.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045163_y.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045164_y.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045165_y.jpg",
+    "Film_Materials/Film_Stills/Copy%20of%20photo_5936062553522291748_y.jpg",
+  ],
+  [
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image1%20%281%29.jpeg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image5%20%281%29.jpeg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image6.jpeg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image7.jpeg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image8.jpeg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/The%20Knot/The%20Knot%20film%20stills/Copy%20of%20image9.jpeg",
+  ],
+  [
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/SAMA%20logo%20and%20artwork/Copy%20of%20SAMA%20west%20pier%20artwork.jpg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/SAMA%20logo%20and%20artwork/Copy%20of%20SAMA%20pavilion%20artwork.jpg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/SAMA%20logo%20and%20artwork/Copy%20of%20SAMA%20palace%20pier%20artwork%202.jpg",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/SAMA%20logo%20and%20artwork/Copy%20of%20SAMA%20Cat%202.png",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/SAMA%20logo%20and%20artwork/Copy%20of%20SAMA%20Cat%204.png",
+  ],
 ];
+
+const heroStills = interleaveGroups(heroStillGroups);
 
 function DirectorCredits({ film }) {
   const credits = film.directorCredits ?? [{ name: film.director }];
@@ -132,7 +172,7 @@ function App() {
               />
             </div>
             <p className="hero-text">
-              {festival.dateRange} in {festival.city}. {festival.description}
+              {festival.dateRange}. {festival.description}
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#programme">
@@ -151,7 +191,7 @@ function App() {
           />
 
           <aside className="hero-panel">
-            <p className="panel-label">Festival Week</p>
+            <p className="panel-label">Festival Week - Buy Tickets</p>
             <ul className="hero-dates">
               {programme.map((event) => (
                 <li key={event.id}>
@@ -161,10 +201,12 @@ function App() {
                     onClick={() => selectEvent(event.id)}
                   >
                     <span>
-                      {event.dayLabel} • {event.startTime}
+                      {event.heroDayLabel ?? event.dayLabel} • {event.heroStartTime ?? event.startTime}
                     </span>
-                    <strong>{event.title}</strong>
-                    <small className="day-pill-venue">{event.venue}</small>
+                    <strong>{event.heroTitle ?? event.title}</strong>
+                    {(event.heroVenue ?? event.venue) ? (
+                      <small className="day-pill-venue">{event.heroVenue ?? event.venue}</small>
+                    ) : null}
                   </button>
                 </li>
               ))}
