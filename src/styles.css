@@ -70,7 +70,8 @@ body::before {
 .brand-year,
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Fraunces", Georgia, serif;
 }
 
@@ -249,6 +250,10 @@ h2 {
 
 h3 {
   font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
 }
 
 p {
@@ -516,17 +521,21 @@ p {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-top: 14px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .team-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
 }
 
-.team-card h2,
+.team-card h3,
+.team-card h4,
 .team-card p {
   margin: 0;
 }
@@ -544,10 +553,6 @@ p {
 .team-card-support {
   max-width: calc(((100% - 28px) / 3) * 0.75);
   padding: 14px;
-}
-
-.team-card-support h2 {
-  font-size: 1.5rem;
 }
 
 .team-card-support .team-role,

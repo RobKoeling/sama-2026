@@ -68,16 +68,21 @@ function AboutPage() {
           <section className="about-section">
             <p className="eyebrow">Production Team</p>
             <div className="team-grid">
-              {about.team.map((member) => (
-                <article
-                  key={member.name}
-                  className={`team-card${member.role === "Support" ? " team-card-support" : ""}`}
-                >
-                  <h2>{member.name}</h2>
-                  <p className="team-role">{member.role}</p>
-                  <p>{member.bio}</p>
-                </article>
-              ))}
+              {about.team.map((member) => {
+                const isSupport = member.role === "Support";
+                const NameTag = isSupport ? "h4" : "h3";
+
+                return (
+                  <article
+                    key={member.name}
+                    className={`team-card${isSupport ? " team-card-support" : ""}`}
+                  >
+                    <NameTag>{member.name}</NameTag>
+                    <p className="team-role">{member.role}</p>
+                    <p>{member.bio}</p>
+                  </article>
+                );
+              })}
             </div>
           </section>
         </section>
