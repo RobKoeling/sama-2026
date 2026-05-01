@@ -69,7 +69,10 @@ function AboutPage() {
             <p className="eyebrow">Production Team</p>
             <div className="team-grid">
               {about.team.map((member) => (
-                <article key={member.name} className="team-card">
+                <article
+                  key={member.name}
+                  className={`team-card${member.role === "Support" ? " team-card-support" : ""}`}
+                >
                   <h2>{member.name}</h2>
                   <p className="team-role">{member.role}</p>
                   <p>{member.bio}</p>

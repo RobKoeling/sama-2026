@@ -135,7 +135,7 @@ function App() {
     <div className="app-shell">
       <header className="site-header">
         <a className="brand" href="#top" aria-label={`${festival.name} home`}>
-          <span className="brand-mark">SAMA</span>
+          <span className="brand-mark">Sama Brighton</span>
           <span className="brand-year">2026</span>
         </a>
         <button

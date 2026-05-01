@@ -29,10 +29,7 @@ body {
   min-width: 320px;
   color: var(--ink);
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(var(--bg-rgb), 0.78), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(200, 77, 31, 0.16), transparent 22%),
-    linear-gradient(180deg, #fff4a6 0%, var(--bg) 100%);
+  background: linear-gradient(90deg, #fff6bf 0%, #fbe67f 100%);
 }
 
 body::before {
@@ -83,11 +80,12 @@ h3 {
 }
 
 .brand-mark {
-  font-size: 1.35rem;
+  font-size: 1.52rem;
   letter-spacing: 0.08em;
 }
 
 .brand-year {
+  font-size: 1.17rem;
   color: var(--accent-deep);
 }
 
@@ -515,9 +513,10 @@ p {
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-top: 14px;
+  align-items: start;
 }
 
 .team-card {
@@ -540,6 +539,30 @@ p {
 
 .team-card p:last-child {
   margin-top: 10px;
+}
+
+.team-card-support {
+  max-width: calc(((100% - 28px) / 3) * 0.75);
+  padding: 14px;
+}
+
+.team-card-support h2 {
+  font-size: 1.5rem;
+}
+
+.team-card-support .team-role,
+.team-card-support p:last-child {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-card-support {
+    max-width: none;
+  }
 }
 
 .programme-layout {
