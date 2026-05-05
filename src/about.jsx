@@ -11,9 +11,10 @@ function AboutPage() {
     <div className="app-shell">
       <header className="site-header">
         <a className="brand" href="index.html" aria-label={`${festival.name} home`}>
-          <span className="brand-mark">SAMA</span>
+          <span className="brand-mark">Sama Brighton</span>
           <span className="brand-year">2026</span>
         </a>
+        <p className="site-notice">Still under construction</p>
         <button
           type="button"
           className="nav-toggle"

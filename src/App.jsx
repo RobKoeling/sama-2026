@@ -138,6 +138,7 @@ function App() {
           <span className="brand-mark">Sama Brighton</span>
           <span className="brand-year">2026</span>
         </a>
+        <p className="site-notice">Still under construction</p>
         <button
           type="button"
           className="nav-toggle"
@@ -195,19 +196,31 @@ function App() {
             <ul className="hero-dates">
               {programme.map((event) => (
                 <li key={event.id}>
-                  <button
-                    type="button"
-                    className={event.id === selectedEvent.id ? "day-pill is-active" : "day-pill"}
-                    onClick={() => selectEvent(event.id)}
-                  >
-                    <span>
-                      {event.heroDayLabel ?? event.dayLabel} • {event.heroStartTime ?? event.startTime}
-                    </span>
-                    <strong>{event.heroTitle ?? event.title}</strong>
-                    {(event.heroVenue ?? event.venue) ? (
-                      <small className="day-pill-venue">{event.heroVenue ?? event.venue}</small>
+                  <div className={event.id === selectedEvent.id ? "day-pill is-active" : "day-pill"}>
+                    <button type="button" className="day-pill-content" onClick={() => selectEvent(event.id)}>
+                      <span>
+                        {event.heroDayLabel ?? event.dayLabel} • {event.heroStartTime ?? event.startTime}
+                      </span>
+                      <strong>{event.heroTitle ?? event.title}</strong>
+                      {(event.heroVenue ?? event.venue) ? (
+                        <small className="day-pill-venue">{event.heroVenue ?? event.venue}</small>
+                      ) : null}
+                    </button>
+                    {event.ticketUrl ? (
+                      <a
+                        className="button button-secondary hero-ticket-button"
+                        href={event.ticketUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Tickets
+                      </a>
+                    ) : event.ticketPending ? (
+                      <button type="button" className="button button-secondary hero-ticket-button is-disabled" disabled>
+                        Tickets
+                      </button>
                     ) : null}
-                  </button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -339,7 +352,19 @@ function App() {
                   <p className="focus-meta">
                     {selectedEvent.fullDate} at {selectedEvent.startTime}
                   </p>
-                  <p className="focus-meta">{selectedEvent.venue}</p>
+                  <div className="focus-meta-row">
+                    <p className="focus-meta">{selectedEvent.venue}</p>
+                    {selectedEvent.ticketUrl ? (
+                      <a
+                        className="button button-secondary focus-ticket-button"
+                        href={selectedEvent.ticketUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Tickets
+                      </a>
+                    ) : null}
+                  </div>
                   {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
                   {selectedEvent.detailSummary ?? selectedEvent.summary ? (
                     <p>{selectedEvent.detailSummary ?? selectedEvent.summary}</p>
@@ -526,36 +551,7 @@ function App() {
         <section id="news" className="news panel">
           <div className="section-heading">
             <p className="eyebrow">News + Social</p>
-            <h2>Prepared for share actions and publishing workflows</h2>
-            <p>
-              The frontend can already render structured news items and generate share actions.
-              Actual automated posting will need a CMS, backend, or automation layer connected later.
-            </p>
-          </div>
-          <div className="news-grid">
-            {newsItems.map((item) => {
-              const shareText = encodeURIComponent(`${festival.name}: ${item.title}`);
-              const shareUrl = encodeURIComponent("https://sama2026.example/news");
-
-              return (
-                <article key={item.id} className="news-card">
-                  <p className="news-category">{item.category}</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.summary}</p>
-                  <div className="share-row">
-                    <a href={`${socialBase.x}${shareText}`} target="_blank" rel="noreferrer">
-                      Share to X
-                    </a>
-                    <a href={`${socialBase.facebook}${shareUrl}`} target="_blank" rel="noreferrer">
-                      Facebook
-                    </a>
-                    <a href={`${socialBase.linkedin}${shareUrl}`} target="_blank" rel="noreferrer">
-                      LinkedIn
-                    </a>
-                  </div>
-                </article>
-              );
-            })}
+            <p className="section-placeholder">Under construction</p>
           </div>
         </section>
 
@@ -567,15 +563,12 @@ function App() {
               <a className="button button-secondary" href="mailto:hello@sama2026.com">
                 Email
               </a>
-              <a className="button button-secondary" href="https://twitter.com" target="_blank" rel="noreferrer">
-                Twitter
-              </a>
-              <a className="button button-secondary" href="https://instagram.com" target="_blank" rel="noreferrer">
+              <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer">
                 Instagram
               </a>
-              <a className="button button-secondary" href="https://facebook.com" target="_blank" rel="noreferrer">
+              <span className="button button-secondary is-disabled" aria-disabled="true">
                 Facebook
-              </a>
+              </span>
             </div>
             <a className="button button-primary" href="mailto:hello@sama2026.com">
               Contact Festival Team

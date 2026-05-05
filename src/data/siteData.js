@@ -295,10 +295,6 @@ export const films = {
         text: "One day I saw a foreigner and an Afghan holding what I now know is a camera. I looked at this strange machine and this strange machine looked at me and kept looking.",
         source: "Mir Hussein",
       },
-      {
-        type: "paragraph",
-        text: "Another sentence blah blah blah an epic tale comparable to linklaters boyhood blah bla",
-      },
       { type: "meta", text: "Dir. Phil Grabsky, Shoaib Shafiri, 2021, 1h30m" },
       { type: "label", text: "Awards" },
     ],
@@ -331,8 +327,9 @@ export const programme = [
     title: "Sima's Song",
     heroTitle: "Sima’s Song (Afghanistan)",
     filmIds: ["simasSong"],
-    startTime: "Time TBC",
-    heroStartTime: "TIME TBC",
+    startTime: "17.30",
+    heroStartTime: "17.30",
+    ticketUrl: "https://lewesdepot.org/film/simas-song",
     status: "TBC",
     summary: "UK premiere of Sima's Song at Lewes Depot.",
     cardSummary:
@@ -348,8 +345,9 @@ export const programme = [
     heroTitle: "Short films from Iran and Afghanistan",
     subtitle: "The Knot + Gap + Wednesday + Bint El Shalabiya + Perfect Restaurant",
     filmIds: ["theKnot", "gap", "wednesday", "bintElShalabiya", "perfectRestaurant"],
-    startTime: "Time TBC",
+    startTime: "19.00",
     heroStartTime: "19:00 DOORS",
+    ticketPending: true,
     status: "TBC",
     summary:
       "A night of short films bringing poignant, provocative and humorous slices of Afghan and Iranian cinema to the upstairs screen at Brighton’s beloved Pink Moon hangout space.",
@@ -381,7 +379,9 @@ export const programme = [
     filmIds: ["championsGoldenValley"],
     startTime: "19:00 doors, 19:45 screening",
     heroStartTime: "19:00 DOORS, 19:45 SCREENING",
-    heroVenue: "",
+    heroVenue: "Rose Hill",
+    ticketUrl:
+      "https://therosehill.co.uk/event/sama-brighton-champions-of-the-golden-valley-part-of-brightons-first-afghani-film-festival/",
     status: "Confirmed",
     summary: "",
     detailSummary: "",
@@ -398,6 +398,8 @@ export const programme = [
     filmIds: ["myChildhoodMyCountry"],
     startTime: "19:00",
     heroStartTime: "19:00",
+    ticketUrl:
+      "https://www.picturehouses.com/movie-details/019/HO00018005/my-childhood-my-country-20-years-in-afghanistan?filter=",
     status: "Confirmed",
     summary: "",
     detailSummary: "",
@@ -416,6 +418,7 @@ export const programme = [
     filmIds: ["baurynaSalu"],
     startTime: "18:00 doors, 18:30 screening",
     heroStartTime: "18:00 DOORS, 18.30 SCREENING",
+    ticketPending: true,
     status: "Confirmed",
     summary: "",
     cardSummary:
