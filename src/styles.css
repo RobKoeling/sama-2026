@@ -375,6 +375,11 @@ p {
     linear-gradient(135deg, rgba(246, 168, 95, 0.2), rgba(200, 77, 31, 0.18));
 }
 
+.hero-panel {
+  width: calc(100% - 10mm);
+  margin-left: -3mm;
+}
+
 .panel-label {
   margin: 0 0 14px;
   font-weight: 800;
@@ -406,6 +411,7 @@ p {
   gap: 10px;
   align-items: center;
   padding: 14px;
+  width: calc(100% - 10mm);
   border-radius: var(--radius-md);
   background: rgba(255, 248, 240, 0.56);
   transition: transform 180ms ease, background 180ms ease;

@@ -51,7 +51,12 @@ const heroStillGroups = [
     "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045163_y.jpg",
     "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045164_y.jpg",
     "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045165_y.jpg",
-    "Film_Materials/Film_Stills/Copy%20of%20photo_5936062553522291748_y.jpg",
+  ],
+  [
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/119%20-%20August%2002%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20IN%20BAMIYAN%20(key%20image)%20-%20%E2%94%AC%E2%8C%90SeventhArtProductions-preview.webp",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/382%20-%20April%202008%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20WITH%20GOAT%20-%20%C2%A9SeventhArtProductions-preview.webp",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/451%20-%20June%202009%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20WORKING%20AT%20COALMINE%20-%20%C2%A9SeventhArtProductions-preview.webp",
+    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/QUAD_final%20copy-preview.webp",
   ],
   [
     "Film_Materials/Film_Stills/the-knot-01.jpeg",
