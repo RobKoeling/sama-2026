@@ -93,6 +93,33 @@ function DirectorCredits({ film }) {
   );
 }
 
+function NoteContent({ note }) {
+  if (!note) {
+    return null;
+  }
+
+  if (typeof note === "string") {
+    return <p>{note}</p>;
+  }
+
+  const className = [
+    note.emphasis === "strong" ? "note-strong" : "",
+    note.emphasis === "italic" ? "note-italic" : "",
+  ].filter(Boolean).join(" ");
+
+  return (
+    <p className={className}>
+      {note.prefix ?? ""}
+      {note.link ? (
+        <a href={note.link.url} target="_blank" rel="noreferrer">
+          {note.link.label}
+        </a>
+      ) : null}
+      {note.suffix ?? ""}
+    </p>
+  );
+}
+
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -357,7 +384,10 @@ function App() {
                     {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
                       <div className="film-programme-notes">
                         {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
-                          <p key={note}>{note}</p>
+                          <NoteContent
+                            key={typeof note === "string" ? note : `${note.prefix ?? ""}-${note.link?.label ?? ""}`}
+                            note={note}
+                          />
                         ))}
                       </div>
                     ) : null}
@@ -449,7 +479,7 @@ function App() {
                   {selectedEvent.programmeNotes?.length ? (
                     <div className="film-programme-notes">
                       {selectedEvent.programmeNotes.map((note) => (
-                        <p key={note}>{note}</p>
+                        <NoteContent key={typeof note === "string" ? note : `${note.prefix}-${note.link?.label ?? ""}`} note={note} />
                       ))}
                     </div>
                   ) : null}
@@ -490,6 +520,7 @@ function App() {
                       <>
                         <p className="film-director">
                           Directed by <DirectorCredits film={primaryFilm} />
+                          {primaryFilm.directorMeta ? ` ${primaryFilm.directorMeta}` : ""}
                         </p>
                         {primaryFilm.description ? <p>{primaryFilm.description}</p> : null}
                         {primaryFilm.detailFlowBlocks?.length ? (
@@ -517,7 +548,7 @@ function App() {
                         {primaryFilm.programmeNotes?.length ? (
                           <div className="film-programme-notes">
                             {primaryFilm.programmeNotes.map((note) => (
-                              <p key={note}>{note}</p>
+                              <NoteContent key={typeof note === "string" ? note : `${note.prefix}-${note.link?.label ?? ""}`} note={note} />
                             ))}
                           </div>
                         ) : null}
@@ -568,6 +599,7 @@ function App() {
                         <p className="film-director">{film.title}</p>
                         <p className="short-director">
                           Directed by <DirectorCredits film={film} />
+                          {film.directorMeta ? ` ${film.directorMeta}` : ""}
                         </p>
                         <p>{film.description}</p>
                         {film.trailerEmbedUrl ? (

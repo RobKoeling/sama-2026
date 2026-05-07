@@ -1078,6 +1078,14 @@ p {
   color: var(--muted);
 }
 
+.note-strong {
+  font-weight: 800;
+}
+
+.note-italic {
+  font-style: italic;
+}
+
 .site-footer {
   text-align: center;
 }
