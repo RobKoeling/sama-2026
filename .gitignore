@@ -1,3 +1,10 @@
 node_modules/
 dist/
+.env
+.env.local
+public/SAMA2026_Marketing/
+public/GCloud_clientID.txt
+rclone-sync.log
+venues.txt
 .DS_Store
+supabase_details.txt

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
+import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
 
 const socialBase = {
   x: "https://twitter.com/intent/tweet?text=",
@@ -96,13 +97,25 @@ function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [heroStillIndex, setHeroStillIndex] = useState(0);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [signupName, setSignupName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupError, setSignupError] = useState("");
+  const [signupStatus, setSignupStatus] = useState("");
+  const [isSubmittingSignup, setIsSubmittingSignup] = useState(false);
   const focusCardRef = useRef(null);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
   const heroStill = heroStills[heroStillIndex];
+  const signupConfigured = isSignupConfigured();
   const closeMenu = () => setIsMenuOpen(false);
+  const closeSignup = () => {
+    setIsSignupOpen(false);
+    setSignupError("");
+    setSignupStatus("");
+  };
   const selectEvent = (eventId, { scrollToDetails = false } = {}) => {
     setSelectedEventId(eventId);
 
@@ -117,6 +130,46 @@ function App() {
     window.requestAnimationFrame(() => {
       focusCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  };
+
+  const handleSignupSubmit = async (event) => {
+    event.preventDefault();
+
+    const email = signupEmail.trim();
+    const name = signupName.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    setSignupError("");
+    setSignupStatus("");
+
+    if (!emailPattern.test(email)) {
+      setSignupError("Please enter a valid email address.");
+      return;
+    }
+
+    setIsSubmittingSignup(true);
+
+    try {
+      await submitEmailSignup({ email, name });
+      setSignupStatus("Thanks. You’re signed up for email updates.");
+      setSignupName("");
+      setSignupEmail("");
+    } catch (error) {
+      const duplicateSignup =
+        error?.code === "23505" ||
+        error?.message?.toLowerCase().includes("duplicate key") ||
+        error?.details?.toLowerCase().includes("already exists");
+
+      if (!signupConfigured) {
+        setSignupError("Signup is not connected yet. Add the Supabase project keys to enable submissions.");
+      } else if (duplicateSignup) {
+        setSignupError("That email address is already signed up.");
+      } else {
+        setSignupError("We couldn’t save your signup right now. Please try again.");
+      }
+    } finally {
+      setIsSubmittingSignup(false);
+    }
   };
 
   useEffect(() => {
@@ -560,7 +613,7 @@ function App() {
             <p className="eyebrow">Contact</p>
             <h2>Connect with SAMA Brighton</h2>
             <div className="contact-actions">
-              <a className="button button-secondary" href="mailto:hello@sama2026.com">
+              <a className="button button-secondary" href="mailto:brightonsama@proton.me">
                 Email
               </a>
               <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer">
@@ -570,9 +623,14 @@ function App() {
                 Facebook
               </span>
             </div>
-            <a className="button button-primary" href="mailto:hello@sama2026.com">
-              Contact Festival Team
-            </a>
+            <div className="contact-cta-row">
+              <a className="button button-primary" href="mailto:brightonsama@proton.me">
+                Contact Festival Team
+              </a>
+              <button type="button" className="button button-primary button-inline" onClick={() => setIsSignupOpen(true)}>
+                Sign Up For Updates
+              </button>
+            </div>
           </div>
         </section>
 
@@ -594,6 +652,72 @@ function App() {
           </div>
         </footer>
       </main>
+      {isSignupOpen ? (
+        <div className="modal-backdrop" role="presentation" onClick={closeSignup}>
+          <div
+            className="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="signup-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="modal-header">
+              <div>
+                <p className="eyebrow">Email Updates</p>
+                <h3 id="signup-modal-title">Sign up for SAMA Brighton news</h3>
+              </div>
+              <button type="button" className="modal-close" onClick={closeSignup} aria-label="Close signup form">
+                Close
+              </button>
+            </div>
+            <p className="modal-copy">
+              Leave your email address below, and optionally your name, to hear about festival updates.
+            </p>
+            <form className="signup-form" onSubmit={handleSignupSubmit}>
+              <label className="signup-field" htmlFor="signup-email">
+                Email address
+                <input
+                  id="signup-email"
+                  name="email"
+                  type="email"
+                  value={signupEmail}
+                  onChange={(event) => setSignupEmail(event.target.value)}
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  required
+                />
+              </label>
+              <label className="signup-field" htmlFor="signup-name">
+                Name
+                <input
+                  id="signup-name"
+                  name="name"
+                  type="text"
+                  value={signupName}
+                  onChange={(event) => setSignupName(event.target.value)}
+                  placeholder="Optional"
+                  autoComplete="name"
+                />
+              </label>
+              {signupError ? <p className="signup-message signup-message-error">{signupError}</p> : null}
+              {signupStatus ? <p className="signup-message signup-message-success">{signupStatus}</p> : null}
+              {!signupConfigured ? (
+                <p className="signup-helper">
+                  Supabase integration point is ready, but project keys still need to be added before submissions can be saved.
+                </p>
+              ) : null}
+              <div className="signup-actions">
+                <button type="submit" className="button button-primary" disabled={isSubmittingSignup}>
+                  {isSubmittingSignup ? "Submitting..." : "Submit"}
+                </button>
+                <button type="button" className="button button-secondary" onClick={closeSignup}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

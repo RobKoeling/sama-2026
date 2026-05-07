@@ -1,0 +1,38 @@
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const signupEndpoint = supabaseUrl ? `${supabaseUrl}/rest/v1/email_signups` : "";
+
+export const isSignupConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
+
+export const submitEmailSignup = async ({ email, name }) => {
+  if (!isSignupConfigured()) {
+    throw new Error("Signup backend not configured yet.");
+  }
+
+  const payload = {
+    email,
+    name: name?.trim() || null,
+  };
+
+  const response = await fetch(signupEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: supabaseAnonKey,
+      Authorization: `Bearer ${supabaseAnonKey}`,
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw {
+      status: response.status,
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    };
+  }
+};
