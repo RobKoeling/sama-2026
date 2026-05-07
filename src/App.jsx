@@ -98,6 +98,8 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [heroStillIndex, setHeroStillIndex] = useState(0);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [contactTarget, setContactTarget] = useState(null);
+  const [copiedContactEmail, setCopiedContactEmail] = useState("");
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupError, setSignupError] = useState("");
@@ -111,6 +113,14 @@ function App() {
   const heroStill = heroStills[heroStillIndex];
   const signupConfigured = isSignupConfigured();
   const closeMenu = () => setIsMenuOpen(false);
+  const openContactModal = (target) => {
+    setContactTarget(target);
+    setCopiedContactEmail("");
+  };
+  const closeContactModal = () => {
+    setContactTarget(null);
+    setCopiedContactEmail("");
+  };
   const closeSignup = () => {
     setIsSignupOpen(false);
     setSignupError("");
@@ -130,6 +140,20 @@ function App() {
     window.requestAnimationFrame(() => {
       focusCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  };
+
+  const handleCopyContactEmail = async (emailAddress) => {
+    if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
+      setCopiedContactEmail("");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      setCopiedContactEmail(emailAddress);
+    } catch {
+      setCopiedContactEmail("");
+    }
   };
 
   const handleSignupSubmit = async (event) => {
@@ -613,9 +637,18 @@ function App() {
             <p className="eyebrow">Contact</p>
             <h2>Connect with SAMA Brighton</h2>
             <div className="contact-actions">
-              <a className="button button-secondary" href="mailto:brightonsama@proton.me">
+              <button
+                type="button"
+                className="button button-secondary button-inline"
+                onClick={() =>
+                  openContactModal({
+                    label: "Sama Brighton",
+                    email: "brightonsama@proton.me",
+                  })
+                }
+              >
                 Email
-              </a>
+              </button>
               <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer">
                 Instagram
               </a>
@@ -624,9 +657,30 @@ function App() {
               </span>
             </div>
             <div className="contact-cta-row">
-              <a className="button button-primary" href="mailto:brightonsama@proton.me">
+              <button
+                type="button"
+                className="button button-primary button-inline"
+                onClick={() =>
+                  openContactModal({
+                    label: "Sama Brighton",
+                    email: "brightonsama@proton.me",
+                  })
+                }
+              >
                 Contact Festival Team
-              </a>
+              </button>
+              <button
+                type="button"
+                className="button button-primary button-inline"
+                onClick={() =>
+                  openContactModal({
+                    label: "Stories from Nowhere",
+                    email: "hello@storiesfromnowhere.org",
+                  })
+                }
+              >
+                Contact Stories from Nowhere
+              </button>
               <button type="button" className="button button-primary button-inline" onClick={() => setIsSignupOpen(true)}>
                 Sign Up For Updates
               </button>
@@ -652,6 +706,46 @@ function App() {
           </div>
         </footer>
       </main>
+      {contactTarget ? (
+        <div className="modal-backdrop" role="presentation" onClick={closeContactModal}>
+          <div
+            className="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="modal-header">
+              <div>
+                <p className="eyebrow">Contact</p>
+                <h3 id="contact-modal-title">Contact {contactTarget.label}</h3>
+              </div>
+              <button type="button" className="modal-close" onClick={closeContactModal} aria-label="Close contact details">
+                Close
+              </button>
+            </div>
+            <p className="modal-copy">
+              Use the email address below to get in touch.
+            </p>
+            <div className="contact-modal-card">
+              <p className="contact-modal-label">Email address</p>
+              <p className="contact-modal-email">{contactTarget.email}</p>
+              <div className="signup-actions">
+                <button
+                  type="button"
+                  className="button button-primary button-inline"
+                  onClick={() => handleCopyContactEmail(contactTarget.email)}
+                >
+                  Copy email address
+                </button>
+              </div>
+              {copiedContactEmail === contactTarget.email ? (
+                <p className="signup-message signup-message-success">Email address copied.</p>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
       {isSignupOpen ? (
         <div className="modal-backdrop" role="presentation" onClick={closeSignup}>
           <div

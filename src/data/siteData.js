@@ -12,18 +12,20 @@ export const festival = {
 };
 
 export const about = {
-  title: "SAMA Brighton Film Festival",
+  title: "Sama Brighton Film Festival",
   eyebrow: "About",
   intro:
-    "A new festival bringing diaspora and underrepresented cinema to Brighton & Hove.",
+    "A new festival bringing diasporic and underrepresented cinema to Brighton\u00a0&\u00a0Hove.",
   imageUrl: assetPath("Artwork/SAMA west pier artwork.jpg"),
   logoUrl: assetPath("Artwork/sama-brighton-main-logo-transparent.png"),
   paragraphs: [
-    "SAMA Film Festival is an international platform dedicated to amplifying voices shaped by displacement and political violence. Founded in Stockholm 17 years ago, SAMA began with a focus on Afghan cinema and has since grown into a wider showcase for films made under conditions of conflict, censorship and exile. The work presented through SAMA is not defined by geography alone, but also a shared artistic sensibility shaped by restriction, movement, and the persistence of voice.",
-    "The Brighton edition builds on this history while creating a new local encounter. It brings together a curated programme of films previously selected for the annual Stockholm event, along with conversations and public events that invite audiences to immerse themselves in a wider cultural field - one shaped by the emotional and spiritual realities of displacement, violence and repression. A world where survival is not only physical, but also a struggle to hold onto presence, meaning and a sense of self against all odds.",
-    "The festival takes its name from the Sufi practice of sama - deep listening and attentive presence as a path toward understanding. This idea sits at the heart of the festival: cinema as a space of attention, where stories are received with openness, and where perspectives formed under pressure can be meaningfully encountered.",
-    "The festival is delivered by Stories from Nowhere CIC, a Brighton-based platform working across film, storytelling and public cultural programmes. Stories from Nowhere exists to collect, preserve and share narratives shaped by displacement, conflict and systems of exclusion. It creates space for stories that might otherwise remain unseen or unheard, situating the SAMA festival within a wider commitment to memory, presence and freedom of expression.",
-    "It is exciting to be bringing SAMA to Brighton audiences for the first time in 2026. We look forward to meeting you at one of our events. With thanks to our partner venues, artists and designers, and all the other collaborators who have given their energy to making this happen. And particular gratitude to Chalk Cliff Trust and Enjoolata for providing the funds to make it possible.",
+    "Sama Film Festival is an international platform dedicated to amplifying voices shaped by displacement and political violence. Founded in Stockholm 17 years ago, Sama began with a focus on Afghan cinema and has since grown into a wider showcase for films made under conditions of conflict, censorship and exile.",
+    "The work presented through Sama is not defined by geography alone, but also motivated by a shared artistic sensibility informed by restriction and movement, and highlighting the persistence of voice.",
+    "The first Brighton edition takes place during Refugee Week, and brings Sama to new surroundings, with a multi-venue programme taking advantage of the diverse screening spaces Brighton and Lewes have to offer.",
+    "We have put together films previously selected for the annual Stockholm event, alongside conversations and public events that invite audiences to immerse themselves in a wider cultural field - one shaped by the emotional and spiritual realities of displacement, violence and repression. A world where survival is not only physical, but also a struggle to hold onto expressive presence, meaning and a sense of self against all odds.",
+    "The festival takes its name from the Sufi practice of sama - deep listening and attentive presence as a path towards understanding. This idea sits at the heart of the festival: cinema as a space of attention, where stories are received with openness and perspectives formed under duress can be meaningfully encountered.",
+    "The festival is delivered by Stories from Nowhere CIC, a Brighton-based platform working across film, storytelling and public cultural programmes. Stories from Nowhere exists to collect, preserve and share narratives shaped by displacement, conflict and systems of exclusion.",
+    "It is exciting to be bringing Sama to Brighton audiences for the first time in 2026. We look forward to meeting you at one of our events. With thanks to our partner venues, artists and designers, and all the other collaborators who have given their energy to making this happen. And particular gratitude to Chalk Cliff Trust and Enjoolata for providing the funds to make it possible.",
   ],
   links: [
     {
@@ -44,17 +46,22 @@ export const about = {
     {
       name: "Maddy Ryle",
       role: "Co-producer",
-      bio: "Maddy is a co-director of Stories from Nowhere. Her background includes communications, campaigning and governance for many nonprofit and community initiatives. She is also a gardener.",
+      bio: "Maddy is a co-director of Stories from Nowhere. Her background includes communications, campaigning and governance for many nonprofit and community initiatives. She is also a gardener and editor.",
     },
     {
       name: "Alasdair Dawney",
       role: "Co-producer",
-      bio: "Alasdair works in local venues the Duke of York's cinema and the Rose Hill and has a passion for film, music and making space for underrepresented culture in Brighton.",
+      bio: "Alasdair works in local venues the Duke of York’s cinema and the Rose Hill and has a passion for film, music and making space for underrepresented culture in Brighton.",
+    },
+    {
+      name: "Layla Skedaddle",
+      role: "Social Media Coordinator and Marketing Support",
+      bio: "Brighton organiser and film programmer. Founder of @wetpuppetcinema, co-founder of @queerfriendlyimprov and @transcendborders.",
     },
     {
       name: "Rob Koeling",
-      role: "Support",
-      bio: "During the day, Rob works as a Data Scientist, but he needs a healthy dose of film and music to keep him sane. He is keen to support any effort to make more space for underrepresented culture in Brighton.",
+      role: "Website design",
+      bio: "During the day, Rob works as a Data Scientist, but he needs a healthy dose of film and music to keep him sane. He is keen to support any effort to make culture in Brighton more diverse.",
     },
   ],
 };
@@ -347,7 +354,8 @@ export const programme = [
     filmIds: ["theKnot", "gap", "wednesday", "bintElShalabiya", "perfectRestaurant"],
     startTime: "19.00",
     heroStartTime: "19:00 DOORS",
-    ticketPending: true,
+    ticketUrl:
+      "https://www.eventbrite.co.uk/e/sama-brighton-film-festival-short-films-fundraiser-at-pink-moon-tickets-1988090008734?aff=oddtdtcreator&keep_tld=true",
     status: "TBC",
     summary:
       "A night of short films bringing poignant, provocative and humorous slices of Afghan and Iranian cinema to the upstairs screen at Brighton’s beloved Pink Moon hangout space.",

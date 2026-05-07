@@ -39,8 +39,8 @@ function AboutPage() {
 
       <main>
         <section className="about-page panel">
-          <img className="about-page-logo" src={about.logoUrl} alt="SAMA Brighton main logo" />
-          <img className="about-hero-image" src={about.imageUrl} alt="SAMA festival about page artwork" />
+          <img className="about-page-logo" src={about.logoUrl} alt="Sama Brighton main logo" />
+          <img className="about-hero-image" src={about.imageUrl} alt="Sama festival about page artwork" />
           <div className="section-heading">
             <p className="eyebrow">{about.eyebrow}</p>
             <h1 className="about-title">{about.title}</h1>
