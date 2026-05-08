@@ -47,9 +47,21 @@ function AboutPage() {
           </div>
 
           <div className="about-layout">
-            {about.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {about.paragraphs.map((paragraph, index) => {
+              if (typeof paragraph === "string") {
+                return <p key={paragraph}>{paragraph}</p>;
+              }
+
+              return (
+                <p key={`${paragraph.link.label}-${index}`}>
+                  {paragraph.prefix ?? ""}
+                  <a href={paragraph.link.url} target="_blank" rel="noreferrer">
+                    {paragraph.link.label}
+                  </a>
+                  {paragraph.suffix ?? ""}
+                </p>
+              );
+            })}
           </div>
 
           <section className="about-section">
@@ -101,6 +113,14 @@ function AboutPage() {
               className="funder-logo funder-logo-enjoolata"
               src={`${import.meta.env.BASE_URL}Artwork/enjoolata-logo-solid-PRINTING.png`}
               alt="Enjoolata Foundation logo"
+            />
+          </div>
+          <div className="footer-stories">
+            <p className="footer-stories-text">Sama Brighton 2026 is brought to you by Stories from Nowhere CIC.</p>
+            <img
+              className="footer-stories-logo"
+              src={`${import.meta.env.BASE_URL}Artwork/stories-from-nowhere-logo.png`}
+              alt="Stories from Nowhere logo"
             />
           </div>
         </footer>

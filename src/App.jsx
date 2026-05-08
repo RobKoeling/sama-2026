@@ -53,10 +53,10 @@ const heroStillGroups = [
     "Film_Materials/Film_Stills/Copy%20of%20photo_5881747744262045165_y.jpg",
   ],
   [
-    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/119%20-%20August%2002%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20IN%20BAMIYAN%20(key%20image)%20-%20%E2%94%AC%E2%8C%90SeventhArtProductions-preview.webp",
-    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/382%20-%20April%202008%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20WITH%20GOAT%20-%20%C2%A9SeventhArtProductions-preview.webp",
-    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/451%20-%20June%202009%20-%20MY%20CHILDHOOD,%20MY%20COUNTRY%20-%20MIR%20WORKING%20AT%20COALMINE%20-%20%C2%A9SeventhArtProductions-preview.webp",
-    "SAMA2026_Marketing/WEBSITE%20FOLDER%20FOR%20ROB/Specific%20film%20materials/MY%20CHILDHOOD%20MY%20COUNTRY/QUAD_final%20copy-preview.webp",
+    "Film_Materials/Film_Stills/my-childhood-119.webp",
+    "Film_Materials/Film_Stills/my-childhood-382.webp",
+    "Film_Materials/Film_Stills/my-childhood-451.webp",
+    "Film_Materials/Film_Stills/my-childhood-quad.webp",
   ],
   [
     "Film_Materials/Film_Stills/the-knot-01.jpeg",
@@ -541,7 +541,12 @@ function App() {
                               return (
                                 <p
                                   key={`${block.type}-${index}`}
-                                  className={block.type === "label" ? "detail-label" : ""}
+                                  className={[
+                                    block.type === "label" ? "detail-label" : "",
+                                    block.emphasis === "strong" ? "note-strong" : "",
+                                  ]
+                                    .filter(Boolean)
+                                    .join(" ")}
                                 >
                                   {block.text}
                                 </p>
@@ -740,6 +745,14 @@ function App() {
               alt="Enjoolata Foundation logo"
             />
           </div>
+          <div className="footer-stories">
+            <p className="footer-stories-text">Sama Brighton 2026 is brought to you by Stories from Nowhere CIC.</p>
+            <img
+              className="footer-stories-logo"
+              src={assetPath("Artwork/stories-from-nowhere-logo.png")}
+              alt="Stories from Nowhere logo"
+            />
+          </div>
         </footer>
       </main>
       {contactTarget ? (
@@ -794,14 +807,14 @@ function App() {
             <div className="modal-header">
               <div>
                 <p className="eyebrow">Email Updates</p>
-                <h3 id="signup-modal-title">Sign up for SAMA Brighton news</h3>
+                <h3 id="signup-modal-title">Sign up for Sama Brighton updates</h3>
               </div>
               <button type="button" className="modal-close" onClick={closeSignup} aria-label="Close signup form">
                 Close
               </button>
             </div>
             <p className="modal-copy">
-              Leave your email address below, and optionally your name, to hear about festival updates.
+              Leave your email address below (name optional) to receive occasional festival updates.
             </p>
             <form className="signup-form" onSubmit={handleSignupSubmit}>
               <label className="signup-field" htmlFor="signup-email">

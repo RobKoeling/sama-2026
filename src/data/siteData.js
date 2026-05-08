@@ -21,7 +21,16 @@ export const about = {
   paragraphs: [
     "Sama Film Festival is an international platform dedicated to amplifying voices shaped by displacement and political violence. Founded in Stockholm 17 years ago, Sama began with a focus on Afghan cinema and has since grown into a wider showcase for films made under conditions of conflict, censorship and exile.",
     "The work presented through Sama is not defined by geography alone, but also motivated by a shared artistic sensibility informed by restriction and movement, and highlighting the persistence of voice.",
-    "The first Brighton edition takes place during Refugee Week, and brings Sama to new surroundings, with a multi-venue programme taking advantage of the diverse screening spaces Brighton and Lewes have to offer.",
+    {
+      prefix:
+        "The first Brighton edition takes place during ",
+      link: {
+        label: "Refugee Week",
+        url: "https://refugeeweek.org/",
+      },
+      suffix:
+        ", and brings Sama to new surroundings, with a multi-venue programme taking advantage of the diverse screening spaces Brighton and Lewes have to offer.",
+    },
     "We have put together films previously selected for the annual Stockholm event, alongside conversations and public events that invite audiences to immerse themselves in a wider cultural field - one shaped by the emotional and spiritual realities of displacement, violence and repression. A world where survival is not only physical, but also a struggle to hold onto expressive presence, meaning and a sense of self against all odds.",
     "The festival takes its name from the Sufi practice of sama - deep listening and attentive presence as a path towards understanding. This idea sits at the heart of the festival: cinema as a space of attention, where stories are received with openness and perspectives formed under duress can be meaningfully encountered.",
     "The festival is delivered by Stories from Nowhere CIC, a Brighton-based platform working across film, storytelling and public cultural programmes. Stories from Nowhere exists to collect, preserve and share narratives shaped by displacement, conflict and systems of exclusion.",
@@ -322,8 +331,13 @@ export const films = {
     ],
     artworkUrl: assetPath("posters/mcmc_small.jpg"),
     description:
-      "A two-decade, BAFTA-awarded documentary portrait following Mir Hussein from childhood in Bamiyan into adult life, set against the upheavals of modern Afghanistan’s recent history. Plus we are very excited to have a live, in-person Q&A with directors Phil Grabsky (of Brighton-based Seventh Art Productions) and Shoaib Sharifi.",
+      "A two-decade, BAFTA-awarded documentary portrait following Mir Hussein from childhood in Bamiyan into adult life, set against the upheavals of modern Afghanistan’s recent history.",
     detailFlowBlocks: [
+      {
+        type: "paragraph",
+        emphasis: "strong",
+        text: "Plus we are very excited to have a live, in-person Q&A with directors Phil Grabsky (of Brighton-based Seventh Art Productions) and Shoaib Sharifi.",
+      },
       {
         type: "paragraph",
         text: "My Childhood, My Country commits to a film-making that properly represents life unfolding against the context of conflict, continuing a documentary project that began in 2004 with The Boy Who Plays on the Buddhas of Bamiyan.",
@@ -479,8 +493,10 @@ export const programme = [
     status: "Confirmed",
     summary: "",
     cardSummary:
-      "SAMA Brighton 2026 closes with the luminous feature Bauryna Salu, which illustrates the quotidien adventures and familial challenges of a 12-year-old boy in Kazhakstan. Following the film the festival ends with a community celebration with live music.",
-    cardProgrammeNotes: [],
+      "Sama Brighton 2026 closes with a Kazakh feature about 12 year-old Yersultan. Given to his grandmother as a baby, he struggles when he has to return to the house of his birth parents, at a time in life when the search for identity is most acute.",
+    cardProgrammeNotes: [
+      "Plus an in-person Q&A with producer Dias Feld, followed by a community celebration with live music.",
+    ],
   },
 ];
 
