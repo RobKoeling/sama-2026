@@ -2,6 +2,7 @@ const supabaseUrl =
   import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
 const supabaseAnonKey =
   import.meta.env.VITE_SUPABASE_ANON_KEY || "sb_publishable_K7aRut6hWjbTjcK-xOEgwA_xhOaOno7";
+const hostedAnalyticsHost = "brighton.samaiff.com";
 
 const siteEventsEndpoint = supabaseUrl ? `${supabaseUrl}/rest/v1/site_events` : "";
 const visitorStorageKey = "sama-visitor-id";
@@ -30,6 +31,16 @@ const generateId = () => {
 
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 };
+
+const getCurrentHostname = () => {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  return window.location.hostname;
+};
+
+const shouldTrackAnalytics = () => getCurrentHostname() === hostedAnalyticsHost;
 
 const getVisitorId = () => {
   if (typeof window === "undefined") {
@@ -64,11 +75,12 @@ const getSessionId = () => {
 export const isAnalyticsConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
 
 export const recordSiteEvent = async ({ eventName, page, label, section, href }) => {
-  if (!isAnalyticsConfigured()) {
+  if (!isAnalyticsConfigured() || !shouldTrackAnalytics()) {
     return false;
   }
 
   try {
+    const siteHost = getCurrentHostname();
     const response = await fetch(siteEventsEndpoint, {
       method: "POST",
       headers: {
@@ -84,6 +96,7 @@ export const recordSiteEvent = async ({ eventName, page, label, section, href })
         label: label ?? null,
         section: section ?? null,
         href: href ?? null,
+        site_host: siteHost,
         visitor_id: getVisitorId(),
         session_id: getSessionId(),
       }),
@@ -109,7 +122,7 @@ export const fetchSiteEvents = async () => {
   }
 
   const response = await fetch(
-    `${siteEventsEndpoint}?select=id,event_name,page,label,section,href,visitor_id,session_id,created_at&order=created_at.asc`,
+    `${siteEventsEndpoint}?select=id,event_name,page,label,section,href,site_host,visitor_id,session_id,created_at&site_host=eq.${hostedAnalyticsHost}&order=created_at.asc`,
     {
       headers: {
         apikey: supabaseAnonKey,

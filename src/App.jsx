@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
 import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
+import { recordSiteEvent, trackPageView } from "./lib/siteAnalytics";
 
 const socialBase = {
   x: "https://twitter.com/intent/tweet?text=",
@@ -144,6 +145,7 @@ function App() {
   const primaryFilm = selectedFilms[0] ?? null;
   const heroStill = heroStills[heroStillIndex];
   const signupConfigured = isSignupConfigured();
+  const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
   const closeMenu = () => setIsMenuOpen(false);
   const openContactModal = (target) => {
     setContactTarget(target);
@@ -186,6 +188,22 @@ function App() {
     } catch {
       setCopiedContactEmail("");
     }
+  };
+
+  const handleAnalyticsClickCapture = (event) => {
+    const target = event.target.closest("[data-analytics-event]");
+
+    if (!target) {
+      return;
+    }
+
+    void recordSiteEvent({
+      eventName: target.dataset.analyticsEvent,
+      page: pagePath,
+      label: target.dataset.analyticsLabel || null,
+      section: target.dataset.analyticsSection || null,
+      href: target.getAttribute("href"),
+    });
   };
 
   const handleSignupSubmit = async (event) => {
@@ -240,10 +258,14 @@ function App() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    void trackPageView(pagePath, "Home");
+  }, [pagePath]);
+
   return (
-    <div className="app-shell">
+    <div className="app-shell" onClickCapture={handleAnalyticsClickCapture}>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label={`${festival.name} home`}>
+        <a className="brand" href="#top" aria-label={`${festival.name} home`} data-analytics-event="button_click" data-analytics-label="Brand: Sama Brighton 2026" data-analytics-section="Header">
           <span className="brand-mark">Sama Brighton</span>
           <span className="brand-year">2026</span>
         </a>
@@ -261,11 +283,21 @@ function App() {
           className={isMenuOpen ? "site-nav is-open" : "site-nav"}
           aria-label="Primary"
         >
-          <a href="#programme" onClick={closeMenu}>Programme</a>
-          <a href="about.html" onClick={closeMenu}>About</a>
-          <a href="#venues" onClick={closeMenu}>Venues</a>
-          <a href="#news" onClick={closeMenu}>News</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
+          <a href="#programme" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Programme" data-analytics-section="Header">
+            Programme
+          </a>
+          <a href="about.html" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: About" data-analytics-section="Header">
+            About
+          </a>
+          <a href="#venues" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Venues" data-analytics-section="Header">
+            Venues
+          </a>
+          <a href="#news" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: News" data-analytics-section="Header">
+            News
+          </a>
+          <a href="#contact" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Contact" data-analytics-section="Header">
+            Contact
+          </a>
         </nav>
       </header>
 
@@ -284,10 +316,10 @@ function App() {
               {festival.dateRange}. {festival.description}
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#programme">
+              <a className="button button-primary" href="#programme" data-analytics-event="button_click" data-analytics-label="Explore Programme" data-analytics-section="Hero">
                 Explore Programme
               </a>
-              <a className="button button-secondary" href="#news">
+              <a className="button button-secondary" href="#news" data-analytics-event="button_click" data-analytics-label="Social + News" data-analytics-section="Hero">
                 Social + News
               </a>
             </div>
@@ -305,7 +337,14 @@ function App() {
               {programme.map((event) => (
                 <li key={event.id}>
                   <div className={event.id === selectedEvent.id ? "day-pill is-active" : "day-pill"}>
-                    <button type="button" className="day-pill-content" onClick={() => selectEvent(event.id)}>
+                    <button
+                      type="button"
+                      className="day-pill-content"
+                      onClick={() => selectEvent(event.id)}
+                      data-analytics-event="button_click"
+                      data-analytics-label={`Festival Week: ${event.heroTitle ?? event.title}`}
+                      data-analytics-section="Festival Week"
+                    >
                       <span>
                         {event.heroDayLabel ?? event.dayLabel} • {event.heroStartTime ?? event.startTime}
                       </span>
@@ -320,6 +359,9 @@ function App() {
                         href={event.ticketUrl}
                         target="_blank"
                         rel="noreferrer"
+                        data-analytics-event="button_click"
+                        data-analytics-label={`Tickets: ${event.heroTitle ?? event.title}`}
+                        data-analytics-section="Festival Week"
                       >
                         Tickets
                       </a>
@@ -374,8 +416,11 @@ function App() {
                   <button
                     type="button"
                     className="event-card-button"
-                    onClick={() => selectEvent(event.id, { scrollToDetails: true })}
-                  >
+                  onClick={() => selectEvent(event.id, { scrollToDetails: true })}
+                  data-analytics-event="button_click"
+                  data-analytics-label={`Programme: ${event.title}`}
+                  data-analytics-section="Programme"
+                >
                     <div className="event-topline">
                       <p>{event.fullDate}</p>
                     </div>
@@ -471,6 +516,9 @@ function App() {
                         href={selectedEvent.ticketUrl}
                         target="_blank"
                         rel="noreferrer"
+                        data-analytics-event="button_click"
+                        data-analytics-label={`Tickets: ${selectedEvent.title}`}
+                        data-analytics-section="Selected Event"
                       >
                         Tickets
                       </a>
@@ -655,7 +703,7 @@ function App() {
                 <p className="venue-detail">{venue.address}</p>
                 {venue.website ? (
                   <p className="venue-link-row">
-                    <a href={venue.website} target="_blank" rel="noreferrer">
+                  <a href={venue.website} target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label={`${venue.name} venue website`} data-analytics-section="Venues">
                       Venue website
                     </a>
                   </p>
@@ -687,10 +735,13 @@ function App() {
                     email: "brightonsama@proton.me",
                   })
                 }
+                data-analytics-event="button_click"
+                data-analytics-label="Contact Festival Team"
+                data-analytics-section="Contact"
               >
                 Email
               </button>
-              <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer">
+              <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label="Instagram" data-analytics-section="Contact">
                 Instagram
               </a>
               <span className="button button-secondary is-disabled" aria-disabled="true">
@@ -707,6 +758,9 @@ function App() {
                     email: "brightonsama@proton.me",
                   })
                 }
+                data-analytics-event="button_click"
+                data-analytics-label="Contact Festival Team"
+                data-analytics-section="Contact"
               >
                 Contact Festival Team
               </button>
@@ -719,10 +773,20 @@ function App() {
                     email: "hello@storiesfromnowhere.org",
                   })
                 }
+                data-analytics-event="button_click"
+                data-analytics-label="Contact Stories from Nowhere"
+                data-analytics-section="Contact"
               >
                 Contact Stories from Nowhere
               </button>
-              <button type="button" className="button button-primary button-inline" onClick={() => setIsSignupOpen(true)}>
+              <button
+                type="button"
+                className="button button-primary button-inline"
+                onClick={() => setIsSignupOpen(true)}
+                data-analytics-event="button_click"
+                data-analytics-label="Open email signup"
+                data-analytics-section="Contact"
+              >
                 Sign Up For Updates
               </button>
             </div>
@@ -784,6 +848,9 @@ function App() {
                   type="button"
                   className="button button-primary button-inline"
                   onClick={() => handleCopyContactEmail(contactTarget.email)}
+                  data-analytics-event="button_click"
+                  data-analytics-label={`Copy email: ${contactTarget.label}`}
+                  data-analytics-section="Contact Modal"
                 >
                   Copy email address
                 </button>
@@ -850,7 +917,14 @@ function App() {
                 </p>
               ) : null}
               <div className="signup-actions">
-                <button type="submit" className="button button-primary" disabled={isSubmittingSignup}>
+                <button
+                  type="submit"
+                  className="button button-primary"
+                  disabled={isSubmittingSignup}
+                  data-analytics-event="button_click"
+                  data-analytics-label="Submit email signup"
+                  data-analytics-section="Email Updates"
+                >
                   {isSubmittingSignup ? "Submitting..." : "Submit"}
                 </button>
                 <button type="button" className="button button-secondary" onClick={closeSignup}>

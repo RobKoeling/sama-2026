@@ -5,6 +5,7 @@ create table if not exists public.site_events (
   label text,
   section text,
   href text,
+  site_host text,
   visitor_id text not null,
   session_id text not null,
   created_at timestamptz not null default now()
