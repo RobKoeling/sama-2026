@@ -6,7 +6,7 @@ import "./styles.css";
 
 const ADMIN_PASSWORD = "SamaBrighton2026!";
 const UNLOCK_KEY = "sama-admin-unlocked";
-const HOSTED_ANALYTICS_HOST = "brighton.samaiff.com";
+const HOSTED_ANALYTICS_HOST = "samaiff.com";
 
 const formatDateTime = (value) => {
   if (!value) {
@@ -47,7 +47,7 @@ function AdminPage() {
       (event) =>
         event.event_name === "page_view" &&
         typeof event.page === "string" &&
-        event.page.startsWith(`${HOSTED_ANALYTICS_HOST}/`),
+        event.page.includes(`${HOSTED_ANALYTICS_HOST}/`),
     );
     const clickEvents = analyticsEvents.filter((event) => event.event_name !== "page_view");
     const uniqueVisitors = new Set(pageViews.map((event) => event.visitor_id)).size;

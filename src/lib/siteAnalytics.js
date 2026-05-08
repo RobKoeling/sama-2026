@@ -40,7 +40,11 @@ const getCurrentHostname = () => {
   return window.location.hostname;
 };
 
-const shouldTrackAnalytics = () => getCurrentHostname() === hostedAnalyticsHost;
+const isPublicAnalyticsHost = () => {
+  const hostname = getCurrentHostname();
+
+  return Boolean(hostname && hostname.endsWith("samaiff.com"));
+};
 const qualifyPage = (page) => {
   const hostname = getCurrentHostname();
 
@@ -80,7 +84,7 @@ const getSessionId = () => {
 export const isAnalyticsConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
 
 export const recordSiteEvent = async ({ eventName, page, label, section, href }) => {
-  if (!isAnalyticsConfigured() || !shouldTrackAnalytics()) {
+  if (!isAnalyticsConfigured() || !isPublicAnalyticsHost()) {
     return false;
   }
 
