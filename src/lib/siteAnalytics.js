@@ -41,6 +41,11 @@ const getCurrentHostname = () => {
 };
 
 const shouldTrackAnalytics = () => getCurrentHostname() === hostedAnalyticsHost;
+const qualifyPage = (page) => {
+  const hostname = getCurrentHostname();
+
+  return hostname ? `${hostname}${page}` : page;
+};
 
 const getVisitorId = () => {
   if (typeof window === "undefined") {
@@ -80,7 +85,6 @@ export const recordSiteEvent = async ({ eventName, page, label, section, href })
   }
 
   try {
-    const siteHost = getCurrentHostname();
     const response = await fetch(siteEventsEndpoint, {
       method: "POST",
       headers: {
@@ -92,11 +96,10 @@ export const recordSiteEvent = async ({ eventName, page, label, section, href })
       keepalive: true,
       body: JSON.stringify({
         event_name: eventName,
-        page,
+        page: qualifyPage(page),
         label: label ?? null,
         section: section ?? null,
         href: href ?? null,
-        site_host: siteHost,
         visitor_id: getVisitorId(),
         session_id: getSessionId(),
       }),
@@ -122,7 +125,7 @@ export const fetchSiteEvents = async () => {
   }
 
   const response = await fetch(
-    `${siteEventsEndpoint}?select=id,event_name,page,label,section,href,site_host,visitor_id,session_id,created_at&site_host=eq.${hostedAnalyticsHost}&order=created_at.asc`,
+    `${siteEventsEndpoint}?select=id,event_name,page,label,section,href,visitor_id,session_id,created_at&order=created_at.asc`,
     {
       headers: {
         apikey: supabaseAnonKey,

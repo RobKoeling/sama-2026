@@ -6,6 +6,7 @@ import "./styles.css";
 
 const ADMIN_PASSWORD = "SamaBrighton2026!";
 const UNLOCK_KEY = "sama-admin-unlocked";
+const HOSTED_ANALYTICS_HOST = "brighton.samaiff.com";
 
 const formatDateTime = (value) => {
   if (!value) {
@@ -43,7 +44,10 @@ function AdminPage() {
 
   const analyticsSummary = useMemo(() => {
     const pageViews = analyticsEvents.filter(
-      (event) => event.event_name === "page_view" && (event.page === "/" || event.page === "/index.html"),
+      (event) =>
+        event.event_name === "page_view" &&
+        typeof event.page === "string" &&
+        event.page.startsWith(`${HOSTED_ANALYTICS_HOST}/`),
     );
     const clickEvents = analyticsEvents.filter((event) => event.event_name !== "page_view");
     const uniqueVisitors = new Set(pageViews.map((event) => event.visitor_id)).size;
@@ -59,7 +63,6 @@ function AdminPage() {
         const [section, label] = key.split("|||");
         return { section, label, count };
       })
-      .sort((a, b) => b.count - a.count)
       .sort((a, b) => b.count - a.count);
 
     return {
@@ -291,10 +294,10 @@ function AdminPage() {
               <div className="admin-top-button-row">
                 {topThreeInteractions.length ? (
                   topThreeInteractions.map((item) => (
-                    <button key={`${item.section}-${item.label}`} type="button" className="admin-top-button" disabled>
+                    <div key={`${item.section}-${item.label}`} className="admin-top-button" role="group" aria-label={`${item.label}, ${item.count} clicks`}>
                       <span className="admin-top-button-label">{item.label}</span>
                       <span className="admin-top-button-count">{item.count}</span>
-                    </button>
+                    </div>
                   ))
                 ) : (
                   <p className="signup-helper">No tracked button clicks yet.</p>
