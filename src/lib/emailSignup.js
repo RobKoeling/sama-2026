@@ -36,3 +36,30 @@ export const submitEmailSignup = async ({ email, name }) => {
     };
   }
 };
+
+export const fetchEmailSignups = async () => {
+  if (!isSignupConfigured()) {
+    throw new Error("Signup backend not configured yet.");
+  }
+
+  const response = await fetch(`${signupEndpoint}?select=id,email,name,created_at&order=created_at.asc`, {
+    headers: {
+      apikey: supabaseAnonKey,
+      Authorization: `Bearer ${supabaseAnonKey}`,
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw {
+      status: response.status,
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    };
+  }
+
+  return response.json();
+};

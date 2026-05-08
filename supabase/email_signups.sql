@@ -7,8 +7,16 @@ create table if not exists public.email_signups (
 
 alter table public.email_signups enable row level security;
 
+drop policy if exists "Allow anonymous email signups" on public.email_signups;
 create policy "Allow anonymous email signups"
 on public.email_signups
 for insert
 to anon
 with check (true);
+
+drop policy if exists "Allow anonymous email reads" on public.email_signups;
+create policy "Allow anonymous email reads"
+on public.email_signups
+for select
+to anon
+using (true);
