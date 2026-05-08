@@ -1,5 +1,7 @@
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
+const supabaseAnonKey =
+  import.meta.env.VITE_SUPABASE_ANON_KEY || "sb_publishable_K7aRut6hWjbTjcK-xOEgwA_xhOaOno7";
 const signupEndpoint = supabaseUrl ? `${supabaseUrl}/rest/v1/email_signups` : "";
 
 export const isSignupConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
