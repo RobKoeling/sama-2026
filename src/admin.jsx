@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { fetchEmailSignups } from "./lib/emailSignup";
+import { fetchSiteEvents } from "./lib/siteAnalytics";
 import "./styles.css";
 
 const ADMIN_PASSWORD = "SamaBrighton2026!";
@@ -30,11 +31,47 @@ function AdminPage() {
   const [message, setMessage] = useState("");
   const [selectedFileName, setSelectedFileName] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
+  const [analyticsEvents, setAnalyticsEvents] = useState([]);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [analyticsError, setAnalyticsError] = useState("");
+  const pagePath = typeof window !== "undefined" ? window.location.pathname : "/admin.html";
 
   const recipientEmails = useMemo(
     () => signups.map((signup) => signup.email).filter(Boolean),
     [signups],
   );
+
+  const analyticsSummary = useMemo(() => {
+    const pageViews = analyticsEvents.filter(
+      (event) => event.event_name === "page_view" && (event.page === "/" || event.page === "/index.html"),
+    );
+    const clickEvents = analyticsEvents.filter((event) => event.event_name !== "page_view");
+    const uniqueVisitors = new Set(pageViews.map((event) => event.visitor_id)).size;
+    const interactionCounts = new Map();
+
+    for (const event of clickEvents) {
+      const key = `${event.section ?? "Other"}|||${event.label ?? event.event_name}`;
+      interactionCounts.set(key, (interactionCounts.get(key) ?? 0) + 1);
+    }
+
+    const topInteractions = [...interactionCounts.entries()]
+      .map(([key, count]) => {
+        const [section, label] = key.split("|||");
+        return { section, label, count };
+      })
+      .sort((a, b) => b.count - a.count)
+      .sort((a, b) => b.count - a.count);
+
+    return {
+      pageViews: pageViews.length,
+      uniqueVisitors,
+      clickEvents: clickEvents.length,
+      topInteractions,
+      allInteractions: topInteractions,
+    };
+  }, [analyticsEvents]);
+
+  const topThreeInteractions = analyticsSummary.topInteractions.slice(0, 3);
 
   const mailtoHref = useMemo(() => {
     if (!recipientEmails.length) {
@@ -62,9 +99,31 @@ function AdminPage() {
     }
   };
 
+  const loadAnalytics = async () => {
+    setAnalyticsLoading(true);
+    setAnalyticsError("");
+
+    try {
+      const rows = await fetchSiteEvents();
+      setAnalyticsEvents(rows);
+    } catch (error) {
+      const suffix = error?.status ? ` (Supabase returned ${error.status})` : "";
+      setAnalyticsError(
+        error?.message ||
+          `We couldn’t load the site stats${suffix}. If this persists, run the analytics SQL so the read policy is in place.`,
+      );
+    } finally {
+      setAnalyticsLoading(false);
+    }
+  };
+
+  const loadDashboard = async () => {
+    await Promise.all([loadSubscribers(), loadAnalytics()]);
+  };
+
   useEffect(() => {
     if (isUnlocked) {
-      loadSubscribers();
+      void loadDashboard();
     }
   }, [isUnlocked]);
 
@@ -91,6 +150,7 @@ function AdminPage() {
     setSelectedFileName("");
     setCopyStatus("");
     setLoadError("");
+    setAnalyticsError("");
   };
 
   const handleImportDocument = async (event) => {
@@ -209,8 +269,37 @@ function AdminPage() {
               </p>
             </div>
             <div className="admin-stats">
-              <strong>{recipientEmails.length}</strong>
-              <span>subscribers</span>
+              <div className="admin-stat">
+                <strong>{analyticsSummary.pageViews}</strong>
+                <span>Visits</span>
+              </div>
+              <div className="admin-stat">
+                <strong>{analyticsSummary.uniqueVisitors}</strong>
+                <span>Visitors</span>
+              </div>
+              <div className="admin-stat">
+                <strong>{analyticsSummary.clickEvents}</strong>
+                <span>Button clicks</span>
+              </div>
+              <div className="admin-stat">
+                <strong>{recipientEmails.length}</strong>
+                <span>Subscribers</span>
+              </div>
+            </div>
+            <div className="admin-top-buttons">
+              <p className="eyebrow">Top clicked buttons</p>
+              <div className="admin-top-button-row">
+                {topThreeInteractions.length ? (
+                  topThreeInteractions.map((item) => (
+                    <button key={`${item.section}-${item.label}`} type="button" className="admin-top-button" disabled>
+                      <span className="admin-top-button-label">{item.label}</span>
+                      <span className="admin-top-button-count">{item.count}</span>
+                    </button>
+                  ))
+                ) : (
+                  <p className="signup-helper">No tracked button clicks yet.</p>
+                )}
+              </div>
             </div>
           </div>
 
@@ -278,12 +367,14 @@ function AdminPage() {
             <section className="admin-card">
               <div className="admin-list-header">
                 <p className="eyebrow">Subscribers</p>
-                <button type="button" className="button button-secondary button-inline" onClick={loadSubscribers}>
+                <button type="button" className="button button-secondary button-inline" onClick={loadDashboard}>
                   Refresh
                 </button>
               </div>
               {loadError ? <p className="signup-message signup-message-error">{loadError}</p> : null}
+              {analyticsError ? <p className="signup-message signup-message-error">{analyticsError}</p> : null}
               {isLoading ? <p className="signup-helper">Loading subscribers…</p> : null}
+              {analyticsLoading ? <p className="signup-helper">Loading stats…</p> : null}
               {!loadError ? (
                 <p className="signup-helper">
                   If the list stays empty, check that the updated Supabase SQL has been run and the read policy is
@@ -320,6 +411,25 @@ function AdminPage() {
               </div>
             </section>
           </div>
+          <section className="admin-card admin-overview-card">
+            <details className="admin-overview">
+              <summary>Complete click overview</summary>
+              {analyticsSummary.allInteractions.length ? (
+                <ul className="admin-interaction-list">
+                  {analyticsSummary.allInteractions.map((item) => (
+                    <li key={`${item.section}-${item.label}`}>
+                      <strong>{item.label}</strong>
+                      <span>
+                        {item.section} • {item.count}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="signup-helper">No tracked button clicks yet.</p>
+              )}
+            </details>
+          </section>
         </section>
       </main>
     </div>

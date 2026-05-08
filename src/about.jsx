@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { about, festival } from "./data/siteData";
+import { recordSiteEvent } from "./lib/siteAnalytics";
 import "./styles.css";
 
 function AboutPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+  const pagePath = typeof window !== "undefined" ? window.location.pathname : "/about.html";
+
+  const handleAnalyticsClickCapture = (event) => {
+    const target = event.target.closest("[data-analytics-event]");
+
+    if (!target) {
+      return;
+    }
+
+    void recordSiteEvent({
+      eventName: target.dataset.analyticsEvent,
+      page: pagePath,
+      label: target.dataset.analyticsLabel || null,
+      section: target.dataset.analyticsSection || null,
+      href: target.getAttribute("href"),
+    });
+  };
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" onClickCapture={handleAnalyticsClickCapture}>
       <header className="site-header">
-        <a className="brand" href="index.html" aria-label={`${festival.name} home`}>
+        <a className="brand" href="index.html" aria-label={`${festival.name} home`} data-analytics-event="button_click" data-analytics-label="Brand: Sama Brighton 2026" data-analytics-section="Header">
           <span className="brand-mark">Sama Brighton</span>
           <span className="brand-year">2026</span>
         </a>
@@ -28,11 +46,11 @@ function AboutPage() {
           className={isMenuOpen ? "site-nav is-open" : "site-nav"}
           aria-label="Primary"
         >
-          <a href="index.html#programme" onClick={closeMenu}>Programme</a>
-          <a href="about.html" onClick={closeMenu}>About</a>
-          <a href="index.html#venues" onClick={closeMenu}>Venues</a>
-          <a href="index.html#news" onClick={closeMenu}>News</a>
-          <a href="index.html#contact" onClick={closeMenu}>Contact</a>
+          <a href="index.html#programme" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Programme" data-analytics-section="Header">Programme</a>
+          <a href="about.html" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: About" data-analytics-section="Header">About</a>
+          <a href="index.html#venues" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Venues" data-analytics-section="Header">Venues</a>
+          <a href="index.html#news" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: News" data-analytics-section="Header">News</a>
+          <a href="index.html#contact" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Contact" data-analytics-section="Header">Contact</a>
         </nav>
       </header>
 
@@ -69,7 +87,7 @@ function AboutPage() {
             <div className="about-links-list">
               {about.links.map((link) => (
                 <p key={link.url} className="about-link-row">
-                  <a href={link.url} target="_blank" rel="noreferrer">
+                <a href={link.url} target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label={link.label} data-analytics-section="About Links">
                     {link.label}
                   </a>
                 </p>
