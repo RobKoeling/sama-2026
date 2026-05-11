@@ -1,4 +1,7 @@
-const instagramFeedUrl = import.meta.env.VITE_INSTAGRAM_FEED_URL || "";
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
+const instagramFeedUrl =
+  import.meta.env.VITE_INSTAGRAM_FEED_URL || `${supabaseUrl}/functions/v1/instagram-feed`;
 
 const toArray = (value) => {
   if (Array.isArray(value)) {
