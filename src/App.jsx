@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { about, festival, films, newsItems, programme, venues } from "./data/siteData";
+import { about, festival, films, programme, venues } from "./data/siteData";
 import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
+import InstagramCarousel from "./components/InstagramCarousel";
+import { fetchInstagramFeed, isInstagramFeedConfigured } from "./lib/instagramFeed";
 import { recordSiteEvent, trackPageView } from "./lib/siteAnalytics";
 
 const socialBase = {
@@ -138,6 +140,9 @@ function App() {
   const [signupError, setSignupError] = useState("");
   const [signupStatus, setSignupStatus] = useState("");
   const [isSubmittingSignup, setIsSubmittingSignup] = useState(false);
+  const [instagramPosts, setInstagramPosts] = useState([]);
+  const [instagramLoading, setInstagramLoading] = useState(false);
+  const [instagramError, setInstagramError] = useState("");
   const focusCardRef = useRef(null);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
@@ -145,6 +150,7 @@ function App() {
   const primaryFilm = selectedFilms[0] ?? null;
   const heroStill = heroStills[heroStillIndex];
   const signupConfigured = isSignupConfigured();
+  const instagramFeedConfigured = isInstagramFeedConfigured();
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
   const closeMenu = () => setIsMenuOpen(false);
   const openContactModal = (target) => {
@@ -261,6 +267,43 @@ function App() {
   useEffect(() => {
     void trackPageView(pagePath, "Home");
   }, [pagePath]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!instagramFeedConfigured) {
+      setInstagramPosts([]);
+      setInstagramError("");
+      setInstagramLoading(false);
+      return undefined;
+    }
+
+    const loadFeed = async () => {
+      setInstagramLoading(true);
+      setInstagramError("");
+
+      try {
+        const posts = await fetchInstagramFeed(5);
+        if (!cancelled) {
+          setInstagramPosts(posts);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setInstagramError(error?.message || "We couldn’t load the Instagram feed.");
+        }
+      } finally {
+        if (!cancelled) {
+          setInstagramLoading(false);
+        }
+      }
+    };
+
+    void loadFeed();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [instagramFeedConfigured]);
 
   return (
     <div className="app-shell" onClickCapture={handleAnalyticsClickCapture}>
@@ -717,8 +760,13 @@ function App() {
         <section id="news" className="news panel">
           <div className="section-heading">
             <p className="eyebrow">News + Social</p>
-            <p className="section-placeholder">Under construction</p>
           </div>
+          <InstagramCarousel
+            items={instagramPosts}
+            loading={instagramLoading}
+            error={instagramError}
+            configured={instagramFeedConfigured}
+          />
         </section>
 
         <section id="contact" className="visit panel">
