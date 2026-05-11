@@ -151,6 +151,7 @@ function App() {
   const heroStill = heroStills[heroStillIndex];
   const signupConfigured = isSignupConfigured();
   const instagramFeedConfigured = isInstagramFeedConfigured();
+  const instagramFeedEnabled = import.meta.env.VITE_ENABLE_INSTAGRAM_FEED === "true";
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
   const closeMenu = () => setIsMenuOpen(false);
   const openContactModal = (target) => {
@@ -271,7 +272,7 @@ function App() {
   useEffect(() => {
     let cancelled = false;
 
-    if (!instagramFeedConfigured) {
+    if (!instagramFeedEnabled || !instagramFeedConfigured) {
       setInstagramPosts([]);
       setInstagramError("");
       setInstagramLoading(false);
@@ -303,7 +304,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [instagramFeedConfigured]);
+  }, [instagramFeedConfigured, instagramFeedEnabled]);
 
   return (
     <div className="app-shell" onClickCapture={handleAnalyticsClickCapture}>
@@ -760,13 +761,16 @@ function App() {
         <section id="news" className="news panel">
           <div className="section-heading">
             <p className="eyebrow">News + Social</p>
+            {!instagramFeedEnabled ? <p className="section-placeholder">Under construction</p> : null}
           </div>
-          <InstagramCarousel
-            items={instagramPosts}
-            loading={instagramLoading}
-            error={instagramError}
-            configured={instagramFeedConfigured}
-          />
+          {instagramFeedEnabled ? (
+            <InstagramCarousel
+              items={instagramPosts}
+              loading={instagramLoading}
+              error={instagramError}
+              configured={instagramFeedConfigured}
+            />
+          ) : null}
         </section>
 
         <section id="contact" className="visit panel">
