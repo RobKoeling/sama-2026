@@ -155,7 +155,7 @@ function AboutPage() {
             <p className="footer-stories-text">Sama Brighton 2026 is brought to you by Stories from Nowhere CIC.</p>
             <img
               className="footer-stories-logo"
-              src={`${import.meta.env.BASE_URL}Artwork/stories-from-nowhere-logo.png`}
+              src={`${import.meta.env.BASE_URL}Artwork/stories-from-nowhere-logo-transparent.png`}
               alt="Stories from Nowhere logo"
             />
           </div>

@@ -879,7 +879,7 @@ function App() {
             <p className="footer-stories-text">Sama Brighton 2026 is brought to you by Stories from Nowhere CIC.</p>
             <img
               className="footer-stories-logo"
-              src={assetPath("Artwork/stories-from-nowhere-logo.png")}
+              src={assetPath("Artwork/stories-from-nowhere-logo-transparent.png")}
               alt="Stories from Nowhere logo"
             />
           </div>
