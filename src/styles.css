@@ -770,6 +770,17 @@ p {
   margin-top: 10px;
 }
 
+.team-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.team-links-list a {
+  color: var(--ink);
+}
+
 .team-card-support {
   max-width: calc(((100% - 28px) / 3) * 0.75);
   padding: 14px;

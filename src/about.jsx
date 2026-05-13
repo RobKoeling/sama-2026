@@ -108,8 +108,26 @@ function AboutPage() {
                     className={`team-card${isSupport ? " team-card-support" : ""}`}
                   >
                     <NameTag>{member.name}</NameTag>
-                    <p className="team-role">{member.role}</p>
-                    <p>{member.bio}</p>
+                    {member.role ? <p className="team-role">{member.role}</p> : null}
+                    {member.bio ? <p>{member.bio}</p> : null}
+                    {member.links?.length ? (
+                      <div className="team-links-list">
+                        {member.links.map((link) => (
+                          <p key={link.url} className="about-link-row">
+                            <a
+                              href={link.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              data-analytics-event="button_click"
+                              data-analytics-label={link.label}
+                              data-analytics-section="Production Team"
+                            >
+                              {link.label}
+                            </a>
+                          </p>
+                        ))}
+                      </div>
+                    ) : null}
                   </article>
                 );
               })}

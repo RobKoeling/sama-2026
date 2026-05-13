@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { about, festival, films, programme, venues } from "./data/siteData";
 import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
 import InstagramCarousel from "./components/InstagramCarousel";
@@ -357,7 +357,13 @@ function App() {
               />
             </div>
             <p className="hero-text">
-              {festival.dateRange}. {festival.description}
+              {festival.dateRange}.{" "}
+              {festival.description.split("\n").map((line, index) => (
+                <Fragment key={`${line}-${index}`}>
+                  {index > 0 ? <br /> : null}
+                  {line}
+                </Fragment>
+              ))}
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#programme" data-analytics-event="button_click" data-analytics-label="Explore Programme" data-analytics-section="Hero">
@@ -796,9 +802,17 @@ function App() {
               <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label="Instagram" data-analytics-section="Contact">
                 Instagram
               </a>
-              <span className="button button-secondary is-disabled" aria-disabled="true">
+              <a
+                className="button button-secondary"
+                href="https://www.facebook.com/events/2206935580137425"
+                target="_blank"
+                rel="noreferrer"
+                data-analytics-event="button_click"
+                data-analytics-label="Facebook"
+                data-analytics-section="Contact"
+              >
                 Facebook
-              </span>
+              </a>
             </div>
             <div className="contact-cta-row">
               <button

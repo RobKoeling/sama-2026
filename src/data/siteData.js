@@ -7,7 +7,7 @@ export const festival = {
   dateRange: "15-19 June 2026",
   defaultStartTime: "19:30",
   description:
-    "Join us for the inaugural Sama Brighton film festival, providing an international platform promoting freedom of expression and showcasing displaced, diasporic and underrepresented filmmakers. Five nights of features, documentaries and shorts - plus discussions, music and connection - across multiple venues in Brighton and Lewes.",
+    "Join us for the inaugural Sama Brighton film festival, providing an international platform promoting freedom of expression and showcasing displaced, diasporic and underrepresented filmmakers. Five nights of features, documentaries and shorts - plus discussions, music and connection - across multiple venues in Brighton and Lewes.\nAll films are fully subtitled in English.",
   motherFestivalUrl: "https://www.samaiff.com/",
 };
 
@@ -71,6 +71,20 @@ export const about = {
       name: "Rob Koeling",
       role: "Website design",
       bio: "During the day, Rob works as a Data Scientist, but he needs a healthy dose of film and music to keep him sane. He is keen to support any effort to make culture in Brighton more diverse.",
+    },
+    {
+      name: "Illustration",
+      bio: "Check out more at:",
+      links: [
+        {
+          label: "@privartidahos",
+          url: "https://www.instagram.com/privartidahos/",
+        },
+        {
+          label: "@tobyilikecats",
+          url: "https://www.instagram.com/tobyilikecats/",
+        },
+      ],
     },
   ],
 };
@@ -347,7 +361,10 @@ export const films = {
         text: "One day I saw a foreigner and an Afghan holding what I now know is a camera. I looked at this strange machine and this strange machine looked at me and kept looking.",
         source: "Mir Hussein",
       },
-      { type: "paragraph", text: "Winner of the BAFTA for Best Single Documentary 2022" },
+      {
+        type: "paragraph",
+        text: "Winner of 12 international awards including the BAFTA for Best Single Documentary and a Nomination for Best Cinematography",
+      },
     ],
     programmeNotes: [],
     trailerEmbedUrl: "https://www.youtube.com/embed/_WoROZl6kG0",
@@ -489,7 +506,8 @@ export const programme = [
     filmIds: ["baurynaSalu"],
     startTime: "18:00 doors, 18:30 screening",
     heroStartTime: "18:00 DOORS, 18.30 SCREENING",
-    ticketPending: true,
+    ticketUrl:
+      "https://fabrica.org.uk/events/sama-brighton-film-festival-bauryna-salu",
     status: "Confirmed",
     summary: "",
     cardSummary:
