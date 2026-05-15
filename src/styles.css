@@ -110,6 +110,14 @@ h4 {
   gap: 22px;
 }
 
+.site-nav-cta {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
 .nav-toggle {
   display: none;
   border: 1px solid var(--line);
@@ -1658,6 +1666,10 @@ p {
   .site-nav a {
     width: 100%;
     padding: 4px 0;
+  }
+
+  .site-nav .site-nav-cta {
+    width: 100%;
   }
 
   .admin-dashboard-header {

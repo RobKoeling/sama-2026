@@ -154,6 +154,10 @@ function App() {
   const instagramFeedEnabled = import.meta.env.VITE_ENABLE_INSTAGRAM_FEED === "true";
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
   const closeMenu = () => setIsMenuOpen(false);
+  const openSignup = () => {
+    closeMenu();
+    setIsSignupOpen(true);
+  };
   const openContactModal = (target) => {
     setContactTarget(target);
     setCopiedContactEmail("");
@@ -342,6 +346,16 @@ function App() {
           <a href="#contact" onClick={closeMenu} data-analytics-event="button_click" data-analytics-label="Navigation: Contact" data-analytics-section="Header">
             Contact
           </a>
+          <button
+            type="button"
+            className="button button-primary button-inline site-nav-cta"
+            onClick={openSignup}
+            data-analytics-event="button_click"
+            data-analytics-label="Navigation: Sign Up For Updates"
+            data-analytics-section="Header"
+          >
+            Sign Up for Updates
+          </button>
         </nav>
       </header>
 
@@ -848,7 +862,7 @@ function App() {
               <button
                 type="button"
                 className="button button-primary button-inline"
-                onClick={() => setIsSignupOpen(true)}
+                onClick={openSignup}
                 data-analytics-event="button_click"
                 data-analytics-label="Open email signup"
                 data-analytics-section="Contact"
