@@ -854,6 +854,11 @@ p {
   background: transparent;
 }
 
+.event-card-mobile-hint,
+.focus-card-mobile-return {
+  display: none;
+}
+
 .event-topline {
   display: flex;
   align-items: center;
@@ -1630,13 +1635,17 @@ p {
     padding: 24px;
   }
 
+  .hero {
+    padding-right: 40px;
+  }
+
   .site-header {
     gap: 14px;
   }
 
   .hero-logo-float {
-    top: -48px;
-    right: -48px;
+    top: -103px;
+    right: 10px;
     width: min(150px, 28vw);
   }
 
@@ -1696,6 +1705,27 @@ p {
 
   .instagram-carousel-track {
     grid-auto-columns: minmax(240px, 82vw);
+  }
+
+  .event-card-mobile-hint {
+    display: block;
+    margin-top: 16px;
+    color: var(--accent-deep);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .focus-card-mobile-return {
+    display: inline-flex;
+    margin-top: 22px;
+    color: var(--accent-deep);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
   }
 }
 

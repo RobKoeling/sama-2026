@@ -485,25 +485,26 @@ function App() {
                   data-analytics-label={`Programme: ${event.title}`}
                   data-analytics-section="Programme"
                 >
-                    <div className="event-topline">
-                      <p>{event.fullDate}</p>
+                  <div className="event-topline">
+                    <p>{event.fullDate}</p>
+                  </div>
+                  <h3>{event.title}</h3>
+                  {event.subtitle ? <p className="subtitle">{event.subtitle}</p> : null}
+                  <p className="venue">
+                    {event.venue} • {event.startTime}
+                  </p>
+                  <p className="event-copy">{event.cardSummary ?? event.summary}</p>
+                  {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
+                    <div className="film-programme-notes">
+                      {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
+                        <NoteContent
+                          key={typeof note === "string" ? note : `${note.prefix ?? ""}-${note.link?.label ?? ""}`}
+                          note={note}
+                        />
+                      ))}
                     </div>
-                    <h3>{event.title}</h3>
-                    {event.subtitle ? <p className="subtitle">{event.subtitle}</p> : null}
-                    <p className="venue">
-                      {event.venue} • {event.startTime}
-                    </p>
-                    <p className="event-copy">{event.cardSummary ?? event.summary}</p>
-                    {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
-                      <div className="film-programme-notes">
-                        {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
-                          <NoteContent
-                            key={typeof note === "string" ? note : `${note.prefix ?? ""}-${note.link?.label ?? ""}`}
-                            note={note}
-                          />
-                        ))}
-                      </div>
-                    ) : null}
+                  ) : null}
+                  <span className="event-card-mobile-hint">Tap to read more</span>
                   </button>
                 </article>
               ))}
@@ -751,6 +752,15 @@ function App() {
                   ))}
                 </div>
               ) : null}
+              <a
+                className="focus-card-mobile-return"
+                href="#programme"
+                data-analytics-event="button_click"
+                data-analytics-label="Return to programme"
+                data-analytics-section="Selected Event"
+              >
+                Return to programme
+              </a>
             </aside>
           </div>
         </section>
