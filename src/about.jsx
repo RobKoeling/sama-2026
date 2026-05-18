@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { about, festival } from "./data/siteData";
+import { about, festival, sponsorLinks } from "./data/siteData";
 import { recordSiteEvent } from "./lib/siteAnalytics";
 import "./styles.css";
 
@@ -70,10 +70,43 @@ function AboutPage() {
                 return <p key={paragraph}>{paragraph}</p>;
               }
 
+              if (paragraph.parts) {
+                return (
+                  <p key={`parts-${index}`}>
+                    {paragraph.parts.map((part, partIndex) => {
+                      if (!part.link) {
+                        return <React.Fragment key={`text-${partIndex}`}>{part.text ?? ""}</React.Fragment>;
+                      }
+
+                      return (
+                        <a
+                          key={`${part.link.label}-${partIndex}`}
+                          href={part.link.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-analytics-event="button_click"
+                          data-analytics-label={part.link.label}
+                          data-analytics-section="About"
+                        >
+                          {part.link.label}
+                        </a>
+                      );
+                    })}
+                  </p>
+                );
+              }
+
               return (
                 <p key={`${paragraph.link.label}-${index}`}>
                   {paragraph.prefix ?? ""}
-                  <a href={paragraph.link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={paragraph.link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-analytics-event="button_click"
+                    data-analytics-label={paragraph.link.label}
+                    data-analytics-section="About"
+                  >
                     {paragraph.link.label}
                   </a>
                   {paragraph.suffix ?? ""}
@@ -137,19 +170,61 @@ function AboutPage() {
 
         <footer className="site-footer panel">
           <p className="footer-thanks">
-            With thanks to Chalk Cliff Trust and Enjoolata Foundation for their generous support
+            With thanks to{" "}
+            <a
+              href={sponsorLinks.chalkCliffTrust}
+              target="_blank"
+              rel="noreferrer"
+              data-analytics-event="button_click"
+              data-analytics-label="Footer Sponsor: Chalk Cliff Trust"
+              data-analytics-section="Footer"
+            >
+              Chalk Cliff Trust
+            </a>{" "}
+            and{" "}
+            <a
+              href={sponsorLinks.enjoolataFoundation}
+              target="_blank"
+              rel="noreferrer"
+              data-analytics-event="button_click"
+              data-analytics-label="Footer Sponsor: Enjoolata Foundation"
+              data-analytics-section="Footer"
+            >
+              Enjoolata Foundation
+            </a>{" "}
+            for their generous support
           </p>
           <div className="funder-logos" aria-label="Funder logos">
-            <img
-              className="funder-logo funder-logo-chalk"
-              src={`${import.meta.env.BASE_URL}Artwork/chalk-cliff-trust-logo-rgb_full-colour.png`}
-              alt="Chalk Cliff Trust logo"
-            />
-            <img
-              className="funder-logo funder-logo-enjoolata"
-              src={`${import.meta.env.BASE_URL}Artwork/enjoolata-logo-solid-PRINTING.png`}
-              alt="Enjoolata Foundation logo"
-            />
+            <a
+              href={sponsorLinks.chalkCliffTrust}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Chalk Cliff Trust"
+              data-analytics-event="button_click"
+              data-analytics-label="Footer Logo: Chalk Cliff Trust"
+              data-analytics-section="Footer"
+            >
+              <img
+                className="funder-logo funder-logo-chalk"
+                src={`${import.meta.env.BASE_URL}Artwork/chalk-cliff-trust-logo-rgb_full-colour.png`}
+                alt="Chalk Cliff Trust logo"
+              />
+            </a>
+            <a
+              href={sponsorLinks.enjoolataFoundation}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Enjoolata Foundation"
+              data-analytics-event="button_click"
+              data-analytics-label="Footer Logo: Enjoolata Foundation"
+              data-analytics-section="Footer"
+            >
+              <img
+                className="funder-logo funder-logo-enjoolata"
+                src={`${import.meta.env.BASE_URL}Artwork/enjoolata-logo-solid-PRINTING.png`}
+                alt="Enjoolata Foundation logo"
+              />
+            </a>
           </div>
           <div className="footer-stories">
             <p className="footer-stories-text">Sama Brighton 2026 is brought to you by Stories from Nowhere CIC.</p>

@@ -703,6 +703,13 @@ p {
   text-decoration: none;
 }
 
+.about-layout a,
+.footer-thanks a {
+  color: var(--ink);
+  font-weight: 700;
+  text-underline-offset: 0.14em;
+}
+
 .about-title {
   max-width: 20ch;
   font-size: clamp(1.7rem, 3vw, 2.5rem);
@@ -1500,11 +1507,17 @@ p {
 
 .funder-logos {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   gap: 28px;
   margin-top: 8px;
+}
+
+.funder-logos a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .funder-logo {
@@ -1515,11 +1528,11 @@ p {
 }
 
 .funder-logo-chalk {
-  width: min(280px, 100%);
+  width: clamp(150px, 44vw, 280px);
 }
 
 .funder-logo-enjoolata {
-  width: min(220px, 100%);
+  width: clamp(120px, 34vw, 220px);
 }
 
 .footer-stories {
@@ -1705,6 +1718,10 @@ p {
 
   .instagram-carousel-track {
     grid-auto-columns: minmax(240px, 82vw);
+  }
+
+  .funder-logos {
+    gap: 16px;
   }
 
   .event-card-mobile-hint {

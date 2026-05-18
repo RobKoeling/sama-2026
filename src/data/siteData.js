@@ -1,5 +1,10 @@
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
 
+export const sponsorLinks = {
+  chalkCliffTrust: "https://www.chalkclifftrust.org/",
+  enjoolataFoundation: "https://www.enjoolata.org/",
+};
+
 export const festival = {
   name: "SAMA 2026",
   city: "Brighton",
@@ -34,7 +39,32 @@ export const about = {
     "We have put together films previously selected for the annual Stockholm event, alongside conversations and public events that invite audiences to immerse themselves in a wider cultural field - one shaped by the emotional and spiritual realities of displacement, violence and repression. A world where survival is not only physical, but also a struggle to hold onto expressive presence, meaning and a sense of self against all odds.",
     "The festival takes its name from the Sufi practice of sama - deep listening and attentive presence as a path towards understanding. This idea sits at the heart of the festival: cinema as a space of attention, where stories are received with openness and perspectives formed under duress can be meaningfully encountered.",
     "The festival is delivered by Stories from Nowhere CIC, a Brighton-based platform working across film, storytelling and public cultural programmes. Stories from Nowhere exists to collect, preserve and share narratives shaped by displacement, conflict and systems of exclusion.",
-    "It is exciting to be bringing Sama to Brighton audiences for the first time in 2026. We look forward to meeting you at one of our events. With thanks to our partner venues, artists and designers, and all the other collaborators who have given their energy to making this happen. And particular gratitude to Chalk Cliff Trust and Enjoolata for providing the funds to make it possible.",
+    {
+      parts: [
+        {
+          text:
+            "It is exciting to be bringing Sama to Brighton audiences for the first time in 2026. We look forward to meeting you at one of our events. With thanks to our partner venues, artists and designers, and all the other collaborators who have given their energy to making this happen. And particular gratitude to ",
+        },
+        {
+          link: {
+            label: "Chalk Cliff Trust",
+            url: sponsorLinks.chalkCliffTrust,
+          },
+        },
+        {
+          text: " and ",
+        },
+        {
+          link: {
+            label: "Enjoolata",
+            url: sponsorLinks.enjoolataFoundation,
+          },
+        },
+        {
+          text: " for providing the funds to make it possible.",
+        },
+      ],
+    },
   ],
   links: [
     {
