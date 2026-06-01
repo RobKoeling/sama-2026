@@ -7,9 +7,61 @@ import "./styles.css";
 const ADMIN_PASSWORD = "SamaBrighton2026!";
 const UNLOCK_KEY = "sama-admin-unlocked";
 const HOSTED_ANALYTICS_HOST = "samaiff.com";
+const ANALYTICS_TIME_ZONE = "Europe/London";
+const chartSeries = [
+  { key: "visits", label: "Visits", color: "#8b2f12" },
+  { key: "visitors", label: "Visitors", color: "#d06f2b" },
+  { key: "clicks", label: "Clicks", color: "#332415" },
+];
+const analyticsDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: ANALYTICS_TIME_ZONE,
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+const chartDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: ANALYTICS_TIME_ZONE,
+  day: "numeric",
+  month: "short",
+});
+const numberFormatter = new Intl.NumberFormat("en-GB");
 
 const isHostedAnalyticsEvent = (event) => {
   return typeof event.page === "string" && event.page.includes(`${HOSTED_ANALYTICS_HOST}/`);
+};
+
+const getAnalyticsDateKey = (value) => {
+  if (!value) {
+    return "";
+  }
+
+  const parts = analyticsDateFormatter
+    .formatToParts(new Date(value))
+    .filter((part) => part.type !== "literal")
+    .reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
+
+  return `${parts.year}-${parts.month}-${parts.day}`;
+};
+
+const formatChartDate = (dateKey) => {
+  if (!dateKey) {
+    return "";
+  }
+
+  const [year, month, day] = dateKey.split("-").map(Number);
+
+  return chartDateFormatter.format(new Date(Date.UTC(year, month - 1, day, 12)));
+};
+
+const buildChartPath = (points) =>
+  points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
+
+const getChartLabelIndices = (count) => {
+  if (count <= 6) {
+    return Array.from({ length: count }, (_, index) => index);
+  }
+
+  return [...new Set([0, Math.floor((count - 1) / 2), count - 1])];
 };
 
 const formatDateTime = (value) => {
@@ -22,6 +74,126 @@ const formatDateTime = (value) => {
     timeStyle: "short",
   }).format(new Date(value));
 };
+
+function ActivityTrendChart({ data }) {
+  const width = 760;
+  const height = 280;
+  const padding = {
+    top: 18,
+    right: 18,
+    bottom: 40,
+    left: 42,
+  };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  const maxValue = Math.max(
+    1,
+    ...data.flatMap((item) => [item.visits, item.visitors, item.clicks]),
+  );
+  const labelIndices = getChartLabelIndices(data.length);
+  const tickValues = [...new Set([maxValue, Math.ceil(maxValue / 2), 0])].sort((a, b) => b - a);
+  const xStep = data.length > 1 ? chartWidth / (data.length - 1) : 0;
+
+  const seriesPoints = chartSeries.map((series) => ({
+    ...series,
+    points: data.map((item, index) => {
+      const x = data.length === 1 ? padding.left + chartWidth / 2 : padding.left + index * xStep;
+      const y = padding.top + chartHeight - (item[series.key] / maxValue) * chartHeight;
+
+      return {
+        x,
+        y,
+        value: item[series.key],
+        label: item.label,
+      };
+    }),
+  }));
+
+  return (
+    <div className="admin-chart">
+      <div className="admin-chart-legend" aria-label="Chart legend">
+        {chartSeries.map((series) => (
+          <span key={series.key} className="admin-chart-legend-item">
+            <span
+              className="admin-chart-legend-swatch"
+              style={{ "--chart-series-color": series.color }}
+              aria-hidden="true"
+            />
+            {series.label}
+          </span>
+        ))}
+      </div>
+      <svg
+        className="admin-chart-svg"
+        viewBox={`0 0 ${width} ${height}`}
+        role="img"
+        aria-label="Daily visits, visitors and total clicks over time"
+      >
+        {tickValues.map((tickValue) => {
+          const y = padding.top + chartHeight - (tickValue / maxValue) * chartHeight;
+
+          return (
+            <g key={tickValue}>
+              <line
+                className="admin-chart-grid-line"
+                x1={padding.left}
+                y1={y}
+                x2={width - padding.right}
+                y2={y}
+              />
+              <text className="admin-chart-axis-label" x={padding.left - 10} y={y + 4}>
+                {numberFormatter.format(tickValue)}
+              </text>
+            </g>
+          );
+        })}
+
+        {labelIndices.map((index) => {
+          const point = seriesPoints[0].points[index];
+
+          return (
+            <text
+              key={data[index].dateKey}
+              className="admin-chart-axis-label"
+              x={point.x}
+              y={height - 12}
+              textAnchor="middle"
+            >
+              {data[index].label}
+            </text>
+          );
+        })}
+
+        {seriesPoints.map((series) => (
+          <g key={series.key}>
+            <path
+              className="admin-chart-line"
+              d={buildChartPath(series.points)}
+              style={{ "--chart-series-color": series.color }}
+            />
+            {series.points.map((point, index) => (
+              <circle
+                key={`${series.key}-${data[index].dateKey}`}
+                className="admin-chart-dot"
+                cx={point.x}
+                cy={point.y}
+                r="4"
+                style={{ "--chart-series-color": series.color }}
+              >
+                <title>
+                  {`${series.label}: ${numberFormatter.format(point.value)} on ${point.label}`}
+                </title>
+              </circle>
+            ))}
+          </g>
+        ))}
+      </svg>
+      <p className="admin-chart-caption">
+        Daily totals across the hosted site, grouped in {ANALYTICS_TIME_ZONE}.
+      </p>
+    </div>
+  );
+}
 
 function AdminPage() {
   const [password, setPassword] = useState("");
@@ -68,12 +240,69 @@ function AdminPage() {
       })
       .sort((a, b) => b.count - a.count);
 
+    const activityByDate = new Map();
+
+    const getActivityRow = (createdAt) => {
+      const dateKey = getAnalyticsDateKey(createdAt);
+
+      if (!dateKey) {
+        return null;
+      }
+
+      if (!activityByDate.has(dateKey)) {
+        activityByDate.set(dateKey, {
+          dateKey,
+          label: formatChartDate(dateKey),
+          visits: 0,
+          clicks: 0,
+          visitorIds: new Set(),
+        });
+      }
+
+      return activityByDate.get(dateKey);
+    };
+
+    for (const event of pageViews) {
+      const row = getActivityRow(event.created_at);
+
+      if (!row) {
+        continue;
+      }
+
+      row.visits += 1;
+
+      if (event.visitor_id) {
+        row.visitorIds.add(event.visitor_id);
+      }
+    }
+
+    for (const event of clickEvents) {
+      const row = getActivityRow(event.created_at);
+
+      if (!row) {
+        continue;
+      }
+
+      row.clicks += 1;
+    }
+
+    const activitySeries = [...activityByDate.values()]
+      .sort((a, b) => a.dateKey.localeCompare(b.dateKey))
+      .map((row) => ({
+        dateKey: row.dateKey,
+        label: row.label,
+        visits: row.visits,
+        visitors: row.visitorIds.size,
+        clicks: row.clicks,
+      }));
+
     return {
       pageViews: pageViews.length,
       uniqueVisitors,
       clickEvents: clickEvents.length,
       topInteractions,
       allInteractions: topInteractions,
+      activitySeries,
     };
   }, [analyticsEvents]);
 
@@ -433,6 +662,18 @@ function AdminPage() {
                 </ul>
               ) : (
                 <p className="signup-helper">No tracked button clicks yet.</p>
+              )}
+            </details>
+          </section>
+          <section className="admin-card admin-overview-card">
+            <details className="admin-overview">
+              <summary>Visits, visitors and clicks over time</summary>
+              {analyticsLoading ? (
+                <p className="signup-helper">Loading stats…</p>
+              ) : analyticsSummary.activitySeries.length ? (
+                <ActivityTrendChart data={analyticsSummary.activitySeries} />
+              ) : (
+                <p className="signup-helper">No tracked visits yet.</p>
               )}
             </details>
           </section>
