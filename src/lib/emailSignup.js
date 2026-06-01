@@ -1,3 +1,5 @@
+import { buildSupabaseError, fetchSupabaseRows } from "./supabaseRest";
+
 const supabaseUrl =
   import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
 const supabaseAnonKey =
@@ -28,14 +30,7 @@ export const submitEmailSignup = async ({ email, name }) => {
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw {
-      status: response.status,
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-    };
+    throw await buildSupabaseError(response);
   }
 };
 
@@ -44,24 +39,10 @@ export const fetchEmailSignups = async () => {
     throw new Error("Signup backend not configured yet.");
   }
 
-  const response = await fetch(`${signupEndpoint}?select=id,email,name,created_at&order=created_at.asc`, {
-    headers: {
-      apikey: supabaseAnonKey,
-      Authorization: `Bearer ${supabaseAnonKey}`,
-      Accept: "application/json",
-    },
+  return fetchSupabaseRows({
+    endpoint: signupEndpoint,
+    supabaseAnonKey,
+    select: "id,email,name,created_at",
+    order: "created_at.asc",
   });
-
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw {
-      status: response.status,
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-    };
-  }
-
-  return response.json();
 };

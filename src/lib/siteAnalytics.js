@@ -1,8 +1,10 @@
+import { fetchSupabaseRows } from "./supabaseRest";
+
 const supabaseUrl =
   import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
 const supabaseAnonKey =
   import.meta.env.VITE_SUPABASE_ANON_KEY || "sb_publishable_K7aRut6hWjbTjcK-xOEgwA_xhOaOno7";
-const hostedAnalyticsHost = "brighton.samaiff.com";
+const hostedAnalyticsHost = "samaiff.com";
 
 const siteEventsEndpoint = supabaseUrl ? `${supabaseUrl}/rest/v1/site_events` : "";
 const visitorStorageKey = "sama-visitor-id";
@@ -43,8 +45,9 @@ const getCurrentHostname = () => {
 const isPublicAnalyticsHost = () => {
   const hostname = getCurrentHostname();
 
-  return Boolean(hostname && hostname.endsWith("samaiff.com"));
+  return Boolean(hostname && hostname.endsWith(hostedAnalyticsHost));
 };
+
 const qualifyPage = (page) => {
   const hostname = getCurrentHostname();
 
@@ -104,6 +107,7 @@ export const recordSiteEvent = async ({ eventName, page, label, section, href })
         label: label ?? null,
         section: section ?? null,
         href: href ?? null,
+        site_host: getCurrentHostname() || null,
         visitor_id: getVisitorId(),
         session_id: getSessionId(),
       }),
@@ -128,27 +132,10 @@ export const fetchSiteEvents = async () => {
     throw new Error("Analytics backend not configured yet.");
   }
 
-  const response = await fetch(
-    `${siteEventsEndpoint}?select=id,event_name,page,label,section,href,visitor_id,session_id,created_at&order=created_at.asc`,
-    {
-      headers: {
-        apikey: supabaseAnonKey,
-        Authorization: `Bearer ${supabaseAnonKey}`,
-        Accept: "application/json",
-      },
-    },
-  );
-
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw {
-      status: response.status,
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-    };
-  }
-
-  return response.json();
+  return fetchSupabaseRows({
+    endpoint: siteEventsEndpoint,
+    supabaseAnonKey,
+    select: "id,event_name,page,label,section,href,site_host,visitor_id,session_id,created_at",
+    order: "created_at.asc",
+  });
 };

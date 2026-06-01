@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { about, festival, sponsorLinks } from "./data/siteData";
-import { recordSiteEvent } from "./lib/siteAnalytics";
+import { recordSiteEvent, trackPageView } from "./lib/siteAnalytics";
 import "./styles.css";
 
 function AboutPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/about.html";
+
+  useEffect(() => {
+    void trackPageView(pagePath, "About");
+  }, [pagePath]);
 
   const handleAnalyticsClickCapture = (event) => {
     const target = event.target.closest("[data-analytics-event]");

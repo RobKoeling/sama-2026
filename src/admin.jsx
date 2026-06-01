@@ -8,6 +8,15 @@ const ADMIN_PASSWORD = "SamaBrighton2026!";
 const UNLOCK_KEY = "sama-admin-unlocked";
 const HOSTED_ANALYTICS_HOST = "samaiff.com";
 
+const isHostedAnalyticsEvent = (event) => {
+  const pageMatches =
+    typeof event.page === "string" && event.page.includes(`${HOSTED_ANALYTICS_HOST}/`);
+  const hostMatches =
+    typeof event.site_host === "string" && event.site_host.endsWith(HOSTED_ANALYTICS_HOST);
+
+  return pageMatches || hostMatches;
+};
+
 const formatDateTime = (value) => {
   if (!value) {
     return "";
@@ -44,12 +53,11 @@ function AdminPage() {
 
   const analyticsSummary = useMemo(() => {
     const pageViews = analyticsEvents.filter(
-      (event) =>
-        event.event_name === "page_view" &&
-        typeof event.page === "string" &&
-        event.page.includes(`${HOSTED_ANALYTICS_HOST}/`),
+      (event) => event.event_name === "page_view" && isHostedAnalyticsEvent(event),
     );
-    const clickEvents = analyticsEvents.filter((event) => event.event_name !== "page_view");
+    const clickEvents = analyticsEvents.filter(
+      (event) => event.event_name !== "page_view" && isHostedAnalyticsEvent(event),
+    );
     const uniqueVisitors = new Set(pageViews.map((event) => event.visitor_id)).size;
     const interactionCounts = new Map();
 
