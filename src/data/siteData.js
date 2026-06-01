@@ -5,6 +5,18 @@ export const sponsorLinks = {
   enjoolataFoundation: "https://www.enjoolata.org/",
 };
 
+export const socialLinks = {
+  instagram: {
+    handle: "samabrighton",
+    label: "@samabrighton",
+    url: "https://www.instagram.com/samabrighton/",
+  },
+  facebook: {
+    label: "Facebook",
+    url: "https://www.facebook.com/events/2206935580137425",
+  },
+};
+
 export const festival = {
   name: "SAMA 2026",
   city: "Brighton",

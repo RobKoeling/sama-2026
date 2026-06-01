@@ -35,6 +35,11 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_INSTAGRAM_FEED_URL: ${{ vars.VITE_INSTAGRAM_FEED_URL }}
+          VITE_ENABLE_INSTAGRAM_FEED: ${{ vars.VITE_ENABLE_INSTAGRAM_FEED }}
         run: npm run build
 
       - name: Upload artifact

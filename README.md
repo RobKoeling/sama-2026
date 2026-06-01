@@ -34,6 +34,19 @@ Preview the production build locally:
 npm run preview
 ```
 
+## Instagram
+
+The Instagram profile is now configured in [`src/data/siteData.js`](./src/data/siteData.js) and will always show a direct profile link in the News and Contact sections.
+
+To turn on the live post carousel:
+
+1. Deploy `supabase/functions/instagram-feed`.
+2. Set the Supabase function secrets `INSTAGRAM_USER_ID` and `INSTAGRAM_ACCESS_TOKEN`.
+3. Set `VITE_INSTAGRAM_FEED_URL` to the deployed function URL.
+4. Set `VITE_ENABLE_INSTAGRAM_FEED=true`.
+
+For GitHub Pages builds, the workflow reads `VITE_INSTAGRAM_FEED_URL` and `VITE_ENABLE_INSTAGRAM_FEED` from GitHub repository variables, plus `VITE_SUPABASE_ANON_KEY` from GitHub secrets.
+
 ## Content structure
 
 Festival content currently lives in [`src/data/siteData.js`](./src/data/siteData.js).

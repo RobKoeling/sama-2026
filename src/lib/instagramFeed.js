@@ -1,7 +1,4 @@
-const supabaseUrl =
-  import.meta.env.VITE_SUPABASE_URL || "https://cfdyavdfnwkrhxopdmut.supabase.co";
-const instagramFeedUrl =
-  import.meta.env.VITE_INSTAGRAM_FEED_URL || `${supabaseUrl}/functions/v1/instagram-feed`;
+const instagramFeedUrl = import.meta.env.VITE_INSTAGRAM_FEED_URL || "";
 
 const toArray = (value) => {
   if (Array.isArray(value)) {
@@ -47,9 +44,16 @@ export const fetchInstagramFeed = async (limit = 5) => {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
+    const statusMessage =
+      response.status === 404
+        ? "Instagram feed endpoint not found. Deploy the Supabase instagram-feed function and set VITE_INSTAGRAM_FEED_URL to enable the live carousel."
+        : response.status === 501
+          ? "Instagram feed endpoint is live, but it still needs the Instagram Graph API secrets."
+          : "Unable to load the Instagram feed.";
+
     throw {
       status: response.status,
-      message: error.message || "Unable to load the Instagram feed.",
+      message: error.message || statusMessage,
       details: error.details,
       hint: error.hint,
     };

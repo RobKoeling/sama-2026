@@ -645,6 +645,10 @@ p {
   background: rgba(255, 255, 255, 0.38);
 }
 
+.instagram-feed-cta {
+  margin-top: 14px;
+}
+
 .highlight-logo-card {
   display: flex;
   align-items: center;

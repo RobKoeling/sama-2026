@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { about, festival, films, programme, sponsorLinks, venues } from "./data/siteData";
+import { about, festival, films, programme, socialLinks, sponsorLinks, venues } from "./data/siteData";
 import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
 import InstagramCarousel from "./components/InstagramCarousel";
 import { fetchInstagramFeed, isInstagramFeedConfigured } from "./lib/instagramFeed";
@@ -150,6 +150,8 @@ function App() {
   const primaryFilm = selectedFilms[0] ?? null;
   const heroStill = heroStills[heroStillIndex];
   const signupConfigured = isSignupConfigured();
+  const instagramProfile = socialLinks.instagram;
+  const facebookProfile = socialLinks.facebook;
   const instagramFeedConfigured = isInstagramFeedConfigured();
   const instagramFeedEnabled = import.meta.env.VITE_ENABLE_INSTAGRAM_FEED === "true";
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
@@ -791,16 +793,20 @@ function App() {
         <section id="news" className="news panel">
           <div className="section-heading">
             <p className="eyebrow">News + Social</p>
-            {!instagramFeedEnabled ? <p className="section-placeholder">Under construction</p> : null}
           </div>
-          {instagramFeedEnabled ? (
+          {instagramProfile?.url ? (
             <InstagramCarousel
               items={instagramPosts}
               loading={instagramLoading}
               error={instagramError}
               configured={instagramFeedConfigured}
+              feedEnabled={instagramFeedEnabled}
+              handleLabel={instagramProfile.label}
+              profileUrl={instagramProfile.url}
             />
-          ) : null}
+          ) : (
+            <p className="section-placeholder">Instagram account coming soon</p>
+          )}
         </section>
 
         <section id="contact" className="visit panel">
@@ -823,12 +829,12 @@ function App() {
               >
                 Email
               </button>
-              <a className="button button-secondary" href="https://www.instagram.com/samabrighton/" target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label="Instagram" data-analytics-section="Contact">
+              <a className="button button-secondary" href={instagramProfile.url} target="_blank" rel="noreferrer" data-analytics-event="button_click" data-analytics-label="Instagram" data-analytics-section="Contact">
                 Instagram
               </a>
               <a
                 className="button button-secondary"
-                href="https://www.facebook.com/events/2206935580137425"
+                href={facebookProfile.url}
                 target="_blank"
                 rel="noreferrer"
                 data-analytics-event="button_click"
