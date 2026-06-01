@@ -9,12 +9,7 @@ const UNLOCK_KEY = "sama-admin-unlocked";
 const HOSTED_ANALYTICS_HOST = "samaiff.com";
 
 const isHostedAnalyticsEvent = (event) => {
-  const pageMatches =
-    typeof event.page === "string" && event.page.includes(`${HOSTED_ANALYTICS_HOST}/`);
-  const hostMatches =
-    typeof event.site_host === "string" && event.site_host.endsWith(HOSTED_ANALYTICS_HOST);
-
-  return pageMatches || hostMatches;
+  return typeof event.page === "string" && event.page.includes(`${HOSTED_ANALYTICS_HOST}/`);
 };
 
 const formatDateTime = (value) => {

@@ -107,7 +107,6 @@ export const recordSiteEvent = async ({ eventName, page, label, section, href })
         label: label ?? null,
         section: section ?? null,
         href: href ?? null,
-        site_host: getCurrentHostname() || null,
         visitor_id: getVisitorId(),
         session_id: getSessionId(),
       }),
@@ -135,7 +134,7 @@ export const fetchSiteEvents = async () => {
   return fetchSupabaseRows({
     endpoint: siteEventsEndpoint,
     supabaseAnonKey,
-    select: "id,event_name,page,label,section,href,site_host,visitor_id,session_id,created_at",
+    select: "id,event_name,page,label,section,href,visitor_id,session_id,created_at",
     order: "created_at.asc",
   });
 };
