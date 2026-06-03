@@ -1,8 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { about, festival, films, programme, socialLinks, sponsorLinks, venues } from "./data/siteData";
 import { isSignupConfigured, submitEmailSignup } from "./lib/emailSignup";
-import InstagramCarousel from "./components/InstagramCarousel";
-import { fetchInstagramFeed, isInstagramFeedConfigured } from "./lib/instagramFeed";
 import { recordSiteEvent, trackPageView } from "./lib/siteAnalytics";
 
 const socialBase = {
@@ -79,6 +77,7 @@ const heroStillGroups = [
 ];
 
 const heroStills = interleaveGroups(heroStillGroups);
+const festivalTrailerPath = "Film_Materials/Trailers/Brighton_Sama_Trailer.mp4";
 
 function DirectorCredits({ film }) {
   const credits = film.directorCredits ?? [{ name: film.director }];
@@ -128,6 +127,25 @@ function NoteContent({ note }) {
   );
 }
 
+function FollowInstagramCard({ handleLabel, profileUrl }) {
+  if (!profileUrl) {
+    return <p className="section-placeholder">Instagram account coming soon</p>;
+  }
+
+  return (
+    <div className="instagram-feed-empty instagram-feed-empty-card news-follow-card">
+      <p className="signup-helper">
+        Follow {handleLabel} on Instagram while we keep the live feed switched off-site.
+      </p>
+      <div className="instagram-feed-cta">
+        <a href={profileUrl} target="_blank" rel="noreferrer" className="button button-secondary">
+          Follow {handleLabel}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [selectedEventId, setSelectedEventId] = useState(programme[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -140,20 +158,16 @@ function App() {
   const [signupError, setSignupError] = useState("");
   const [signupStatus, setSignupStatus] = useState("");
   const [isSubmittingSignup, setIsSubmittingSignup] = useState(false);
-  const [instagramPosts, setInstagramPosts] = useState([]);
-  const [instagramLoading, setInstagramLoading] = useState(false);
-  const [instagramError, setInstagramError] = useState("");
   const focusCardRef = useRef(null);
 
   const selectedEvent = programme.find((event) => event.id === selectedEventId) ?? programme[0];
   const selectedFilms = selectedEvent.filmIds?.map((filmId) => films[filmId]).filter(Boolean) ?? [];
   const primaryFilm = selectedFilms[0] ?? null;
-  const heroStill = heroStills[heroStillIndex];
+  const newsStill = heroStills[heroStillIndex];
+  const festivalTrailerUrl = assetPath(festivalTrailerPath);
   const signupConfigured = isSignupConfigured();
   const instagramProfile = socialLinks.instagram;
   const facebookProfile = socialLinks.facebook;
-  const instagramFeedConfigured = isInstagramFeedConfigured();
-  const instagramFeedEnabled = import.meta.env.VITE_ENABLE_INSTAGRAM_FEED === "true";
   const pagePath = typeof window !== "undefined" ? window.location.pathname : "/";
   const closeMenu = () => setIsMenuOpen(false);
   const openSignup = () => {
@@ -275,43 +289,6 @@ function App() {
     void trackPageView(pagePath, "Home");
   }, [pagePath]);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    if (!instagramFeedEnabled || !instagramFeedConfigured) {
-      setInstagramPosts([]);
-      setInstagramError("");
-      setInstagramLoading(false);
-      return undefined;
-    }
-
-    const loadFeed = async () => {
-      setInstagramLoading(true);
-      setInstagramError("");
-
-      try {
-        const posts = await fetchInstagramFeed(5);
-        if (!cancelled) {
-          setInstagramPosts(posts);
-        }
-      } catch (error) {
-        if (!cancelled) {
-          setInstagramError(error?.message || "We couldn’t load the Instagram feed.");
-        }
-      } finally {
-        if (!cancelled) {
-          setInstagramLoading(false);
-        }
-      }
-    };
-
-    void loadFeed();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [instagramFeedConfigured, instagramFeedEnabled]);
-
   return (
     <div className="app-shell" onClickCapture={handleAnalyticsClickCapture}>
       <header className="site-header">
@@ -365,12 +342,19 @@ function App() {
         <section className="hero panel">
           <div className="hero-copy">
             <p className="eyebrow">{festival.strapline}</p>
-            <div className="hero-stills-frame" aria-label="Festival stills slideshow">
-              <img
-                className="hero-stills-image"
-                src={assetPath(heroStill)}
-                alt="Festival still from the film materials archive"
-              />
+            <div className="hero-media-frame" aria-label="Sama Brighton festival trailer">
+              <video
+                className="hero-media-video"
+                src={festivalTrailerUrl}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              >
+                Your browser does not support the festival trailer video.
+              </video>
             </div>
             <p className="hero-text">
               {festival.dateRange}.{" "}
@@ -794,19 +778,19 @@ function App() {
           <div className="section-heading">
             <p className="eyebrow">News + Social</p>
           </div>
-          {instagramProfile?.url ? (
-            <InstagramCarousel
-              items={instagramPosts}
-              loading={instagramLoading}
-              error={instagramError}
-              configured={instagramFeedConfigured}
-              feedEnabled={instagramFeedEnabled}
-              handleLabel={instagramProfile.label}
-              profileUrl={instagramProfile.url}
+          <div className="news-social-layout">
+            <div className="hero-stills-frame news-stills-frame" aria-label="Festival stills slideshow">
+              <img
+                className="hero-stills-image"
+                src={assetPath(newsStill)}
+                alt="Festival still from the film materials archive"
+              />
+            </div>
+            <FollowInstagramCard
+              handleLabel={instagramProfile?.label ?? "@samabrighton"}
+              profileUrl={instagramProfile?.url ?? ""}
             />
-          ) : (
-            <p className="section-placeholder">Instagram account coming soon</p>
-          )}
+          </div>
         </section>
 
         <section id="contact" className="visit panel">
