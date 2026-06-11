@@ -457,6 +457,7 @@ export const programme = [
     filmIds: ["theKnot", "gap", "bintElShalabiya", "wednesday", "perfectRestaurant"],
     startTime: "19.00",
     heroStartTime: "19:00 DOORS",
+    isSoldOut: true,
     ticketUrl:
       "https://www.eventbrite.co.uk/e/sama-brighton-film-festival-short-films-fundraiser-at-pink-moon-tickets-1988090008734?aff=oddtdtcreator&keep_tld=true",
     status: "TBC",
@@ -505,6 +506,7 @@ export const programme = [
     startTime: "19:00 doors, 19:45 screening",
     heroStartTime: "19:00 DOORS, 19:45 SCREENING",
     heroVenue: "Rose Hill",
+    isSoldOut: true,
     ticketUrl:
       "https://therosehill.co.uk/event/sama-brighton-champions-of-the-golden-valley-part-of-brightons-first-afghani-film-festival/",
     status: "Confirmed",

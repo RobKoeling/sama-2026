@@ -977,6 +977,11 @@ p {
   background: rgba(246, 168, 95, 0.62);
 }
 
+.status.sold-out {
+  color: #fff8f0;
+  background: linear-gradient(135deg, #8f2f23 0%, #c84d1f 100%);
+}
+
 .focus-card p {
   margin-top: 12px;
 }

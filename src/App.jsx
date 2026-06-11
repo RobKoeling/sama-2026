@@ -135,7 +135,7 @@ function FollowInstagramCard({ handleLabel, profileUrl }) {
   return (
     <div className="instagram-feed-empty instagram-feed-empty-card news-follow-card">
       <p className="signup-helper">
-        Follow {handleLabel} on Instagram while we keep the live feed switched off-site.
+        Follow {handleLabel} on Instagram.
       </p>
       <div className="instagram-feed-cta">
         <a href={profileUrl} target="_blank" rel="noreferrer" className="button button-secondary">
@@ -144,6 +144,42 @@ function FollowInstagramCard({ handleLabel, profileUrl }) {
       </div>
     </div>
   );
+}
+
+function TicketButton({ event, section, className }) {
+  if (event.isSoldOut) {
+    return (
+      <button type="button" className={`button button-secondary ${className} is-disabled`} disabled>
+        Sold out
+      </button>
+    );
+  }
+
+  if (event.ticketUrl) {
+    return (
+      <a
+        className={`button button-secondary ${className}`}
+        href={event.ticketUrl}
+        target="_blank"
+        rel="noreferrer"
+        data-analytics-event="button_click"
+        data-analytics-label={`Tickets: ${event.heroTitle ?? event.title}`}
+        data-analytics-section={section}
+      >
+        Tickets
+      </a>
+    );
+  }
+
+  if (event.ticketPending) {
+    return (
+      <button type="button" className={`button button-secondary ${className} is-disabled`} disabled>
+        Tickets
+      </button>
+    );
+  }
+
+  return null;
 }
 
 function App() {
@@ -403,23 +439,7 @@ function App() {
                         <small className="day-pill-venue">{event.heroVenue ?? event.venue}</small>
                       ) : null}
                     </button>
-                    {event.ticketUrl ? (
-                      <a
-                        className="button button-secondary hero-ticket-button"
-                        href={event.ticketUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        data-analytics-event="button_click"
-                        data-analytics-label={`Tickets: ${event.heroTitle ?? event.title}`}
-                        data-analytics-section="Festival Week"
-                      >
-                        Tickets
-                      </a>
-                    ) : event.ticketPending ? (
-                      <button type="button" className="button button-secondary hero-ticket-button is-disabled" disabled>
-                        Tickets
-                      </button>
-                    ) : null}
+                    <TicketButton event={event} section="Festival Week" className="hero-ticket-button" />
                   </div>
                 </li>
               ))}
@@ -466,31 +486,32 @@ function App() {
                   <button
                     type="button"
                     className="event-card-button"
-                  onClick={() => selectEvent(event.id, { scrollToDetails: true })}
-                  data-analytics-event="button_click"
-                  data-analytics-label={`Programme: ${event.title}`}
-                  data-analytics-section="Programme"
-                >
-                  <div className="event-topline">
-                    <p>{event.fullDate}</p>
-                  </div>
-                  <h3>{event.title}</h3>
-                  {event.subtitle ? <p className="subtitle">{event.subtitle}</p> : null}
-                  <p className="venue">
-                    {event.venue} • {event.startTime}
-                  </p>
-                  <p className="event-copy">{event.cardSummary ?? event.summary}</p>
-                  {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
-                    <div className="film-programme-notes">
-                      {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
-                        <NoteContent
-                          key={typeof note === "string" ? note : `${note.prefix ?? ""}-${note.link?.label ?? ""}`}
-                          note={note}
-                        />
-                      ))}
+                    onClick={() => selectEvent(event.id, { scrollToDetails: true })}
+                    data-analytics-event="button_click"
+                    data-analytics-label={`Programme: ${event.title}`}
+                    data-analytics-section="Programme"
+                  >
+                    <div className="event-topline">
+                      <p>{event.fullDate}</p>
+                      {event.isSoldOut ? <span className="status sold-out">Sold out</span> : null}
                     </div>
-                  ) : null}
-                  <span className="event-card-mobile-hint">Tap to read more</span>
+                    <h3>{event.title}</h3>
+                    {event.subtitle ? <p className="subtitle">{event.subtitle}</p> : null}
+                    <p className="venue">
+                      {event.venue} • {event.startTime}
+                    </p>
+                    <p className="event-copy">{event.cardSummary ?? event.summary}</p>
+                    {(event.cardProgrammeNotes ?? event.programmeNotes)?.length ? (
+                      <div className="film-programme-notes">
+                        {(event.cardProgrammeNotes ?? event.programmeNotes).map((note) => (
+                          <NoteContent
+                            key={typeof note === "string" ? note : `${note.prefix ?? ""}-${note.link?.label ?? ""}`}
+                            note={note}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                    <span className="event-card-mobile-hint">Tap to read more</span>
                   </button>
                 </article>
               ))}
@@ -561,19 +582,7 @@ function App() {
                   </p>
                   <div className="focus-meta-row">
                     <p className="focus-meta">{selectedEvent.venue}</p>
-                    {selectedEvent.ticketUrl ? (
-                      <a
-                        className="button button-secondary focus-ticket-button"
-                        href={selectedEvent.ticketUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        data-analytics-event="button_click"
-                        data-analytics-label={`Tickets: ${selectedEvent.title}`}
-                        data-analytics-section="Selected Event"
-                      >
-                        Tickets
-                      </a>
-                    ) : null}
+                    <TicketButton event={selectedEvent} section="Selected Event" className="focus-ticket-button" />
                   </div>
                   {selectedEvent.subtitle ? <p className="focus-subtitle">{selectedEvent.subtitle}</p> : null}
                   {selectedEvent.detailSummary ?? selectedEvent.summary ? (

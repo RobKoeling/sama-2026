@@ -32,7 +32,7 @@ export default function InstagramCarousel({
   const posts = useMemo(() => items.slice(0, 5), [items]);
   const showNav = posts.length > 1;
   const fallbackCopy = !feedEnabled
-    ? `Follow ${handleLabel} on Instagram while we keep the live feed switched off-site.`
+    ? `Follow ${handleLabel} on Instagram.`
     : !configured
       ? "The account is linked. Add the deployed feed endpoint URL to surface the latest five posts here."
       : error
